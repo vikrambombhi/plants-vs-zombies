@@ -81,3 +81,14 @@ implementation for the Model part of the MVC. Do not worry about any GUI yet.
 • Deliverables: readme file (see explanation below) + code + UML diagrams +
 documentation, all in one zip file.
 • Deadline: Wednesday Oct 23rd. Weight: 15% of the overall project grade. 
+
+Plants
+-sunFlower
+-peaShooter
+
+Zombies
+-regularZombie
+
+Level
+spawnCount = 12 (wave1=3, wave2=3, wave3=6)
+waveCount = 3
