@@ -1,5 +1,8 @@
 # plants-vs-zombies
 
+The goal of this team project is to implement a puzzle version of the popular Plants vs
+Zombies (PvZ) game. PvZ is a game in the tower defense genre available for most
+gaming platforms.
 
 # Class UML Brainstorm
 
