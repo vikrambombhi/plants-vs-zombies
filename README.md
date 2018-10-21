@@ -90,5 +90,6 @@ Zombies
 -regularZombie
 
 Level
-spawnCount = 12 (wave1=3, wave2=3, wave3=6)
+level = 1
+spawnCount = 8 (wave1=2, wave2=2, wave3=4)
 waveCount = 3
