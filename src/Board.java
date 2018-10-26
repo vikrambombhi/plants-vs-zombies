@@ -17,7 +17,7 @@ public class Board {
   }
 
 	public boolean placePlant(Plant plant, int row, int col) {
-    if (this.tiles[row][col].getPlant() != nil) return false;
+    if (this.tiles[row][col].getPlant() != null) return false;
 		this.tiles[row][col].setPlant(plant);
     return true;
 	}
