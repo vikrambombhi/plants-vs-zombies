@@ -1,4 +1,4 @@
-public abstract class Piece {
+public abstract class Plant {
   private char type;
 
   // This is not a good way to keep track of types
@@ -7,6 +7,20 @@ public abstract class Piece {
   protected char sunFlower = 'S';
   protected char peaShooter = 'P';
 
+  protected int hp;
+  protected int sunPointCost;
+
+  public Plant(int hp, int sunPointCost) {
+    this.hp = hp;
+    this.sunPointCost = sunPointCost;
+  }
+
+  public int getSunPointCost() {
+    return this.sunPointCost;
+  }
+
+  protected abstract String toString();
+
   protected char getType() {
     return this.type;
   }
@@ -14,5 +28,4 @@ public abstract class Piece {
   protected void setType(char type) {
     this.type = type;
   }
-
 }

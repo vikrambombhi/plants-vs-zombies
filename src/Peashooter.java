@@ -1,5 +1,6 @@
-public class Peashooter extends Piece {
+public class Peashooter extends Plant {
   public Peashooter() {
+		super(10, 15);
     this.setType(this.peaShooter);
   }
 
