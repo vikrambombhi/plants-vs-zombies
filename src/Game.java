@@ -1,3 +1,5 @@
+import java.util.Date;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Game {
@@ -6,7 +8,8 @@ public class Game {
   private static void printOptions() {
     System.out.println("1: Place sunflower");
     System.out.println("2: Place peashooter");
-    System.out.println("3: Quit");
+    System.out.println("3: Skip Turn");
+    System.out.println("4: Quit");
     System.out.print("Enter option number of what you would like to do: ");
   }
 
@@ -22,31 +25,39 @@ public class Game {
   }
 
   public static void main(String args[]) {
-    Zombie zombie = new Zombie();
-
     Scanner userInput = new Scanner(System.in);
+    Date lastTick = new Date();
+    Random random = new Random();
+    PieceLocation newLocation;
+
     while(true) {
       board.print();
 
       printOptions();
       String input = userInput.nextLine();
 
-      if (input.equalsIgnoreCase("1")){
-        System.out.print("Enter where to place sunflower ex(row,col): ");
-        PieceLocation currentLocation = parseCoordinates(userInput.nextLine());
-        Sunflower sunflower = new Sunflower();
-        board.placePiece(sunflower, currentLocation.getRow(), currentLocation.getCol());
-      }
-
-      if (input.equalsIgnoreCase("2")){
-        System.out.print("Enter where to place peashooter ex(row,col): ");
-        PieceLocation currentLocation = parseCoordinates(userInput.nextLine());
-        Peashooter peashooter = new Peashooter();
-        board.placePiece(peashooter, currentLocation.getRow(), currentLocation.getCol());
-      }
-
-      if (input.equalsIgnoreCase("3")){
-        break;
+      switch(input) {
+        case "1":
+          System.out.print("Enter where to place sunflower ex(row,col): ");
+          newLocation = parseCoordinates(userInput.nextLine());
+          Sunflower sunflower = new Sunflower();
+          board.placePiece(sunflower, newLocation.getRow(), newLocation.getCol());
+          break;
+        case "2":
+          System.out.print("Enter where to place peashooter ex(row,col): ");
+          newLocation = parseCoordinates(userInput.nextLine());
+          Peashooter peashooter = new Peashooter();
+          board.placePiece(peashooter, newLocation.getRow(), newLocation.getCol());
+          break;
+        case "4":
+          return;
+        default:
+          // If it has been longer than 1 seconds
+          if ((Math.abs(new Date().getTime() - lastTick.getTime())/1000) > 1) {
+            // Spawnzombie
+            Zombie zombie = new Zombie();
+            board.placePiece(zombie, random.nextInt(4), 3);
+          }
       }
     }
   }
