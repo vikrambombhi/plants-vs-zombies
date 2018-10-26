@@ -3,7 +3,6 @@ public abstract class Plant {
 
   // This is not a good way to keep track of types
   // maybe use a array, enum, or hashmap as needed in the future
-  protected char normalZombie = 'Z';
   protected char sunFlower = 'S';
   protected char peaShooter = 'P';
 
@@ -19,7 +18,7 @@ public abstract class Plant {
     return this.sunPointCost;
   }
 
-  protected abstract String toString();
+  public abstract String toString();
 
   protected char getType() {
     return this.type;
