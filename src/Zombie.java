@@ -1,6 +1,6 @@
 public class Zombie extends Piece {
   public Zombie() {
-		this.setRandomZombieType();
+		this.setType(this.normalZombie);
   }
 
 	@Override
