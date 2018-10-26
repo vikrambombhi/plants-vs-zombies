@@ -4,7 +4,7 @@ public class Zombie extends Piece {
   }
 
 	@Override
-	public String toString(){
+	public String toString() {
 		return Character.toString(this.getType());
 	}
 }

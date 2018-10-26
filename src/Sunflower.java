@@ -1,5 +1,6 @@
-public class Sunflower extends Piece {
+public class Sunflower extends Plant {
   public Sunflower() {
+		super(10, 10);
     this.setType(this.sunFlower);
   }
 
