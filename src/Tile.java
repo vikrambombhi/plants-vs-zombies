@@ -1,3 +1,4 @@
+import java.awt.List;
 import java.util.LinkedList;
 
 public class Tile {
@@ -8,7 +9,7 @@ public class Tile {
 	public Tile(){
 		super();
 		this.plant = null;
-		this.zombies = new List<>(); //first zombie in list gets hit, after he dies remove first from list
+		this.zombies = new LinkedList<Zombie>(); //first zombie in list gets hit, after he dies remove first from list
 	}
 
 	//returns the plant that exists inside this tile

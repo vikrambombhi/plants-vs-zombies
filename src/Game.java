@@ -4,22 +4,22 @@ import java.util.Scanner;
 
 public class Game {
 
-  private static final SUN_PER_TURN = 5;
+  private static final int SUN_PER_TURN = 5;
   private static Board board = new Board(4, 4);
 
   private Random random;
   
-  private int sunPoints = 0;
-  private int numSunFlowers = 0;
+  private static int sunPoints = 0;
+  private static int numSunFlowers = 0;
   private int numZombiesToGenerate, numZombiesToEliminate;
 
   public Game(int numZombies) {
     this.numZombiesToGenerate = numZombies;
     this.numZombiesToEliminate = numZombies;
-    this.random = new Random(System.currenTimeMillis());
+    this.random = new Random(System.currentTimeMillis());
   }
 
-  private static void playerOptions() {
+  private void playerOptions() {
     printOptions();
     String input = userInput.nextLine();
 
@@ -89,7 +89,7 @@ public class Game {
     Date lastTick = new Date();
     PlantLocation newLocation;
 
-    while(this.numZombies > 0) {
+    while(this.numZombiesToEliminate > 0) { // Number of Zombies to eliminate
       board.print();
 
       sunPoints += SUN_PER_TURN;
