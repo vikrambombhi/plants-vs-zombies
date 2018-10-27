@@ -3,7 +3,7 @@
 
 public class Zombie extends Zombies {
   public Zombie() {
-	  super(50);
+	  super(5, 2, 1);
 	  this.setType(this.normalZombie);
   }
 

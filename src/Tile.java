@@ -1,15 +1,16 @@
-import java.awt.List;
 import java.util.LinkedList;
 
 public class Tile {
 	private Plant plant;
-	private LinkedList<Zombie> zombies;
+	private LinkedList<Zombies> zombies;
+	private LinkedList<Projectile> projectiles;
 
 	//All tiles contain no plant initially or in other words the board is clear
 	public Tile(){
 		super();
 		this.plant = null;
-		this.zombies = new LinkedList<Zombie>(); //first zombie in list gets hit, after he dies remove first from list
+		this.zombies = new LinkedList<Zombies>(); //first zombie in list gets hit, after he dies remove first from list
+		this.projectiles = new LinkedList<Projectile>();
 	}
 
 	//returns the plant that exists inside this tile
@@ -27,18 +28,78 @@ public class Tile {
 		this.plant = null;
 	}
 
-	public void addZombie(Zombie zombie) {
-		zombies.add(zombie);
+	public void addZombie(Zombies zombie) {
+		this.zombies.add(zombie);
+	}
+
+	public LinkedList<Zombies> getZombies() {
+		return this.zombies;
+	}
+
+	public void removeZombies() {
+		this.zombies.clear();
+	}
+
+	public void addProjectile(Projectile projectile) {
+		this.projectiles.add(projectile);
+	}
+
+	public LinkedList<Projectile> getProjectiles() {
+		return projectiles;
+	}
+
+	public void removeProjectiles() {
+		this.projectiles.remove();
+	}
+
+	public int turn() {
+		int generatedSunPoints = 0;
+
+		if (this.plant != null) {
+			if (this.plant.getType() == 'S') { // this should be changed later
+				Sunflower sunflower = (Sunflower) this.plant;
+				generatedSunPoints += sunflower.generateSunPoints();
+			} else {
+				OffensivePlant offensivePlant = (OffensivePlant) this.plant;
+				Projectile projectile = offensivePlant.generateProjectile();
+				if (projectile != null) projectiles.add(projectile);
+			}
+		}
+
+		while (zombies.size() != 0 && projectiles.size() != 0) {
+			Zombies zombie = zombies.peek();
+			while (zombie.getHP() > 0 && projectiles.size() != 0) {
+				Projectile projectile = projectiles.poll();
+				zombie.takeDamage(projectile.getDamage());
+			}
+
+			if (zombie.getHP() == 0) zombies.remove();
+		}
+
+		if (this.plant != null) {
+			for (Zombies zombie : zombies) {
+				if (this.plant.getHP() == 0) {
+					this.plant = null;
+					break;
+				}
+
+				this.plant.takeDamage(zombie.getDamage());
+			}
+		}
+
+		return generatedSunPoints;
 	}
 
 	// add how many zombies in toString()
 	@Override
 	public String toString(){
-		if(plant == null){
-			return "-";
-		}
-		else{
-			return plant.toString();
-		}
+		if(plant == null && zombies.size() == 0 && projectiles.size() == 0) return " -";
+
+		String ret = "";
+		if (plant != null) ret += plant.toString();
+		if (zombies.size() > 0) ret += zombies.peek().toString();
+		if (projectiles.size() > 0) ret += projectiles.peek().toString();
+		
+		return ret;
 	}
 }
