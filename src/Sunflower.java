@@ -3,7 +3,7 @@ public class Sunflower extends Plant {
 	private final int SUN_POINTS_GENERATED = 3;
 
   public Sunflower() {
-		super(10, 10, 2);
+		super(10, 8, 2);
     this.setType(this.sunFlower);
   }
 

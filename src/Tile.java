@@ -49,11 +49,18 @@ public class Tile {
 	}
 
 	public void removeProjectiles() {
-		this.projectiles.remove();
+		this.projectiles.clear();
 	}
 
-	public int turn() {
+	public void removeNProjectiles(int n) {
+		for (int i = 0; i < n; i++) {
+			this.projectiles.remove();
+		}
+	}
+
+	public TurnResult turn() {
 		int generatedSunPoints = 0;
+		int zombiesEliminated = 0;
 
 		if (this.plant != null) {
 			if (this.plant.getType() == 'S') { // this should be changed later
@@ -73,7 +80,10 @@ public class Tile {
 				zombie.takeDamage(projectile.getDamage());
 			}
 
-			if (zombie.getHP() == 0) zombies.remove();
+			if (zombie.getHP() == 0) {
+				zombies.remove();
+				zombiesEliminated++;
+			}
 		}
 
 		if (this.plant != null) {
@@ -87,19 +97,17 @@ public class Tile {
 			}
 		}
 
-		return generatedSunPoints;
+		return new TurnResult(generatedSunPoints, zombiesEliminated);
 	}
 
 	// add how many zombies in toString()
 	@Override
 	public String toString(){
-		if(plant == null && zombies.size() == 0 && projectiles.size() == 0) return " -";
+		if (plant != null && zombies.size() == 0) return " " + plant.toString();
+		if (plant != null && zombies.size() > 0) return " B"; // for both
+		if (plant == null && zombies.size() > 0) return " " + zombies.peek().toString();
+		if (plant == null && zombies.size() == 0 && projectiles.size() > 0) return " " + projectiles.peek().toString();
 
-		String ret = "";
-		if (plant != null) ret += plant.toString();
-		if (zombies.size() > 0) ret += zombies.peek().toString();
-		if (projectiles.size() > 0) ret += projectiles.peek().toString();
-		
-		return ret;
+		return " _";
 	}
 }
