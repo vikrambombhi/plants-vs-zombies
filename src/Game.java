@@ -9,13 +9,14 @@ public class Game {
 
   private static Random random;
   
-  private static int sunPoints = 0;
+  // Start with enough sunpoints to spawn a sunflower, or wait one turn to get a peashooter 
+  private static int sunPoints = 10;
   private static int numZombiesToGenerate, numZombiesToEliminate;
 
   public Game(int numZombies) {
-    this.numZombiesToGenerate = numZombies;
-    this.numZombiesToEliminate = numZombies;
-    this.random = new Random(System.currentTimeMillis());
+    Game.numZombiesToGenerate = numZombies;
+    Game.numZombiesToEliminate = numZombies;
+    Game.random = new Random(System.currentTimeMillis());
   }
 
   private static void printOptions() {
