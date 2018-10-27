@@ -1,10 +1,14 @@
-public class Zombie extends Piece {
+/* Check this out for types of zombies
+ * https://plantsvszombies.fandom.com/wiki/Zombies_(PvZ) */
+
+public class Zombie extends Zombies {
   public Zombie() {
-		this.setType(this.normalZombie);
+	  super(5, 2, 1);
+	  this.setType(this.normalZombie);
   }
 
 	@Override
-	public String toString(){
+	public String toString() {
 		return Character.toString(this.getType());
 	}
 }
