@@ -8,14 +8,30 @@ public abstract class Plant {
 
   protected int hp;
   protected int sunPointCost;
+  protected int abilityFrequency;
+  protected int turnsUntilAbility;
 
-  public Plant(int hp, int sunPointCost) {
+  public Plant(int hp, int sunPointCost, int abilityFrequency) {
     this.hp = hp;
     this.sunPointCost = sunPointCost;
+    this.abilityFrequency = abilityFrequency;
+    this.turnsUntilAbility = abilityFrequency;
+  }
+
+  public int getHP() {
+    return this.hp;
+  }
+
+  public void takeDamage(int dmg) {
+    hp = hp - dmg > 0 ? hp - dmg : 0;
   }
 
   public int getSunPointCost() {
     return this.sunPointCost;
+  }
+
+  public int getAbilityFrequency() {
+    return this.abilityFrequency;
   }
 
   public abstract String toString();

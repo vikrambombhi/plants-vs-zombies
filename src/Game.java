@@ -7,40 +7,15 @@ public class Game {
   private static final int SUN_PER_TURN = 5;
   private static Board board = new Board(4, 4);
 
-  private Random random;
+  private static Random random;
   
   private static int sunPoints = 0;
-  private static int numSunFlowers = 0;
-  private int numZombiesToGenerate, numZombiesToEliminate;
+  private static int numZombiesToGenerate, numZombiesToEliminate;
 
   public Game(int numZombies) {
     this.numZombiesToGenerate = numZombies;
     this.numZombiesToEliminate = numZombies;
     this.random = new Random(System.currentTimeMillis());
-  }
-
-  private void playerOptions() {
-    printOptions();
-    String input = userInput.nextLine();
-
-    // need to implement something so that if sunPoints - plant.getSunPointCost() < 0, makes the move invalid
-    switch(input) {
-      case "1":
-        Sunflower sunflower = new Sunflower();
-        placePlant(sunflower, userInput);
-        sunPoints -= sunflower.getSunPointCost();
-        numSunFlowers++;
-        break;
-      case "2":
-        Peashooter peashooter = new Peashooter();
-        placePlant(peashooter, userInput);
-        sunPoints -= peashooter.getSunPointCost();
-        break;
-      case "4":
-        return;
-      default:
-        generateZombie(3);
-    }
   }
 
   private static void printOptions() {
@@ -55,7 +30,7 @@ public class Game {
   private static void placePlant(Plant plant, Scanner userInput) {
     System.out.print("Enter where to place " + plant.toString() + " ex(row,col): ");
     PlantLocation loc = parseCoordinates(userInput.nextLine());
-    while (board.placePlant(plant, loc.getRow(), loc.getCol() == false) {
+    while (board.placePlant(plant, loc.getRow(), loc.getCol()) == false) {
       System.out.print("A plant is already located there! Try a different spot: ");
       loc = parseCoordinates(userInput.nextLine());
     }
@@ -76,26 +51,50 @@ public class Game {
    * Will generate a zombie on average of 1 in every chancePerTurn
    * If chancePerTurn is 3, will generate a zombie on average of once per three turns
    */
-  private void generateZombie(int chancePerTurn) {
+  private static void generateZombie(int chancePerTurn) {
     int n = random.nextInt(chancePerTurn);
     if (n == 0) {
-      board.placeZombie(zombie, random.nextInt(board.getHeight()), board.getWidth()-1);
+      board.placeZombie(new Zombie(), random.nextInt(board.getHeight()), board.getWidth()-1);
     }
   }
 
-  private void play() {
+  private static void play() {
     Game game = new Game(10);
     Scanner userInput = new Scanner(System.in);
     Date lastTick = new Date();
     PlantLocation newLocation;
 
-    while(this.numZombiesToEliminate > 0) { // Number of Zombies to eliminate
+    while(numZombiesToEliminate > 0) { // Number of Zombies to eliminate
       board.print();
+      printOptions();
+      String input = userInput.nextLine();
 
-      sunPoints += SUN_PER_TURN;
-      sunPoints += 2 * numSunFlowers;
+      // need to implement something so that if sunPoints - plant.getSunPointCost() < 0, makes the move invalid
+      switch(input) {
+        case "1":
+          Sunflower sunflower = new Sunflower();
+          placePlant(sunflower, userInput);
+          sunPoints -= sunflower.getSunPointCost();
+          break;
+        case "2":
+          Peashooter peashooter = new Peashooter();
+          placePlant(peashooter, userInput);
+          sunPoints -= peashooter.getSunPointCost();
+          break;
+        case "4":
+          return;
+        default:
+      }
 
-      playerOptions();
+      
+      int sunPointsGenerated = board.turn();
+      if (sunPointsGenerated == -1) {
+        System.out.println("Zombies have reached your house! Sorry you lost, better luck next time.");
+        return;
+      }
+
+      generateZombie(3);
+      sunPoints += sunPointsGenerated + SUN_PER_TURN;
     }
     System.out.println("Congratulations, you won!");
   }
