@@ -10,8 +10,7 @@ public class Game {
 
 	private static Random random;
 
-	// Start with enough sunpoints to spawn a sunflower, or wait one turn to get a
-	// peashooter
+	// Start with enough sunpoints to spawn a sunflower, or wait one turn to get a peashooter
 	private static int sunPoints = 10;
 	private static int numZombiesToGenerate, numZombiesToEliminate;
 
@@ -50,11 +49,6 @@ public class Game {
 	}
 
 	private static void placePlant(Plants plant, Scanner userInput) {
-		/* OLD CODE */
-		// System.out.print("Enter where to place " + plant.toString() + " ex(row,col): ");
-		// PlantLocation loc = parseCoordinates(userInput.nextLine());
-		
-		/* NEW CODE */
 		PlantLocation loc;
 		loc = inputValidation(plant, userInput);
 
@@ -79,9 +73,6 @@ public class Game {
 		} catch(IllegalArgumentException e1) {
 			System.out.println("Out of Range");
 		}
-//		if (row >= board.getHeight() || col >= board.getWidth()) {
-//			throw new IllegalArgumentException("Out of range");
-//		}
 		return new PlantLocation(row, col);
 	}
 
@@ -106,8 +97,7 @@ public class Game {
 		while (numZombiesToEliminate > 0) { // Number of Zombies to eliminate
 			board.print();
 
-			// need to implement something so that if sunPoints - plant.getSunPointCost() <
-			// 0, makes the move invalid
+			// need to implement something so that if sunPoints - plant.getSunPointCost() < 0, makes the move invalid
 			boolean valid = false;
 
 			while (!valid) {

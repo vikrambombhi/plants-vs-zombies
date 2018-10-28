@@ -28,10 +28,6 @@ public class Board {
 			System.out.println("Out of Range");
 		}
 		return false;
-//		if (this.tiles[row][col].getPlant() != null)
-//			return false;
-//		this.tiles[row][col].setPlant(plant);
-//		return true;
 	}
 
 	public void placeZombie(Zombies zombie, int row, int col) {
@@ -45,10 +41,8 @@ public class Board {
 		for (int row = 0; row < height; row++) {
 			int[] projectileCache = new int[width];
 			for (int col = 0; col < width; col++) {
-				projectileCache[col] = this.tiles[row][col].getProjectiles().size(); // stores number of projectiles
-																						// starting on each tile so that
-																						// the following doesn't loop a
-																						// projectile's movement
+                // stores number of projectiles starting on each tile so thatthe following doesn't loop aprojectile's movement				
+                projectileCache[col] = this.tiles[row][col].getProjectiles().size(); 
 			}
 			for (int col = 0; col < width; col++) {
 				int numProjectilesMovedIntoTile = this.tiles[row][col].getProjectiles().size() - projectileCache[col];
@@ -64,18 +58,8 @@ public class Board {
 					for (Zombies zombie : this.tiles[row][col].getZombies()) {
 						int distance = zombie.getMovespeed();
 						int trajectory = col;
-						while (distance > 0 && trajectory > 0 && this.tiles[row][trajectory].getPlant() == null) { // need
-																													// to
-																													// implement
-																													// zombie
-																													// running
-																													// into
-																													// projectile
-																													// IF
-																													// his
-																													// movespeed
-																													// >
-																													// 1
+                        // need to implement zombie running into projectile IF his movespeed > 1
+						while (distance > 0 && trajectory > 0 && this.tiles[row][trajectory].getPlant() == null) { 
 							distance--;
 							trajectory--;
 						}
@@ -93,20 +77,9 @@ public class Board {
 						Projectile projectile = (Projectile) iter.next();
 						int distance = projectile.getSpeed();
 						int trajectory = col;
-						while (distance > 0 && trajectory < width
-								&& this.tiles[row][trajectory].getZombies().size() == 0) { // if it encounters a tile
-																							// with zombies, add to tile
-																							// projectile list as its
-																							// still same turn, one
-																							// problem with this is that
-																							// if the projectile has
-																							// some distance left to
-																							// cover and zombie dies
-																							// before the projectile
-																							// hits it, the projectile
-																							// will still stop on this
-																							// tile
-							distance--;
+                        // if it encounters a tilewith zombies, add to tileprojectile list as itsstill same turn, oneproblem with this is thatif the projectile hassome distance left tocover and zombie diesbefore the projectilehits it, the projectilewill still stop on this tile
+						while (distance > 0 && trajectory < width && this.tiles[row][trajectory].getZombies().size() == 0) {
+                            distance--;
 							trajectory++;
 						}
 						if (trajectory < width) {
