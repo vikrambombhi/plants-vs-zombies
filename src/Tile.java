@@ -1,30 +1,30 @@
 import java.util.LinkedList;
 
 public class Tile {
-	private Plant plant;
+	private Plants plant;
 	private LinkedList<Zombies> zombies;
 	private LinkedList<Projectile> projectiles;
 
-	//All tiles contain no plant initially or in other words the board is clear
-	public Tile(){
+	// All tiles contain no plant initially or in other words the board is clear
+	public Tile() {
 		super();
 		this.plant = null;
-		this.zombies = new LinkedList<Zombies>(); //first zombie in list gets hit, after he dies remove first from list
+		this.zombies = new LinkedList<Zombies>(); // first zombie in list gets hit, after he dies remove first from list
 		this.projectiles = new LinkedList<Projectile>();
 	}
 
-	//returns the plant that exists inside this tile
-	public Plant getPlant() {
+	// returns the plant that exists inside this tile
+	public Plants getPlant() {
 		return plant;
 	}
 
-	//sets plant inside tile to given plant
-	public void setPlant(Plant plant) {
+	// sets plant inside tile to given plant
+	public void setPlant(Plants plant) {
 		this.plant = plant;
 	}
 
-	//removes plant from tile by setting tile to null
-	public void removePlant(){
+	// removes plant from tile by setting tile to null
+	public void removePlant() {
 		this.plant = null;
 	}
 
@@ -69,7 +69,8 @@ public class Tile {
 			} else {
 				OffensivePlant offensivePlant = (OffensivePlant) this.plant;
 				Projectile projectile = offensivePlant.generateProjectile();
-				if (projectile != null) projectiles.add(projectile);
+				if (projectile != null)
+					projectiles.add(projectile);
 			}
 		}
 
@@ -102,11 +103,15 @@ public class Tile {
 
 	// add how many zombies in toString()
 	@Override
-	public String toString(){
-		if (plant != null && zombies.size() == 0) return " " + plant.toString();
-		if (plant != null && zombies.size() > 0) return " B"; // for both
-		if (plant == null && zombies.size() > 0) return " " + zombies.peek().toString();
-		if (plant == null && zombies.size() == 0 && projectiles.size() > 0) return " " + projectiles.peek().toString();
+	public String toString() {
+		if (plant != null && zombies.size() == 0)
+			return " " + plant.toString();
+		if (plant != null && zombies.size() > 0)
+			return " B"; // for both
+		if (plant == null && zombies.size() > 0)
+			return " " + zombies.peek().toString();
+		if (plant == null && zombies.size() == 0 && projectiles.size() > 0)
+			return " " + projectiles.peek().toString();
 
 		return " _";
 	}
