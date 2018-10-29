@@ -1,12 +1,12 @@
 public class TurnResult {
-	private final int generatedSunPoints;
-	private final int zombiesEliminated;
-    private final int projectilesHit;
+	private final int GENERATED_SUN_POINTS;
+	private final int ZOMBIES_ELIMINATED;
+    private final int PROJECTILES_HIT;
 
 	public TurnResult(int generatedSunPoints, int zombiesEliminated, int projectilesHit) {
-		this.generatedSunPoints = generatedSunPoints;
-		this.zombiesEliminated = zombiesEliminated;
-        this.projectilesHit = projectilesHit;
+		this.GENERATED_SUN_POINTS = generatedSunPoints;
+		this.ZOMBIES_ELIMINATED = zombiesEliminated;
+        this.PROJECTILES_HIT = projectilesHit;
 	}
 
     public TurnResult(int generatedSunPoints, int zombiesEliminated) {
@@ -14,14 +14,14 @@ public class TurnResult {
     }
 
 	public int getGeneratedSunPoints() {
-		return generatedSunPoints;
+		return GENERATED_SUN_POINTS;
 	}
 
 	public int getZombiesEliminated() {
-		return zombiesEliminated;
+		return ZOMBIES_ELIMINATED;
 	}
 
     public int getProjectilesHit() {
-        return projectilesHit;
+        return PROJECTILES_HIT;
     }
 }
