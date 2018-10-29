@@ -32,7 +32,7 @@ When the game starts, console will print out the current board playing field wit
 By following the output on console, choose the options from (1)-(4) to proceed further into the game.
 
 # Update/Patch - October 29, 2018
-In this current iteration, the team began by brainstorming the classes we needed to develop a working game without the extra features.
+In this current iteration, the team began by brainstorming the classes we needed to develop for a working game without the extra features.
 Once we figured out what classes were needed, we implemented the codes to make sure the game works the way we intended in successful steps.
 Ex/ push play, placing sunflower down an existing tile, skipping to next turn, generating zombies, etc.
 After playing through the game, we tried to break the game by throwing in invalid inputs. With this consideration, we were able to figure out where the errors surface and push exceptions and fixes to prevent the problems.
