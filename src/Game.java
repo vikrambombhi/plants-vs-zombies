@@ -115,7 +115,6 @@ public class Game {
                         } else {
                             System.out.println(
                                     "\nSorry, you don't have enough sun points to purchase this plant, try a different option.");
-                            board.print();
                         }
                         break;
                     case "2":
@@ -129,7 +128,6 @@ public class Game {
                         } else {
                             System.out.println(
                                     "\nSorry, you don't have enough sun points to purchase this plant, try a different option.");
-                            board.print();
                         }
                         break;
                     case "3":
@@ -141,9 +139,8 @@ public class Game {
                         System.out.println("Thank you for playing. Goodbye!");
                         return;
                     default:
-                        System.out.println("Invalid input, please try again.");
+                        System.out.println("\nInvalid input, please try again.");
                         valid = false;
-                        board.print();
                 }
             }
 
