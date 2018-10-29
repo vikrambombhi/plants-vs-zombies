@@ -89,6 +89,7 @@ public class Game {
     }
 
     private static void play() {
+        printInstructions();
         Game game = new Game(10);
         Scanner userInput = new Scanner(System.in);
         Date lastTick = new Date();
@@ -111,11 +112,9 @@ public class Game {
                             sunPoints -= sunflower.getSunPointCost();
                             System.out.println("\nYou have spawned a Sunflower!");
                             board.print();
-                            //valid = true;
                         } else {
                             System.out.println(
                                     "\nSorry, you don't have enough sun points to purchase this plant, try a different option.");
-                            board.print();
                         }
                         break;
                     case "2":
@@ -125,11 +124,9 @@ public class Game {
                             sunPoints -= peashooter.getSunPointCost();
                             System.out.println("\nYou have spawned a Pea Shooter!");
                             board.print();
-                            //valid = true;
                         } else {
                             System.out.println(
                                     "\nSorry, you don't have enough sun points to purchase this plant, try a different option.");
-                            board.print();
                         }
                         break;
                     case "3":
@@ -141,9 +138,8 @@ public class Game {
                         System.out.println("Thank you for playing. Goodbye!");
                         return;
                     default:
-                        System.out.println("Invalid input, please try again.");
+                        System.out.println("\nInvalid input, please try again.");
                         valid = false;
-                        board.print();
                 }
             }
 
@@ -167,8 +163,9 @@ public class Game {
         System.out.println("The objective of this game is to stop zombies from reaching the left side of the board, the zombies are denoted with 'Z'");
         System.out.println("You can buy plants with sunpoints that you earn every round");
         System.out.println("The sunflower will increase the number of sunpoints you earn per round, the sunflower is denoted with 'S'");
-        System.out.println("The peashooter will shoot peas at the zombie damaging them, the peashooter is denoted with 'P'");
+        System.out.println("The peashooter will shoot damage dealing peas every two turns at the incoming zombies, the peashooter is denoted with 'P'");
         System.out.println("If the zombie reaches a plant it will start damaging it, this is denoted with 'B'");
+        System.out.println("The flower projectiles are denoted with '.'");
     }
 
     public static void main(String args[]) {

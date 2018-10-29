@@ -52,15 +52,14 @@ public class Tile {
 		this.projectiles.clear();
 	}
 
-	public void removeNProjectiles(int n) {
-		for (int i = 0; i < n; i++) {
-			this.projectiles.remove();
-		}
+	public void removeFirstProjectile() {
+		this.projectiles.remove();
 	}
 
 	public TurnResult turn() {
 		int generatedSunPoints = 0;
 		int zombiesEliminated = 0;
+		int projectilesHit = 0;
 
 		if (this.plant != null) {
 			if (this.plant.getType() == 'S') { // this should be changed later
@@ -79,6 +78,7 @@ public class Tile {
 			while (zombie.getHP() > 0 && projectiles.size() != 0) {
 				Projectile projectile = projectiles.poll();
 				zombie.takeDamage(projectile.getDamage());
+				projectilesHit--;
 			}
 
 			if (zombie.getHP() == 0) {
@@ -98,7 +98,7 @@ public class Tile {
 			}
 		}
 
-		return new TurnResult(generatedSunPoints, zombiesEliminated);
+		return new TurnResult(generatedSunPoints, zombiesEliminated, projectilesHit);
 	}
 
 	// add how many zombies in toString()
