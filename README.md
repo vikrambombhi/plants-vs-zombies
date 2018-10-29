@@ -4,6 +4,50 @@ The goal of this team project is to implement a puzzle version of the popular Pl
 Zombies (PvZ) game. PvZ is a game in the tower defense genre available for most
 gaming platforms.
 
+# Author
+Vikram Bombhi - 101007498
+Andrew Nguyen - 100893165
+Brian Zhang - 101008207
+
+## Milestone 1 Deliverable
+
+A text-based (i.e., console-based input and textual representation), barebones
+but playable version of the game (sunflowers, one other type of plant, one type of
+zombie, just one level), UML modeling of the problem domain (class diagrams, sequence
+diagrams, complete variable and method signatures), detailed description of the choice of
+data structures and relevant operations: you are providing an initial design and
+implementation for the Model part of the MVC. Do not worry about any GUI yet.
+• Deliverables: readme file (see explanation below) + code + UML diagrams +
+documentation, all in one zip file.
+• Deadline: Wednesday Oct 23rd. Weight: 15% of the overall project grade. 
+
+# Instruction for the Game
+The objective of this game is to stop zombies from reaching the left side of the board, the zombies are denoted with 'Z'
+You can buy plants with sunpoints that you earn every round
+The sunflower will increase the number of sunpoints you earn per round, the sunflower is denoted with 'S'
+The peashooter will shoot damage dealing peas every two turns at the incoming zombies, the peashooter is denoted with 'P'
+If the zombie reaches a plant it will start damaging it, this is denoted with 'B'
+
+When the game starts, console will print out the current board playing field with options underneath.
+By following the output on console, choose the options from (1)-(4) to proceed further into the game.
+
+# Update/Patch - October 29, 2018
+In this current iteration, the team began by brainstorming the classes we needed to develop a working game without the extra features.
+Once we figured out what classes were needed, we implemented the codes to make sure the game works the way we intended in successful steps.
+Ex/ push play, placing sunflower down an existing tile, skipping to next turn, generating zombies, etc.
+After playing through the game, we tried to break the game by throwing in invalid inputs. With this consideration, we were able to figure out where the errors surface and push exceptions and fixes to prevent the problems.
+Some known issues we experienced and able to fix were:
+- IllegalArgumentException
+- ArrayIndexOutOfBoundsException
+- NUmberFOrmatException
+- Out of Bound placement
+
+Currently the game works fine but some future changes we wish to implement down the road are as listed:
+- Change Board Tile Layout - Hashmap possibly
+- Putting zombies and plants into their own list
+- Improved GUI
+- Milestone 2 Implmentation
+
 # Class UML Brainstorm
 
 ## Class Data (Model)
@@ -68,18 +112,6 @@ make use of an interface?
 - startGame (preset Levels)
 - customGame (MasterLevelEditTool)
 - quit
-
-# Milestone 1
-
-A text-based (i.e., console-based input and textual representation), barebones
-but playable version of the game (sunflowers, one other type of plant, one type of
-zombie, just one level), UML modeling of the problem domain (class diagrams, sequence
-diagrams, complete variable and method signatures), detailed description of the choice of
-data structures and relevant operations: you are providing an initial design and
-implementation for the Model part of the MVC. Do not worry about any GUI yet.
-• Deliverables: readme file (see explanation below) + code + UML diagrams +
-documentation, all in one zip file.
-• Deadline: Wednesday Oct 23rd. Weight: 15% of the overall project grade. 
 
 ### Plants
 - sunFlower
