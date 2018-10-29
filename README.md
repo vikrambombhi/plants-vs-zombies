@@ -9,7 +9,7 @@ Vikram Bombhi - 101007498
 Andrew Nguyen - 100893165
 Brian Zhang - 101008207
 
-## Milestone 1 Deliverable
+# Milestone 1 Deliverable
 
 A text-based (i.e., console-based input and textual representation), barebones
 but playable version of the game (sunflowers, one other type of plant, one type of
@@ -39,7 +39,7 @@ After playing through the game, we tried to break the game by throwing in invali
 Some known issues we experienced and able to fix were:
 - IllegalArgumentException
 - ArrayIndexOutOfBoundsException
-- NUmberFOrmatException
+- NumberFormatException
 - Out of Bound placement
 
 Currently the game works fine but some future changes we wish to implement down the road are as listed:
