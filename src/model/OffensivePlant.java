@@ -1,3 +1,4 @@
+package model;
 /* OffensivePlant is a subclass of Plants.
  * This is the initial break down to separate damage dealing plants and sunflower.
  * OffensivePlants shoots out a kinetic projectile and type component of firearm ammunition.*/

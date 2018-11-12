@@ -1,3 +1,4 @@
+package model;
 /* Sunflower Class is an essential entity for the game.
  * Sunflower generates cashflow for the player to buy new plants.*/
 public class Sunflower extends Plants {

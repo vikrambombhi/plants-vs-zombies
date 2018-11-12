@@ -1,3 +1,4 @@
+package model;
 /* "Zombies Class" for all type of Zombies.
  * Class abstract to define common behavior that can be inherited by multiple subclass Zombies.
  * Zombies can list from {Zombie, Flag Zombie, Conehead Zombie, Pole Vaulting Zombie, Bucket head Zombie, etc}

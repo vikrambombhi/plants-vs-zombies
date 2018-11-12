@@ -1,3 +1,4 @@
+package model;
 /* Peashooter is a type of damage dealing plant
  * Class sets the attributes and type of the plant */
 public class Peashooter extends OffensivePlant {

@@ -1,6 +1,10 @@
-import java.util.Date;
+package model;
+import java.util.Date; 
 import java.util.Random;
 import java.util.Scanner;
+
+import controller.MainController;
+import view.MainView;
 
 public class Game {
 
@@ -169,6 +173,7 @@ public class Game {
     }
 
     public static void main(String args[]) {
-        play();
+    	MainController controller = new MainController();
+    	play();
     }
 }

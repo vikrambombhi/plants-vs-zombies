@@ -1,3 +1,4 @@
+package model;
 public class PlantLocation {
 	private int row, col;
 
