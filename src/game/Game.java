@@ -6,7 +6,6 @@ import java.util.Scanner;
 
 import model.*;
 import controller.MainController;
-import view.MainView;
 
 public class Game {
 
