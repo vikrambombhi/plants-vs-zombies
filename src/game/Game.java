@@ -4,6 +4,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 import model.*;
+import controller.MainController;
 import view.MainView;
 
 public class Game {
@@ -173,7 +174,7 @@ public class Game {
     }
 
     public static void main(String args[]) {
-    	MainView view = new MainView();
+    	MainController controller = new MainController();
     	play();
     }
 }
