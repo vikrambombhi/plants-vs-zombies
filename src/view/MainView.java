@@ -22,6 +22,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.WindowConstants;
 
+import controller.MainController;
+
 //import controller.MainController;
 
 public class MainView extends JFrame {
@@ -130,27 +132,27 @@ public class MainView extends JFrame {
 	}
 	
 	/* Create action handler for each sub menu option */
-//	public void addActionListenerController(MainController handler) {
-//		createPVZGame.addActionListener(handler);
-//		savePVZGame.addActionListener(handler);
-//		quitPVZGame.addActionListener(handler);
-//		changeBoardDimensions.addActionListener(handler);
-//	}
+	public void addActionListenerController(MainController handler) {
+		createPVZGame.addActionListener(handler);
+		savePVZGame.addActionListener(handler);
+		quitPVZGame.addActionListener(handler);
+		changeBoardDimensions.addActionListener(handler);
+	}
 	
-//	public JMenuItem getCreatePVZGame() {
-//		return createPVZGame;
-//	}
-//	
-//	public JMenuItem getSavePVZGame() {
-//		return savePVZGame;
-//	}
-//	
-//	public JMenuItem getChangeBoardDimensions() {
-//		return changeBoardDimensions;
-//	}
-//	
-//	public JMenuItem getQuitPVZGame() {
-//		return quitPVZGame;
-//	}
+	public JMenuItem getCreatePVZGame() {
+		return createPVZGame;
+	}
+	
+	public JMenuItem getSavePVZGame() {
+		return savePVZGame;
+	}
+	
+	public JMenuItem getChangeBoardDimensions() {
+		return changeBoardDimensions;
+	}
+	
+	public JMenuItem getQuitPVZGame() {
+		return quitPVZGame;
+	}
 
 }

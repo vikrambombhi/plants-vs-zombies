@@ -3,6 +3,7 @@ import java.util.Date;
 import java.util.Random;
 import java.util.Scanner;
 
+import controller.MainController;
 //import controller.MainController;
 import model.Board;
 import model.Peashooter;
@@ -180,7 +181,7 @@ public class Game {
     }
 
     public static void main(String args[]) {
-    	MainView view = new MainView();
+    	MainController controller = new MainController();
     	play();
     }
 }
