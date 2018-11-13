@@ -1,8 +1,9 @@
 package game;
-import java.util.Date;
+import java.util.Date; 
 import java.util.Random;
 import java.util.Scanner;
 
+//import controller.MainController;
 import model.Board;
 import model.Peashooter;
 import model.PlantLocation;
@@ -10,6 +11,7 @@ import model.Plants;
 import model.Sunflower;
 import model.TurnResult;
 import model.Zombie;
+import view.MainView;
 
 public class Game {
 
@@ -178,6 +180,7 @@ public class Game {
     }
 
     public static void main(String args[]) {
-        play();
+    	MainView view = new MainView();
+    	play();
     }
 }
