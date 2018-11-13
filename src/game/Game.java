@@ -1,6 +1,15 @@
+package game;
 import java.util.Date;
 import java.util.Random;
 import java.util.Scanner;
+
+import model.Board;
+import model.Peashooter;
+import model.PlantLocation;
+import model.Plants;
+import model.Sunflower;
+import model.TurnResult;
+import model.Zombie;
 
 public class Game {
 

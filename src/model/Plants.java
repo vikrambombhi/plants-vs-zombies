@@ -1,3 +1,4 @@
+package model;
 /* "Plants Class" for all type of Plants.
  * Class abstract to define common behavior that can be inherited by multiple subclass Plants.
  * Plants can list from {Peashooter, Repeater, Threepeater, Split Pea, Gatling Pea, etc}
