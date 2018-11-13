@@ -1,9 +1,10 @@
 package game;
-import java.util.Date;
+import java.util.Date; 
 import java.util.Random;
 import java.util.Scanner;
 
 import model.*;
+import view.MainView;
 
 public class Game {
 
@@ -172,6 +173,7 @@ public class Game {
     }
 
     public static void main(String args[]) {
-        play();
+    	MainView view = new MainView();
+    	play();
     }
 }
