@@ -1,3 +1,4 @@
+package model;
 /* Zombie Class with parent class Zombies
  * This class is to allow any unique variables or method that is not necessary
  * for other subclass of Zombies */

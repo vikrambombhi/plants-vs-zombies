@@ -1,3 +1,4 @@
+package model;
 /* Projectile class is the kinetic bullet shot from a plant
  * The damage it deals to zombies and the speed it travels in tile space */
 public class Projectile {
