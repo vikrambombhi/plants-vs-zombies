@@ -21,15 +21,18 @@ public class MainController implements ActionListener {
 	
 	public void actionPerformed(ActionEvent e) {
 		
-//		if(e.getSource() == gameInterface.getCreatePVZGame()) {
-//			
-//			gameInterface.getCreatePVZGame().setEnabled(false);
-//			gameInterface.getSavePVZGame().setEnabled(true);
-//			
-//			gameInterface.getChangeBoardDimensions().setEnabled(true);
-//			
-//			System.out.println(e.getActionCommand());
-//		}
+		/* This action creates the game by making the game visible.
+		*  This also enables and disables some of the menu selections.
+		*/
+		if(e.getSource() == gameInterface.getCreatePVZGame()) {
+			
+			gameInterface.getCreatePVZGame().setEnabled(false);
+			gameInterface.getSavePVZGame().setEnabled(true);
+			gameInterface.getChangeBoardDimensions().setEnabled(true);
+			gameInterface.getContentPane().setVisible(true);
+			
+			System.out.println(e.getActionCommand());
+		}
 		/* Save the game for future play. Can be saved anywhere on your storage.
 		 * NOT FULLY IMPLEMENTED YET - DOESNT SAVE PROPERLY */
 //		if(e.getSource() == gameInterface.getSavePVZGame()) {
