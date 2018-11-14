@@ -6,6 +6,9 @@ import java.awt.FlowLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+/* This is a Subclass that builds the MainView class.
+ *  ShopPanel includes the list of plants the user can
+ *  buy to place on the game field. */ 
 public class PlantSelectionPanel {
 	private static final int MAX_PLANTS = 5;
 	private JButton[] plants;
@@ -23,6 +26,7 @@ public class PlantSelectionPanel {
 		}
 	}
 	
+	/* Use to get shopPanel variable from for MainView */
 	public JPanel getShopPanel() {
 		return shopPanel;
 	}
