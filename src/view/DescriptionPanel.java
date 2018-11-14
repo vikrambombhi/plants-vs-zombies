@@ -5,7 +5,9 @@ import java.awt.Dimension;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-
+/* This is a Subclass that builds the MainView class.
+ *  DescriptionPanel includes the instruction and description
+ *  of the game.*/ 
 public class DescriptionPanel {
 
 	private JTextArea howToPlay;
@@ -23,7 +25,7 @@ public class DescriptionPanel {
 		descriptionPanel.setPreferredSize(new Dimension(200,260));
 		descriptionPanel.add(howToPlay);
 	}
-	
+	/* Use to get descriptionPanel variable from for MainView */
 	public JPanel getDesciptionPanel() {
 		return descriptionPanel;
 	}
