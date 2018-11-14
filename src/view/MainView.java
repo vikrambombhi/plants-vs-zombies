@@ -128,6 +128,7 @@ public class MainView extends JFrame {
 		
 		/* Display the interface */
 		setVisible(true);
+		contentPane.setVisible(false); // We want the user to create the game to see the game.
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	}
 	
