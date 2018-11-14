@@ -22,11 +22,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.WindowConstants;
 
-//import controller.MainController;
 
+@SuppressWarnings("serial")
 public class MainView extends JFrame {
 	JMenuBar menuBar;
-	JMenu menu1, menu2;
+	JMenu gameMenu, settingMenu;
 	
 	JMenuItem createPVZGame, savePVZGame, quitPVZGame, changeBoardDimensions;
 	JTextArea textArea;
@@ -54,32 +54,27 @@ public class MainView extends JFrame {
 		GridBagConstraints c = new GridBagConstraints();
 		contentPane = getContentPane();
 		contentPane.setLayout(layout);
-
-		// For Testing purpose
-//		textArea = new JTextArea(1,80);
-//		textArea.setEditable(false);		
-//		contentPane.add(textArea);
 		
 		/* Menu navigation: AddressBook and BuddyInfo */
 		menuBar = new JMenuBar();
-		menu1 = new JMenu("Game");
-		menu2 = new JMenu("Setting");
-		menuBar.add(menu1);
-		menuBar.add(menu2);
+		gameMenu = new JMenu("Game");
+		settingMenu = new JMenu("Setting");
+		menuBar.add(gameMenu);
+		menuBar.add(settingMenu);
 		setJMenuBar(menuBar);
 		
 		/* Sub menu for navigation tabs: AddressBook - Create, Save, Display */
 		createPVZGame = new JMenuItem("Create Game");
 		savePVZGame = new JMenuItem("Save Game");
 		quitPVZGame = new JMenuItem("Quit");
-		menu1.add(createPVZGame);
-		menu1.add(savePVZGame);
-		menu1.addSeparator();
-		menu1.add(quitPVZGame);
+		gameMenu.add(createPVZGame);
+		gameMenu.add(savePVZGame);
+		gameMenu.addSeparator();
+		gameMenu.add(quitPVZGame);
 		
 		/* Sub menu for navigation tab: BuddyInfo - Add New Buddy */
 		changeBoardDimensions = new JMenuItem("Change Game Field Dimension");
-		menu2.add(changeBoardDimensions);
+		settingMenu.add(changeBoardDimensions);
 		
 		/* This component contains the game's stats like sun flower points and zombies left to kill */
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -128,29 +123,4 @@ public class MainView extends JFrame {
 		setVisible(true);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	}
-	
-	/* Create action handler for each sub menu option */
-//	public void addActionListenerController(MainController handler) {
-//		createPVZGame.addActionListener(handler);
-//		savePVZGame.addActionListener(handler);
-//		quitPVZGame.addActionListener(handler);
-//		changeBoardDimensions.addActionListener(handler);
-//	}
-	
-//	public JMenuItem getCreatePVZGame() {
-//		return createPVZGame;
-//	}
-//	
-//	public JMenuItem getSavePVZGame() {
-//		return savePVZGame;
-//	}
-//	
-//	public JMenuItem getChangeBoardDimensions() {
-//		return changeBoardDimensions;
-//	}
-//	
-//	public JMenuItem getQuitPVZGame() {
-//		return quitPVZGame;
-//	}
-
 }
