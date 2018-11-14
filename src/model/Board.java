@@ -6,17 +6,30 @@ public class Board {
 	private Tile[][] tiles;
 	private int height, width;
 	private int zombiesEliminated = 0;
+    private static Board board = null;
 
+    /*
+     * The game board. This class is a singleton.
+     * @param height: height of the game board
+     * @param width: width of the game board
+     */
 	public Board(int height, int width) {
-		this.tiles = new Tile[height][width];
-		this.height = height;
-		this.width = width;
+        // Return exiting board if one exists
+        if(Board.board != null) {
+            Board.board = this;
+        } else {
+            Board.board = this;
 
-		for (int row = 0; row < height; row++) {
-			for (int col = 0; col < width; col++) {
-				this.tiles[row][col] = new Tile();
-			}
-		}
+            this.tiles = new Tile[height][width];
+            this.height = height;
+            this.width = width;
+
+            for (int row = 0; row < height; row++) {
+                for (int col = 0; col < width; col++) {
+                    this.tiles[row][col] = new Tile();
+                }
+            }
+        }
 	}
 
 	public boolean placePlant(Plants plant, int row, int col) {
@@ -99,11 +112,11 @@ public class Board {
 		}
 	}
 
-	public int getHeight() {
-		return this.height;
+	public static int getHeight() {
+		return Board.board.height;
 	}
 
-	public int getWidth() {
-		return this.width;
+	public static int getWidth() {
+		return Board.board.height;
 	}
 }
