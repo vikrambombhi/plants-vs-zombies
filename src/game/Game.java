@@ -3,13 +3,7 @@ import java.util.Date;
 import java.util.Random;
 import java.util.Scanner;
 
-import model.Board;
-import model.Peashooter;
-import model.PlantLocation;
-import model.Plants;
-import model.Sunflower;
-import model.TurnResult;
-import model.Zombie;
+import model.*;
 
 public class Game {
 
