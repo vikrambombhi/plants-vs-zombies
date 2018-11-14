@@ -24,6 +24,9 @@ import javax.swing.WindowConstants;
 
 import controller.MainController;
 
+/* MainView is the main view class for plants vs zombies.
+ * Main view will mainly focus on the end picture of the view. There are smaller view classes
+ * broken down into individual panels that MainView will use to build the GUI. */
 @SuppressWarnings("serial")
 public class MainView extends JFrame {
 	JMenuBar menuBar;
@@ -56,7 +59,6 @@ public class MainView extends JFrame {
 		contentPane = getContentPane();
 		contentPane.setLayout(layout);
 		
-		/* Menu navigation: AddressBook and BuddyInfo */
 		menuBar = new JMenuBar();
 		gameMenu = new JMenu("Game");
 		settingMenu = new JMenu("Setting");
@@ -64,7 +66,6 @@ public class MainView extends JFrame {
 		menuBar.add(settingMenu);
 		setJMenuBar(menuBar);
 		
-		/* Sub menu for navigation tabs: AddressBook - Create, Save, Display */
 		createPVZGame = new JMenuItem("Create Game");
 		savePVZGame = new JMenuItem("Save Game");
 		quitPVZGame = new JMenuItem("Quit");
@@ -73,7 +74,6 @@ public class MainView extends JFrame {
 		gameMenu.addSeparator();
 		gameMenu.add(quitPVZGame);
 		
-		/* Sub menu for navigation tab: BuddyInfo - Add New Buddy */
 		changeBoardDimensions = new JMenuItem("Change Game Field Dimension");
 		settingMenu.add(changeBoardDimensions);
 		
@@ -133,18 +133,22 @@ public class MainView extends JFrame {
 		changeBoardDimensions.addActionListener(handler);
 	}
 	
+	/* Use to get createPVZGame variable from view for Controller */
 	public JMenuItem getCreatePVZGame() {
 		return createPVZGame;
 	}
 	
+	/* Use to get savePVZGame variable from view for Controller */
 	public JMenuItem getSavePVZGame() {
 		return savePVZGame;
 	}
 	
+	/* Use to get changeBoardDimension variable from view for Controller */
 	public JMenuItem getChangeBoardDimensions() {
 		return changeBoardDimensions;
 	}
 	
+	/* Use to get quitPVZGame variable from view for Controller */
 	public JMenuItem getQuitPVZGame() {
 		return quitPVZGame;
 	}
