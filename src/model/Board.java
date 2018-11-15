@@ -118,6 +118,6 @@ public class Board {
 	}
 
 	public static int getWidth() {
-		return Board.board.height;
+		return Board.board.width;
 	}
 }

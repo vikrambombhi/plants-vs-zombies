@@ -16,7 +16,7 @@ public class GamePanel {
 	
 	public GamePanel() {
     int ROWS = Board.getHeight();
-    int COLS = Board.getHeight();
+    int COLS = Board.getWidth();
 		gameFieldSlot = new JButton[ROWS][COLS];
 		gameField = new GridLayout(ROWS, COLS);
 
