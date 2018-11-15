@@ -14,12 +14,10 @@ import javax.swing.WindowConstants;
 
 import controller.MainController;
 
-/* MainView is the main view class for plants vs zombies.
- * Main view will mainly focus on the end picture of the view. There are smaller view classes
- * broken down into individual panels that MainView will use to build the GUI. */
+@SuppressWarnings("serial")
 public class MainView extends JFrame {
 	JMenuBar menuBar;
-	JMenu menu1, menu2;
+	JMenu gameMenu, settingMenu;
 	
 	JMenuItem createPVZGame, savePVZGame, quitPVZGame, changeBoardDimensions;
 	JTextArea textArea;
@@ -50,24 +48,27 @@ public class MainView extends JFrame {
 		
 		/* Menu navigation: AddressBook and BuddyInfo */
 		menuBar = new JMenuBar();
-		menu1 = new JMenu("Game");
-		menu2 = new JMenu("Setting");
-		menuBar.add(menu1);
-		menuBar.add(menu2);
+		gameMenu = new JMenu("Game");
+		settingMenu = new JMenu("Setting");
+		menuBar.add(gameMenu);
+		menuBar.add(settingMenu);
+
 		setJMenuBar(menuBar);
 		
 		/* Sub menu for navigation tabs: AddressBook - Create, Save, Display */
 		createPVZGame = new JMenuItem("Create Game");
 		savePVZGame = new JMenuItem("Save Game");
 		quitPVZGame = new JMenuItem("Quit");
-		menu1.add(createPVZGame);
-		menu1.add(savePVZGame);
-		menu1.addSeparator();
-		menu1.add(quitPVZGame);
+
+		gameMenu.add(createPVZGame);
+		gameMenu.add(savePVZGame);
+		gameMenu.addSeparator();
+		gameMenu.add(quitPVZGame);
 		
 		/* Sub menu for navigation tab: BuddyInfo - Add New Buddy */
 		changeBoardDimensions = new JMenuItem("Change Game Field Dimension");
-		menu2.add(changeBoardDimensions);
+		settingMenu.add(changeBoardDimensions);
+
 		
 		/* This component contains the game's stats like sun flower points and zombies left to kill */
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -105,15 +106,17 @@ public class MainView extends JFrame {
 		decisionPanel = new DecisionPanel();
 		contentPane.add(decisionPanel.getDecisionPanel(), c);
 		
-		/* Disable some sub menu option: forces user to create game first for other options to be available. */
+		/* Disable some sub menu option: forces user to create an AddressBook first */
 		createPVZGame.setEnabled(true);
 		savePVZGame.setEnabled(false);
 		quitPVZGame.setEnabled(true);
+
 		changeBoardDimensions.setEnabled(true);
-		contentPane.setVisible(false); // We want the user to create the game to see the game.
 		
 		/* Display the interface */
 		setVisible(true);
+		contentPane.setVisible(false); // We want the user to create the game to see the game.
+
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	}
 	
@@ -125,19 +128,18 @@ public class MainView extends JFrame {
 		changeBoardDimensions.addActionListener(handler);
 	}
 	
-	/* Use to get createPVZGame variable from view for Controller */
 	public JMenuItem getCreatePVZGame() {
 		return createPVZGame;
 	}
-	/* Use to get savePVZGame variable from view for Controller */
+	
 	public JMenuItem getSavePVZGame() {
 		return savePVZGame;
 	}
-	/* Use to get changeBoardDimension variable from view for Controller */
+	
 	public JMenuItem getChangeBoardDimensions() {
 		return changeBoardDimensions;
 	}
-	/* Use to get quitPVZGame variable from view for Controller */
+	
 	public JMenuItem getQuitPVZGame() {
 		return quitPVZGame;
 	}
