@@ -6,6 +6,8 @@ import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import model.Board;
+
 /* This is a Subclass that builds the MainView class.
  *  GamePanel is the game field the player will place
  *  plants and fight off zombies. */ 
