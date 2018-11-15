@@ -1,9 +1,11 @@
 package game;
-import java.util.Date;
+import java.util.Date; 
 import java.util.Random;
 import java.util.Scanner;
 
 import model.*;
+import controller.MainController;
+import view.MainView;
 
 public class Game {
 
@@ -172,6 +174,7 @@ public class Game {
     }
 
     public static void main(String args[]) {
-        play();
+    	MainController controller = new MainController();
+    	play();
     }
 }

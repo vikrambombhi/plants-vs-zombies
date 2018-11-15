@@ -22,6 +22,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.WindowConstants;
 
+import controller.MainController;
 
 @SuppressWarnings("serial")
 public class MainView extends JFrame {
@@ -123,4 +124,29 @@ public class MainView extends JFrame {
 		setVisible(true);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	}
+	
+	/* Create action handler for each sub menu option */
+	public void addActionListenerController(MainController handler) {
+		createPVZGame.addActionListener(handler);
+		savePVZGame.addActionListener(handler);
+		quitPVZGame.addActionListener(handler);
+		changeBoardDimensions.addActionListener(handler);
+	}
+	
+	public JMenuItem getCreatePVZGame() {
+		return createPVZGame;
+	}
+	
+	public JMenuItem getSavePVZGame() {
+		return savePVZGame;
+	}
+	
+	public JMenuItem getChangeBoardDimensions() {
+		return changeBoardDimensions;
+	}
+	
+	public JMenuItem getQuitPVZGame() {
+		return quitPVZGame;
+	}
+
 }
