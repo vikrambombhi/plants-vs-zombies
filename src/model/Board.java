@@ -1,8 +1,15 @@
 package model;
+
 import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ListIterator;
 
+import view.Listener;
+import event.BoardEvent;
+
 public class Board {
+    private List<Listener> listeners;
 	private Tile[][] tiles;
 	private int height, width;
 	private int zombiesEliminated = 0;
@@ -20,6 +27,7 @@ public class Board {
         } else {
             Board.board = this;
 
+            this.listeners = new ArrayList<>();
             this.tiles = new Tile[height][width];
             this.height = height;
             this.width = width;
@@ -32,20 +40,30 @@ public class Board {
         }
 	}
 
+    public void addActionListener(Listener listener) {
+        this.listeners.add(listener);
+    }
+
 	public boolean placePlant(Plants plant, int row, int col) {
 		try {
-			if (this.tiles[row][col].getPlant() != null)
-				return false;
+			if (this.tiles[row][col].getPlant() != null) return false;
 			this.tiles[row][col].setPlant(plant);
-			return true;
 		}catch(ArrayIndexOutOfBoundsException e1) {
 			System.out.println("Out of Range");
+            return false;
 		}
-		return false;
+
+        BoardEvent event = new BoardEvent(this, row, col, plant.getType());
+        for(Listener listener: listeners) listener.handleEvent(event);
+
+        return true;
 	}
 
 	public void placeZombie(Zombies zombie, int row, int col) {
 		this.tiles[row][col].addZombie(zombie);
+        BoardEvent event = new BoardEvent(this, row, col, zombie.getType());
+        for(Listener listener: listeners) listener.handleEvent(event);
+
 	}
 
 	public TurnResult turn() {
@@ -63,7 +81,7 @@ public class Board {
 
 				generatedSunPoints += tileResult.getGeneratedSunPoints();
 				zombiesEliminated += tileResult.getZombiesEliminated();
-        int projectilesHit = tileResult.getProjectilesHit();
+                int projectilesHit = tileResult.getProjectilesHit();
 
 				if (this.tiles[row][col].getPlant() == null && this.tiles[row][col].getZombies().size() > 0) {
 					for (Zombies zombie : this.tiles[row][col].getZombies()) {
@@ -78,29 +96,29 @@ public class Board {
 						this.tiles[row][trajectory].addZombie(zombie); // also need to implement for zombies with movespeed higher than 1
 					}
 					this.tiles[row][col].removeZombies();
-				} else if (col < this.width && projectileCache[col] > 0) {
-					ListIterator iter = this.tiles[row][col].getProjectiles().listIterator(0);
-					int movingProjectiles = projectileCache[col] - projectilesHit;
-					while (movingProjectiles > 0 && iter.hasNext()) {
-						movingProjectiles--;
-						Projectile projectile = (Projectile) iter.next();
-            this.tiles[row][col].removeFirstProjectile();
-						int distance = projectile.getSpeed();
-						int trajectory = col;
+                } else if (col < this.width && projectileCache[col] > 0) {
+                    ListIterator iter = this.tiles[row][col].getProjectiles().listIterator(0);
+                    int movingProjectiles = projectileCache[col] - projectilesHit;
+                    while (movingProjectiles > 0 && iter.hasNext()) {
+                        movingProjectiles--;
+                        Projectile projectile = (Projectile) iter.next();
+                        this.tiles[row][col].removeFirstProjectile();
+                        int distance = projectile.getSpeed();
+                        int trajectory = col;
                         // if it encounters a tilewith zombies, add to tile projectile list as its still same turn, one problem with this is that if the projectile has some distance left to cover and zombie dies before the projectile hits it, the projectile will still stop on this tile
-						while (distance > 0 && trajectory < width && this.tiles[row][trajectory].getZombies().size() == 0) {
-              distance--;
-							trajectory++;
-						}
-						if (trajectory < width) {
-							this.tiles[row][trajectory].addProjectile(projectile);
-						}
-					}
-				}
+                        while (distance > 0 && trajectory < width && this.tiles[row][trajectory].getZombies().size() == 0) {
+                            distance--;
+                            trajectory++;
+                        }
+                        if (trajectory < width) {
+                            this.tiles[row][trajectory].addProjectile(projectile);
+                        }
+                    }
+                }
 			}
 		}
 
-		return new TurnResult(generatedSunPoints, zombiesEliminated);
+        return new TurnResult(generatedSunPoints, zombiesEliminated);
 	}
 
 	public void print() {
@@ -119,4 +137,8 @@ public class Board {
 	public static int getWidth() {
 		return Board.board.width;
 	}
+
+    public static Board getBoard() {
+        return Board.board;
+    }
 }
