@@ -22,7 +22,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.WindowConstants;
 
-import controller.MainController;
+import controller.SettingsController;
 
 /* MainView is the main view class for plants vs zombies.
  * Main view will mainly focus on the end picture of the view. There are smaller view classes
@@ -126,7 +126,7 @@ public class MainView extends JFrame {
 	}
 	
 	/* Create action handler for each sub menu option */
-	public void addActionListenerController(MainController handler) {
+	public void addActionListenerController(SettingsController handler) {
 		createPVZGame.addActionListener(handler);
 		savePVZGame.addActionListener(handler);
 		quitPVZGame.addActionListener(handler);
