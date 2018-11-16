@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 
 import model.Board;
 import event.BoardEvent;
+import controller.BoardController;
 
 /* This is a Subclass that builds the MainView class.
  *  GamePanel is the game field the player will place
@@ -35,6 +36,7 @@ public class GamePanel implements Listener {
 		for(int x = 0; x < ROWS; x++) {
 			for (int y = 0; y < COLS; y++) {
 				gameFieldSlot[x][y] = new JButton();
+                gameFieldSlot[x][y].addActionListener(new BoardController(x, y));
 				gamePanel.add(gameFieldSlot[x][y]);
 			}
 		}
