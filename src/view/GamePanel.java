@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import model.Board;
+import model.Tile;
 import event.BoardEvent;
 import controller.BoardController;
 
@@ -24,12 +25,12 @@ public class GamePanel implements Listener {
 	JPanel gamePanel;
 	
 	public GamePanel() {
-        ROWS = Board.getHeight();
-        COLS = Board.getHeight();
+        this.ROWS = Board.getHeight();
+        this.COLS = Board.getWidth();
 		gameFieldSlot = new JButton[ROWS][COLS];
 		gameField = new GridLayout(ROWS, COLS);
 		gamePanel = new JPanel();
-		gamePanel.setPreferredSize(new Dimension(450,250));
+		gamePanel.setPreferredSize(new Dimension(450, 250));
 		gamePanel.setLayout(gameField);
 		
 		// This will create the garden (game panel)
@@ -57,6 +58,12 @@ public class GamePanel implements Listener {
 	}
 
     public void handleEvent(BoardEvent event) {
-        this.gameFieldSlot[event.getRow()][event.getCol()].setText(Character.toString(event.getType()));
+        Tile[][] tiles = event.getTiles();
+
+        for(int row=0;row<ROWS;row++) {
+            for(int col=0;col<COLS;col++) {
+                this.gameFieldSlot[row][col].setText(tiles[row][col].toString());
+            }
+        }
     }
 }

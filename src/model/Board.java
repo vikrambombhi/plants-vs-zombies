@@ -44,26 +44,26 @@ public class Board {
         this.listeners.add(listener);
     }
 
+    public void notifyListeners() {
+        BoardEvent event = new BoardEvent(this, this.tiles);
+        for(Listener listener: listeners) listener.handleEvent(event);
+    }
+
 	public boolean placePlant(Plants plant, int row, int col) {
 		try {
 			if (this.tiles[row][col].getPlant() != null) return false;
 			this.tiles[row][col].setPlant(plant);
+            notifyListeners();
+            return true;
 		}catch(ArrayIndexOutOfBoundsException e1) {
 			System.out.println("Out of Range");
             return false;
 		}
-
-        BoardEvent event = new BoardEvent(this, row, col, plant.getType());
-        for(Listener listener: listeners) listener.handleEvent(event);
-
-        return true;
 	}
 
 	public void placeZombie(Zombies zombie, int row, int col) {
 		this.tiles[row][col].addZombie(zombie);
-        BoardEvent event = new BoardEvent(this, row, col, zombie.getType());
-        for(Listener listener: listeners) listener.handleEvent(event);
-
+        notifyListeners();
 	}
 
 	public TurnResult turn() {
@@ -118,6 +118,7 @@ public class Board {
 			}
 		}
 
+        notifyListeners();
         return new TurnResult(generatedSunPoints, zombiesEliminated);
 	}
 
