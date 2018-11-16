@@ -7,15 +7,16 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import model.Board;
+import event.BoardEvent;
 
 /* This is a Subclass that builds the MainView class.
  *  GamePanel is the game field the player will place
  *  plants and fight off zombies. */ 
-public class GamePanel {
+public class GamePanel implements Listener {
 
 	/* Set up for the game's field of play */
-	private static int ROWS = 5;
-	private static int COLS = 10;
+	private static int ROWS;
+	private static int COLS;
 	
 	GridLayout gameField;
 	JButton[][] gameFieldSlot;
@@ -37,6 +38,9 @@ public class GamePanel {
 				gamePanel.add(gameFieldSlot[x][y]);
 			}
 		}
+
+        Board board = Board.getBoard();
+        board.addActionListener(this);
 	}
 	
 	// For the board dimension changer
@@ -44,8 +48,13 @@ public class GamePanel {
 		ROWS = rows;
 		COLS = cols;
 	}
+
 	/* Use to get gamePanel variable from for MainView */
 	public JPanel getGamePanel() {
 		return gamePanel;
 	}
+
+    public void handleEvent(BoardEvent event) {
+        this.gameFieldSlot[event.getRow()][event.getCol()].setText(Character.toString(event.getType()));
+    }
 }
