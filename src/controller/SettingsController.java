@@ -11,8 +11,8 @@ import view.MainView;
 public class SettingsController implements ActionListener {
 	private MainView gameInterface;
 	
-	public SettingsController() {
-		gameInterface = new MainView();
+	public SettingsController(MainView gameInterface) {
+        this.gameInterface = gameInterface;
 		gameInterface.addActionListenerController(this);
 	}
 	
