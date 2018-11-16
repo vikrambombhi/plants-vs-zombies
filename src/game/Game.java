@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.Random;
 import java.util.Scanner;
 
+import view.MainView;
 import model.*;
 import controller.SettingsController;
 
@@ -12,6 +13,7 @@ public class Game {
     private static final int SUN_PER_TURN = 5;
     private static Board board = new Board(5, 10);
     private static int turnPhase = 1;
+	private static MainView gameInterface;
 
     private static Random random;
 
@@ -174,7 +176,8 @@ public class Game {
     }
 
     public static void main(String args[]) {
-    	SettingsController controller = new SettingsController();
+        gameInterface = new MainView();
+    	SettingsController controller = new SettingsController(gameInterface);
     	play();
     }
 }
