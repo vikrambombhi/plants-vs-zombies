@@ -4,11 +4,15 @@ package model;
 public class Peashooter extends OffensivePlant {
 	public Peashooter() {
 		super(10, 15, 2, 1, 1);
-		this.setType(this.peaShooter);
 	}
 
 	@Override
 	public String toString() {
-		return Character.toString(this.getType());
+		return PlantTypes.PEASHOOTER.getName();
+	}
+
+	@Override
+	public char getType() {
+		return PlantTypes.PEASHOOTER.getType();
 	}
 }

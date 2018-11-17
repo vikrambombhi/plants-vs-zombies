@@ -23,6 +23,7 @@ import javax.swing.JTextArea;
 import javax.swing.WindowConstants;
 
 import controller.SettingsController;
+import model.Stats;
 
 /* MainView is the main view class for plants vs zombies.
  * Main view will mainly focus on the end picture of the view. There are smaller view classes
@@ -81,14 +82,22 @@ public class MainView extends JFrame {
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 0;
-		statsPanel = new StatsPanel();
+		statsPanel = new StatsPanel(new Stats(10, 10, 10));
 		contentPane.add(statsPanel.getStatsPanel(), c);
+
+		/* This component contains the flowers you can select to place on the game field */
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.ipadx = 30;
+		c.gridx = 0;
+		c.gridy = 2;
+		plantSelectionPanel = new PlantSelectionPanel();
+		contentPane.add(plantSelectionPanel.getShopPanel(), c);
 		
 		/* This component contains the game's field of play made out of 2-D JButton slots */
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 1;
-		gamePanel = new GamePanel();
+		gamePanel = new GamePanel(plantSelectionPanel, statsPanel);
 		contentPane.add(gamePanel.getGamePanel(), c);
 		
 		/* This component contains the game's instruction */
@@ -98,19 +107,11 @@ public class MainView extends JFrame {
 		descriptionPanel = new DescriptionPanel();
 		contentPane.add(descriptionPanel.getDesciptionPanel(), c);
 		
-		/* This component contains the flowers you can select to place on the game field */
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.ipadx = 30;
-		c.gridx = 0;
-		c.gridy = 2;
-		plantSelectionPanel = new PlantSelectionPanel();
-		contentPane.add(plantSelectionPanel.getShopPanel(), c);
-		
 		/* This component contains the decisions you make per turn */
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 1;
 		c.gridy = 2;
-		decisionPanel = new DecisionPanel();
+		decisionPanel = new DecisionPanel(statsPanel);
 		contentPane.add(decisionPanel.getDecisionPanel(), c);
 		
 		/* Disable some sub menu option: forces user to create an AddressBook first */
@@ -126,7 +127,7 @@ public class MainView extends JFrame {
 	}
 	
 	/* Create action handler for each sub menu option */
-	public void addActionListenerController(SettingsController handler) {
+	public void addActionListenerSettingsController(SettingsController handler) {
 		createPVZGame.addActionListener(handler);
 		savePVZGame.addActionListener(handler);
 		quitPVZGame.addActionListener(handler);
@@ -152,5 +153,4 @@ public class MainView extends JFrame {
 	public JMenuItem getQuitPVZGame() {
 		return quitPVZGame;
 	}
-
 }

@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Date; 
+import java.util.Random;
 
 import view.Listener;
 import event.BoardEvent;
@@ -12,8 +14,13 @@ public class Board {
     private List<Listener> listeners;
 	private Tile[][] tiles;
 	private int height, width;
-	private int zombiesEliminated = 0;
+    private int zombiesEliminated = 0;
+    private int numZombiesToGenerate = 10;
     private static Board board = null;
+
+    private final int SUN_PER_TURN = 5;
+
+    private Random random;
 
     /*
      * The game board. This class is a singleton.
@@ -38,6 +45,8 @@ public class Board {
                 }
             }
         }
+
+        this.random = new Random(System.currentTimeMillis());
 	}
 
     public void addActionListener(Listener listener) {
@@ -64,11 +73,23 @@ public class Board {
 	public void placeZombie(Zombies zombie, int row, int col) {
 		this.tiles[row][col].addZombie(zombie);
         notifyListeners();
-	}
-
-	public TurnResult turn() {
-		int generatedSunPoints = 0;
-		int zombiesEliminated = 0;
+    }
+    
+    private void generateZombie(int chancePerTurn) {
+        int n = this.random.nextInt(chancePerTurn);
+        if (n == 0) {
+            this.placeZombie(new Zombie(), random.nextInt(height), width - 1);
+            numZombiesToGenerate--;
+        }
+    }
+    
+	public TurnResult turn() { // can just have stats and turn result merged in the future and pass in stats as parameter
+		int generatedSunPoints = SUN_PER_TURN;
+        int zombiesEliminated = 0;
+        
+        if (numZombiesToGenerate > 0) {
+            generateZombie(5);
+        }
 
 		for (int row = 0; row < height; row++) {
 			int[] projectileCache = new int[width];
@@ -116,7 +137,7 @@ public class Board {
                     }
                 }
 			}
-		}
+        }
 
         notifyListeners();
         return new TurnResult(generatedSunPoints, zombiesEliminated);

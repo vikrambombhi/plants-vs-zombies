@@ -7,7 +7,6 @@ public class Sunflower extends Plants {
 
 	public Sunflower() {
 		super(10, 8, 2);
-		this.setType(this.sunFlower);
 	}
 
 	/*
@@ -27,6 +26,11 @@ public class Sunflower extends Plants {
 
 	@Override
 	public String toString() {
-		return Character.toString(this.getType());
+		return PlantTypes.SUNFLOWER.getName();
+	}
+
+	@Override
+	public char getType() {
+		return PlantTypes.SUNFLOWER.getType();
 	}
 }

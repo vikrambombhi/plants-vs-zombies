@@ -6,11 +6,6 @@ package model;
 public abstract class Plants {
 	private char type;
 
-	// This is not a good way to keep track of types
-	// maybe use a array, enum, or hashmap as needed in the future
-	protected char sunFlower = 'S';
-	protected char peaShooter = 'P';
-
 	protected int hp;
 	protected int sunPointCost;
 	protected int abilityFrequency;
@@ -41,12 +36,5 @@ public abstract class Plants {
 	}
 
 	public abstract String toString();
-
-	protected char getType() {
-		return this.type;
-	}
-
-	protected void setType(char type) {
-		this.type = type;
-	}
+	public abstract char getType();
 }

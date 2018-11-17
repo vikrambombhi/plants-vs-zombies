@@ -13,7 +13,7 @@ public class SettingsController implements ActionListener {
 	
 	public SettingsController(MainView gameInterface) {
         this.gameInterface = gameInterface;
-		gameInterface.addActionListenerController(this);
+		gameInterface.addActionListenerSettingsController(this);
 	}
 	
 	public void actionPerformed(ActionEvent e) {
