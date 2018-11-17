@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import controller.NextTurnController;
+
 /* This is a Subclass that builds the MainView class.
  *  DecisionPanel includes the user option to either press
  *  Next Turn - Redo - Undo during their turn phase.*/ 
@@ -14,7 +16,7 @@ public class DecisionPanel {
 	private JPanel decisionsPanel;
 
 	
-	public DecisionPanel() {
+	public DecisionPanel(StatsPanel statsPanel) {
 		decisions = new JButton[MAX_OPTIONS];
 		decisionsPanel = new JPanel();
 		decisionsPanel.setPreferredSize(new Dimension(200,40));
@@ -27,9 +29,15 @@ public class DecisionPanel {
 		for ( int i = 0; i < MAX_OPTIONS; i++) {
 			decisionsPanel.add(decisions[i]);
 		}
+
+		decisions[0].addActionListener(new NextTurnController(statsPanel));
 	}
 	/* Use to get decisionPanel variable from for MainView */
 	public JPanel getDecisionPanel() {
 		return decisionsPanel;
 	}
+
+	public void handleEvent() {
+        
+    }
 }

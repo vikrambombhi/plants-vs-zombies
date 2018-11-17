@@ -24,7 +24,7 @@ public class GamePanel implements Listener {
 	JButton[][] gameFieldSlot;
 	JPanel gamePanel;
 	
-	public GamePanel() {
+	public GamePanel(PlantSelectionPanel plantSelectionPanel, StatsPanel statsPanel) {
         this.ROWS = Board.getHeight();
         this.COLS = Board.getWidth();
 		gameFieldSlot = new JButton[ROWS][COLS];
@@ -37,7 +37,7 @@ public class GamePanel implements Listener {
 		for(int x = 0; x < ROWS; x++) {
 			for (int y = 0; y < COLS; y++) {
 				gameFieldSlot[x][y] = new JButton();
-                gameFieldSlot[x][y].addActionListener(new BoardController(x, y));
+                gameFieldSlot[x][y].addActionListener(new BoardController(x, y, plantSelectionPanel, statsPanel));
 				gamePanel.add(gameFieldSlot[x][y]);
 			}
 		}

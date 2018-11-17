@@ -63,7 +63,7 @@ public class Tile {
 		int projectilesHit = 0;
 
 		if (this.plant != null) {
-			if (this.plant.getType() == 'S') { // this should be changed later
+			if (this.plant.getType() == PlantTypes.SUNFLOWER.getType()) { 
 				Sunflower sunflower = (Sunflower) this.plant;
 				generatedSunPoints += sunflower.generateSunPoints();
 			} else {
@@ -106,7 +106,7 @@ public class Tile {
 	@Override
 	public String toString() {
 		if (plant != null && zombies.size() == 0)
-			return " " + plant.toString();
+			return "" + plant.getType();
 		if (plant != null && zombies.size() > 0)
 			return " B"; // for both
 		if (plant == null && zombies.size() > 0)
@@ -114,6 +114,6 @@ public class Tile {
 		if (plant == null && zombies.size() == 0 && projectiles.size() > 0)
 			return " " + projectiles.peek().toString();
 
-		return " _";
+		return "";
 	}
 }

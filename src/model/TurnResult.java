@@ -1,5 +1,6 @@
 package model;
 public class TurnResult {
+
 	private final int GENERATED_SUN_POINTS;
 	private final int ZOMBIES_ELIMINATED;
     private final int PROJECTILES_HIT;
