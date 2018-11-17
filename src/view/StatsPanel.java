@@ -44,6 +44,9 @@ public class StatsPanel {
 		if (this.gameStats.getNumZombiesToEliminate() == 0) {
 			JOptionPane.showMessageDialog(null, "Congratulations, you won!");
 			System.exit(0);
+		} else if (turnResult.getGeneratedSunPoints() == -1) {
+			JOptionPane.showMessageDialog(null, "You lost :( better luck next time!");
+			System.exit(0);
 		}
 	}
 
