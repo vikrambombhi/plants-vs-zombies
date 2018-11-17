@@ -14,7 +14,7 @@ Vikram Bombhi - Model Classes, Control Classes, Documentation, Makefile
 Andrew Nguyen - UML, Sequence, View Classes, Control Classes, Error Implementation, Documentation
 Brian Zhang - Model Classes, Control Classes, JUnit, Documentation
 
-================================================================================================================================
+==============================================================================
 # Instruction for the Game
 The objective of this game is to stop zombies from reaching the left side of the board, the zombies are denoted with 'Z'
 You can buy plants with sunpoints that you earn every round
