@@ -1,10 +1,8 @@
 package model;
 
-import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.Random;
 
@@ -122,7 +120,7 @@ public class Board {
 					}
 					this.tiles[row][col].removeZombies();
                 } else if (col < this.width && projectileCache[col] > 0) {
-                    Iterator iter = this.tiles[row][col].getProjectiles().listIterator(0);
+                    ListIterator iter = this.tiles[row][col].getProjectiles().listIterator(0);
                     int movingProjectiles = projectileCache[col] - projectilesHit;
                     while (movingProjectiles > 0 && iter.hasNext()) {
                         movingProjectiles--;

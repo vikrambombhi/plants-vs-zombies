@@ -10,7 +10,6 @@ import model.Board;
 import model.Peashooter;
 import model.PlantTypes;
 import model.Sunflower;
-import view.MainView;
 import view.PlantSelectionPanel;
 import view.StatsPanel;
 
