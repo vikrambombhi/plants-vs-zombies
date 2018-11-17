@@ -9,18 +9,12 @@ Vikram Bombhi - 101007498
 Andrew Nguyen - 100893165
 Brian Zhang - 101008207
 
-# Milestone 1 Deliverable
+# Contribution
+Vikram Bombhi - Model Classes, Control Classes, Documentation, Makefile
+Andrew Nguyen - UML, Sequence, View Classes, Control Classes, Error Implementation, Documentation
+Brian Zhang - Model Classes, Control Classes, JUnit, Documentation
 
-A text-based (i.e., console-based input and textual representation), barebones
-but playable version of the game (sunflowers, one other type of plant, one type of
-zombie, just one level), UML modeling of the problem domain (class diagrams, sequence
-diagrams, complete variable and method signatures), detailed description of the choice of
-data structures and relevant operations: you are providing an initial design and
-implementation for the Model part of the MVC. Do not worry about any GUI yet.
-• Deliverables: readme file (see explanation below) + code + UML diagrams +
-documentation, all in one zip file.
-• Deadline: Wednesday Oct 23rd. Weight: 15% of the overall project grade. 
-
+================================================================================================================================
 # Instruction for the Game
 The objective of this game is to stop zombies from reaching the left side of the board, the zombies are denoted with 'Z'
 You can buy plants with sunpoints that you earn every round
@@ -31,6 +25,19 @@ If the zombie reaches a plant it will start damaging it, this is denoted with 'B
 When the game starts, console will print out the current board playing field with options underneath.
 By following the output on console, choose the options from (1)-(4) to proceed further into the game.
 
+================================================================================================================================
+# Update/Patch - November 16, 2018
+In this iteration, the team implemented MVC into the system along with unit testing to verify everything is in working condition.
+The UML of the system has to be changed to incorporate with the MVC format. View will contain multiple subclasses that builds the overall view of the game. Control will handle any events with actionListener. Model will contain all the data from the previous milestone. The GUI will contain some tabs(DimensionChange, Save) that will be implemented in future milestones.
+
+# Milestone 2 Deliverable
+
+GUI-based version (now you’re adding the View and the Controller!) of the
+bare-bones version of the game + Unit tests for the Model. The code is allowed to
+“smell” at this point
+
+
+================================================================================================================================
 # Update/Patch - October 29, 2018
 In this current iteration, the team began by brainstorming the classes we needed to develop for a working game without the extra features.
 Once we figured out what classes were needed, we implemented the codes to make sure the game works the way we intended in successful steps.
@@ -48,6 +55,19 @@ Currently the game works fine but some future changes we wish to implement down 
 - Improved GUI
 - Milestone 2 Implmentation
 
+# Milestone 1 Deliverable
+
+A text-based (i.e., console-based input and textual representation), barebones
+but playable version of the game (sunflowers, one other type of plant, one type of
+zombie, just one level), UML modeling of the problem domain (class diagrams, sequence
+diagrams, complete variable and method signatures), detailed description of the choice of
+data structures and relevant operations: you are providing an initial design and
+implementation for the Model part of the MVC. Do not worry about any GUI yet.
+• Deliverables: readme file (see explanation below) + code + UML diagrams +
+documentation, all in one zip file.
+• Deadline: Wednesday Oct 23rd. Weight: 15% of the overall project grade. 
+
+================================================================================================================================
 # Class UML Brainstorm
 
 ## Class Data (Model)
