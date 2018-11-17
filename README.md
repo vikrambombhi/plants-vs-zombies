@@ -25,7 +25,7 @@ If the zombie reaches a plant it will start damaging it, this is denoted with 'B
 When the game starts, console will print out the current board playing field with options underneath.
 By following the output on console, choose the options from (1)-(4) to proceed further into the game.
 
-================================================================================================================================
+==============================================================================
 # Update/Patch - November 16, 2018
 In this iteration, the team implemented MVC into the system along with unit testing to verify everything is in working condition.
 The UML of the system has to be changed to incorporate with the MVC format. View will contain multiple subclasses that builds the overall view of the game. Control will handle any events with actionListener. Model will contain all the data from the previous milestone. The GUI will contain some tabs(DimensionChange, Save) that will be implemented in future milestones.
@@ -37,7 +37,7 @@ bare-bones version of the game + Unit tests for the Model. The code is allowed t
 “smell” at this point
 
 
-================================================================================================================================
+==============================================================================
 # Update/Patch - October 29, 2018
 In this current iteration, the team began by brainstorming the classes we needed to develop for a working game without the extra features.
 Once we figured out what classes were needed, we implemented the codes to make sure the game works the way we intended in successful steps.
@@ -67,7 +67,7 @@ implementation for the Model part of the MVC. Do not worry about any GUI yet.
 documentation, all in one zip file.
 • Deadline: Wednesday Oct 23rd. Weight: 15% of the overall project grade. 
 
-================================================================================================================================
+==============================================================================
 # Class UML Brainstorm
 
 ## Class Data (Model)
