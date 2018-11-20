@@ -82,7 +82,7 @@ public class MainView extends JFrame {
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 0;
-		statsPanel = new StatsPanel(new Stats(10, 10, 10));
+		statsPanel = new StatsPanel(new Stats(10, 10));
 		contentPane.add(statsPanel.getStatsPanel(), c);
 
 		/* This component contains the flowers you can select to place on the game field */
