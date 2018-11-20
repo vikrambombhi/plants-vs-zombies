@@ -8,6 +8,7 @@ import java.util.Random;
 
 import view.Listener;
 import event.BoardEvent;
+import event.TurnResult;
 
 public class Board {
     private List<Listener> listeners;
@@ -115,7 +116,7 @@ public class Board {
 							trajectory--;
 						}
 						if (trajectory == 0 && distance > 0)
-							return new TurnResult(-1, tileResult.getZombiesEliminated()); // lost game
+							return new TurnResult(this, -1, tileResult.getZombiesEliminated()); // lost game
 						this.tiles[row][trajectory].addZombie(zombie); // also need to implement for zombies with movespeed higher than 1
 					}
 					this.tiles[row][col].removeZombies();
@@ -142,7 +143,7 @@ public class Board {
         }
 
         notifyListeners();
-        return new TurnResult(generatedSunPoints, zombiesEliminated);
+        return new TurnResult(this, generatedSunPoints, zombiesEliminated);
 	}
 
 	public void print() {

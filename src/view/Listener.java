@@ -1,7 +1,7 @@
 package view;
 
-import event.BoardEvent;
+import event.Event;
 
 public interface Listener {
-    void handleEvent(BoardEvent e);
+    void handleEvent(Event e);
 }

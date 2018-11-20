@@ -4,7 +4,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import model.Board;
-import model.TurnResult;
+import event.TurnResult;
 import view.StatsPanel;
 
 public class NextTurnController implements ActionListener {

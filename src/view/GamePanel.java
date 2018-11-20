@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 
 import model.Board;
 import model.Tile;
+import event.Event;
 import event.BoardEvent;
 import controller.BoardController;
 
@@ -57,8 +58,9 @@ public class GamePanel implements Listener {
 		return gamePanel;
 	}
 
-    public void handleEvent(BoardEvent event) {
-        Tile[][] tiles = event.getTiles();
+    public void handleEvent(Event event) {
+        BoardEvent boardEvent = (BoardEvent)event;
+        Tile[][] tiles = boardEvent.getTiles();
 
         for(int row=0;row<ROWS;row++) {
             for(int col=0;col<COLS;col++) {

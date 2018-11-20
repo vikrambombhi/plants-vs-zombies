@@ -1,18 +1,23 @@
-package model;
-public class TurnResult {
+package event;
+
+import java.util.EventObject;
+
+@SuppressWarnings("serial")
+public class TurnResult extends EventObject implements Event {
 
 	private final int GENERATED_SUN_POINTS;
 	private final int ZOMBIES_ELIMINATED;
     private final int PROJECTILES_HIT;
 
-	public TurnResult(int generatedSunPoints, int zombiesEliminated, int projectilesHit) {
+	public TurnResult(Object source, int generatedSunPoints, int zombiesEliminated, int projectilesHit) {
+        super(source);
 		this.GENERATED_SUN_POINTS = generatedSunPoints;
 		this.ZOMBIES_ELIMINATED = zombiesEliminated;
         this.PROJECTILES_HIT = projectilesHit;
 	}
 
-    public TurnResult(int generatedSunPoints, int zombiesEliminated) {
-        this(generatedSunPoints, zombiesEliminated, 0);
+    public TurnResult(Object source, int generatedSunPoints, int zombiesEliminated) {
+        this(source, generatedSunPoints, zombiesEliminated, 0);
     }
 
 	public int getGeneratedSunPoints() {
