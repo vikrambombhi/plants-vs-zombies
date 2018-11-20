@@ -1,7 +1,11 @@
 package model;
 
+import java.util.List;
+import view.Listener;
+
 public class Stats {
 
+    private List<Listener> listeners;
     // Start with enough sunpoints to spawn a sunflower, or wait one turn to get a peashooter
     private int sunPoints;
     private int numZombiesToEliminate;

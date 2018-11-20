@@ -7,6 +7,7 @@ import java.util.Scanner;
 import view.MainView;
 import model.*;
 import controller.SettingsController;
+import event.TurnResult;
 
 public class Game {
 

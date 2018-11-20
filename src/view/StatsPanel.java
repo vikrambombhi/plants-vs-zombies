@@ -7,12 +7,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import model.Stats;
-import model.TurnResult;
+import event.Event;
+import event.TurnResult;
 
 /* This is a Subclass that builds the MainView class.
  *  StatsPanel includes the amount of sunflower points you have in your bank.
- *  zombies left to kill, and current turn all displayed above the game field. */
-public class StatsPanel {
+ *  zombies left to kill, and current turn all displayed above the game field.
+ */
+public class StatsPanel implements Listener {
 	private JLabel sunflowerPoints, zombiesRemaining, currentTurn;
 	private JPanel stats;
 
@@ -58,4 +60,8 @@ public class StatsPanel {
 	public Stats getStats() {
 		return this.gameStats;
 	}
+
+    public void handleEvent(Event event) {
+        TurnResult turnResult = (TurnResult)event;
+    }
 }

@@ -1,5 +1,8 @@
 package model;
+
 import java.util.LinkedList;
+
+import event.TurnResult;
 
 public class Tile {
 	private Plants plant;
