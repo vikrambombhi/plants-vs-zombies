@@ -4,12 +4,21 @@ public class Stats {
 
     // Start with enough sunpoints to spawn a sunflower, or wait one turn to get a peashooter
     private int sunPoints;
-    private int numZombiesToGenerate, numZombiesToEliminate;
+    private int numZombiesToEliminate;
+    private static Stats stats = null;
 
-    public Stats(int sunPoints, int numZombiesToGenerate, int numZombiesEliminated) {
-        this.sunPoints = sunPoints;
-        this.numZombiesToGenerate = numZombiesToGenerate;
-        this.numZombiesToEliminate = numZombiesEliminated;
+    /*
+     * The Stats class is a singleton class
+     * @param sunPoints: amount of sunpoints to start with
+     * @param numZombiesToEliminate: number of zombies to be eliminate
+     */
+    public Stats(int sunPoints, int numZombiesEliminated) {
+        if (Stats.stats != null) {
+            Stats.stats = this;
+        } else {
+            this.sunPoints = sunPoints;
+            this.numZombiesToEliminate = numZombiesEliminated;
+        }
     }
 
     public int getSunPoints() {
