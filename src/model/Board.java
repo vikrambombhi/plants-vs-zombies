@@ -1,10 +1,9 @@
 package model;
 
-import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.Date; 
+import java.util.Iterator;
 import java.util.Random;
 
 import view.Listener;
@@ -60,7 +59,10 @@ public class Board {
 
 	public boolean placePlant(Plants plant, int row, int col) {
 		try {
-			if (this.tiles[row][col].getPlant() != null) return false;
+			if (this.tiles[row][col].getPlant() != null) {
+				System.out.println("Already a plant on that tile");
+				return false;
+			}
 			this.tiles[row][col].setPlant(plant);
             notifyListeners();
             return true;
