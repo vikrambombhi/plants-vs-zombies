@@ -32,8 +32,8 @@ public class BoardController implements ActionListener {
         String plantType = plantSelectionPanel.getPlant();
 
         if (plantType == PlantTypes.SUNFLOWER.getName()) {
-            Sunflower sunflower = new Sunflower();
-            if (sunflower.getSunPointCost() <= this.statsPanel.getStats().getSunPoints()) {
+            if (Sunflower.getCost() <= this.statsPanel.getStats().getSunPoints()) {
+                Sunflower sunflower = new Sunflower();
             	if (this.board.placePlant(sunflower, this.row, this.col) == false) {
             		JOptionPane.showMessageDialog(null, "There's already a plant there.\nChoose a different location!");	
             	} else {
