@@ -9,29 +9,35 @@ import javax.swing.JPanel;
 import model.Stats;
 import event.Event;
 import event.TurnResult;
+import event.StatsEvent;
 
-/* This is a Subclass that builds the MainView class.
+/*
+ *  This is a Subclass that builds the MainView class.
  *  StatsPanel includes the amount of sunflower points you have in your bank.
  *  zombies left to kill, and current turn all displayed above the game field.
  */
 public class StatsPanel implements Listener {
-	private JLabel sunflowerPoints, zombiesRemaining, currentTurn;
+	private JLabel sunPoints, sunPointsGenerationRate, zombiesRemaining, currentTurn;
 	private JPanel stats;
 
 	private Stats gameStats;
 
 	public StatsPanel(Stats gameStats) {
 		this.gameStats = gameStats;
-		sunflowerPoints = new JLabel("Sun Points: " + this.gameStats.getSunPoints());
+		sunPoints = new JLabel("Sun Points: " + this.gameStats.getSunPoints());
+		sunPointsGenerationRate = new JLabel("Sun Points per Turn: " + this.gameStats.getSunPoints());
 		zombiesRemaining = new JLabel("Zombies Remaining: " + this.gameStats.getNumZombiesRemaining());
 		currentTurn = new JLabel("Turn Phase: ");
 		stats = new JPanel();
 		stats.setPreferredSize(new Dimension(200,40));
-		stats.add(sunflowerPoints);
+		stats.add(sunPoints);
+        stats.add(sunPointsGenerationRate);
 		stats.add(zombiesRemaining);
 		stats.add(currentTurn);
+
+        gameStats.addActionListener(this);
 	}
-	
+
 	/* Use to get statsPanel variable from for MainView */
 	public JPanel getStatsPanel() {
 		return stats;
@@ -40,7 +46,7 @@ public class StatsPanel implements Listener {
 	public void update(TurnResult turnResult) {
 		this.gameStats.addSunPoints(turnResult.getGeneratedSunPoints());
 		this.gameStats.numZombiesEliminated(turnResult.getZombiesEliminated());
-		this.sunflowerPoints.setText("Sun Points: " + gameStats.getSunPoints());
+		this.sunPoints.setText("Sun Points: " + gameStats.getSunPoints());
 		this.zombiesRemaining.setText("Zombies Remaining: " + gameStats.getNumZombiesRemaining());
 
 		if (this.gameStats.getNumZombiesToEliminate() == 0) {
@@ -54,7 +60,7 @@ public class StatsPanel implements Listener {
 
 	public void update(int sunPointsUsed) {
 		this.gameStats.removeSunPoints(sunPointsUsed);
-		this.sunflowerPoints.setText("Sun Points: " + gameStats.getSunPoints());
+		this.sunPoints.setText("Sun Points: " + gameStats.getSunPoints());
 	}
 
 	public Stats getStats() {
@@ -62,6 +68,10 @@ public class StatsPanel implements Listener {
 	}
 
     public void handleEvent(Event event) {
-        TurnResult turnResult = (TurnResult)event;
+        StatsEvent statsEvent = (StatsEvent)event;
+		this.sunPoints.setText("Sun Points: " + statsEvent.getSunPoints());
+        this.sunPointsGenerationRate.setText("Sun Points per Turn" + statsEvent.getSunPointsGenerationRate());
+		this.zombiesRemaining.setText("Zombies Remaining: " + statsEvent.getZombiesToEliminate());
+
     }
 }
