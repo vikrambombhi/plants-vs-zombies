@@ -34,11 +34,8 @@ public class BoardController implements ActionListener {
         if (plantType == PlantTypes.SUNFLOWER.getName()) {
             if (Sunflower.getCost() <= this.statsPanel.getStats().getSunPoints()) {
                 Sunflower sunflower = new Sunflower();
-            	if (this.board.placePlant(sunflower, this.row, this.col) == false) {
-            		JOptionPane.showMessageDialog(null, "There's already a plant there.\nChoose a different location!");	
-            	} else {
-                    this.statsPanel.update(sunflower.getSunPointCost());
-            	}
+                this.board.placePlant(sunflower, this.row, this.col);
+                this.statsPanel.update(sunflower.getSunPointCost());
             }
         } else if (plantType == PlantTypes.PEASHOOTER.getName()) {
             Peashooter peashooter = new Peashooter();
