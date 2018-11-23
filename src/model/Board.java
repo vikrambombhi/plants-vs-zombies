@@ -91,6 +91,7 @@ public class Board {
         int zombiesEliminated = 0;
         
         if (numZombiesToGenerate > 0) {
+            // TODO: if numZombiesToGenerate is lower than 5 only generate remaining zombies
             generateZombie(5);
         }
 
