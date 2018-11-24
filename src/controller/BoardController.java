@@ -37,7 +37,6 @@ public class BoardController implements ActionListener {
             	if (this.board.placePlant(sunflower, this.row, this.col) == false) {
             		JOptionPane.showMessageDialog(null, "There's already a plant there.\nChoose a different location!");	
             	} else {
-            		this.board.placePlant(sunflower, this.row, this.col);
                     this.statsPanel.update(sunflower.getSunPointCost());
             	}
             }
