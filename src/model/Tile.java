@@ -1,20 +1,18 @@
 package model;
 
-import java.util.LinkedList;
-
-import event.TurnResult;
+import java.util.ArrayDeque;
 
 public class Tile {
 	private Plants plant;
-	private LinkedList<Zombies> zombies;
-	private LinkedList<Projectile> projectiles;
+	private ArrayDeque<Zombies> zombies;
+	private ArrayDeque<Projectile> projectiles;
 
 	// All tiles contain no plant initially or in other words the board is clear
 	public Tile() {
 		super();
 		this.plant = null;
-		this.zombies = new LinkedList<Zombies>(); // first zombie in list gets hit, after he dies remove first from list
-		this.projectiles = new LinkedList<Projectile>();
+		this.zombies = new ArrayDeque<Zombies>(); // first zombie in list gets hit, after he dies remove first from list
+		this.projectiles = new ArrayDeque<Projectile>();
 	}
 
 	// returns the plant that exists inside this tile
@@ -33,10 +31,12 @@ public class Tile {
 	}
 
 	public void addZombie(Zombies zombie) {
-		this.zombies.add(zombie);
+		if (this.plant == null) {
+			this.zombies.add(zombie);
+		}
 	}
 
-	public LinkedList<Zombies> getZombies() {
+	public ArrayDeque<Zombies> getZombies() {
 		return this.zombies;
 	}
 
@@ -48,7 +48,7 @@ public class Tile {
 		this.projectiles.add(projectile);
 	}
 
-	public LinkedList<Projectile> getProjectiles() {
+	public ArrayDeque<Projectile> getProjectiles() {
 		return projectiles;
 	}
 
@@ -60,7 +60,34 @@ public class Tile {
 		this.projectiles.remove();
 	}
 
-	public TurnResult turn() {
+	public void turn(Zombies zombie) {
+		for (Projectile projectile : projectiles) {
+			if (zombie.getHP() == 0) break;
+			zombie.takeDamage(projectile.getDamage());
+			projectiles.remove(projectile);
+		}
+	}
+
+	public void turn() {
+		Stats stats = Stats.getStats();
+		if (this.plant != null && (this.plant.getType() != PlantTypes.SUNFLOWER.getType())) {
+			OffensivePlant offensivePlant = (OffensivePlant) this.plant;
+			Projectile projectile = offensivePlant.generateProjectile();
+			if (projectile != null) projectiles.add(projectile);
+		} else if (!zombies.isEmpty()) {
+			for (Projectile p : projectiles) {
+				if (!zombies.isEmpty()) {
+					Zombies zombie = zombies.peek();
+					zombie.takeDamage(p.getDamage());
+					projectiles.pop();
+					if (zombie.getHP() == 0) {
+						zombies.pop();
+						stats.zombieEliminated();
+					}
+				}
+			}
+		}
+		/*
 		int generatedSunPoints = 0;
 		int zombiesEliminated = 0;
 		int projectilesHit = 0;
@@ -102,7 +129,7 @@ public class Tile {
 			}
 		}
 
-		return new TurnResult(generatedSunPoints, zombiesEliminated, projectilesHit);
+		return new TurnResult(generatedSunPoints, zombiesEliminated, projectilesHit);*/
 	}
 
 	// add how many zombies in toString()

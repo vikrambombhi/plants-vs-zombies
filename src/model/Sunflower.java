@@ -7,32 +7,13 @@ import model.Stats;
 public class Sunflower extends Plants {
 
 	private final int SUN_POINTS_GENERATED = 3;
-    private static int sunPointCost = 8;
-    private Stats stats;
 
 	public Sunflower() {
-		super(10, 8, 2);
-        this.stats = Stats.getStats();
-        this.stats.increaseSunPointsGenerationRate(SUN_POINTS_GENERATED);
+		super(10, 8, 1);
 	}
 
-    public static int getCost() {
-        return Sunflower.sunPointCost;
-    }
-
-	/*
-	 * sunFlower generates sun points based on the turnsUntilAbility variable. ex/
-	 * turnsUntilAbility = 2, every two turns the sunFower will generate extra sun
-	 * points
-	 */
-	public int generateSunPoints() {
-		this.turnsUntilAbility--;
-
-		if (this.turnsUntilAbility == 0) {
-			this.turnsUntilAbility = this.abilityFrequency;
-			return SUN_POINTS_GENERATED;
-		}
-		return 0;
+	public int getSunPointGeneratedPerTurn() {
+		return SUN_POINTS_GENERATED;
 	}
 
 	@Override

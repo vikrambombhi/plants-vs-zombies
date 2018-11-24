@@ -8,7 +8,6 @@ import javax.swing.JPanel;
 
 import model.Stats;
 import event.Event;
-import event.TurnResult;
 import event.StatsEvent;
 
 /*
@@ -43,16 +42,14 @@ public class StatsPanel implements Listener {
 		return stats;
 	}
 
-	public void update(TurnResult turnResult) {
-		this.gameStats.addSunPoints(turnResult.getGeneratedSunPoints());
-		this.gameStats.numZombiesEliminated(turnResult.getZombiesEliminated());
+	public void update() {
 		this.sunPoints.setText("Sun Points: " + gameStats.getSunPoints());
 		this.zombiesRemaining.setText("Zombies Remaining: " + gameStats.getNumZombiesRemaining());
 
 		if (this.gameStats.getNumZombiesToEliminate() == 0) {
 			JOptionPane.showMessageDialog(null, "Congratulations, you won!");
 			System.exit(0);
-		} else if (turnResult.getGeneratedSunPoints() == -1) {
+		} else if (this.gameStats.hasPlayerLost()) {
 			JOptionPane.showMessageDialog(null, "You lost :( better luck next time!");
 			System.exit(0);
 		}
