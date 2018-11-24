@@ -1,4 +1,4 @@
-package event;
+/*package event;
 
 import java.util.EventObject;
 
@@ -32,3 +32,4 @@ public class TurnResult extends EventObject implements Event {
         return PROJECTILES_HIT;
     }
 }
+*/
