@@ -13,12 +13,16 @@ public abstract class Zombies {
 	protected int hp;
 	protected int damage;
 	protected int movespeed; // 1 = 1 tile per turn
+	protected int distanceLeft;
+	protected int turn;
 
 	/* All Zombies will have health point, attack damage, and movement speed */
 	public Zombies(int hp, int damage, int movespeed) {
 		this.hp = hp;
 		this.damage = damage;
 		this.movespeed = movespeed;
+		this.distanceLeft = movespeed;
+		this.turn = Stats.getStats().getTurn();
 	}
 
 	public int getHP() {
@@ -35,6 +39,25 @@ public abstract class Zombies {
 
 	public void takeDamage(int dmg) {
 		this.hp = ((this.hp - dmg) > 0) ? this.hp - dmg : 0;
+	}
+
+	public boolean move(int gameTurn) {
+		if (turn != gameTurn) {
+			return false;
+		}
+
+		distanceLeft--;
+		if (distanceLeft == 0) {
+			// zombie will only move again next turn
+			turn++;
+			distanceLeft = movespeed;
+		}
+
+		return true;
+	}
+
+	public void queueNextTurn() {
+		turn = Stats.getStats().getTurn() + 1;
 	}
 
 	public abstract String toString();

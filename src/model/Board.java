@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Arrays;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
@@ -8,7 +10,6 @@ import java.util.Random;
 
 import view.Listener;
 import event.BoardEvent;
-import event.TurnResult;
 
 public class Board {
     private List<Listener> listeners;
@@ -17,8 +18,6 @@ public class Board {
     private int zombiesEliminated = 0;
     private int numZombiesToGenerate = 10;
     private static Board board = null;
-
-    private final int SUN_PER_TURN = 5;
 
     private Random random;
 
@@ -64,7 +63,9 @@ public class Board {
 				System.out.println("Already a plant on that tile");
 				return false;
 			}
-			this.tiles[row][col].setPlant(plant);
+            this.tiles[row][col].setPlant(plant);
+            Stats stats = Stats.getStats();
+            stats.removeSunPoints(plant.getSunPointCost());
             notifyListeners();
             return true;
 		}catch(ArrayIndexOutOfBoundsException e1) {
@@ -85,66 +86,98 @@ public class Board {
             numZombiesToGenerate--;
         }
     }
+
+    /*
+     * Move's the projectiles that currently still have travel distance one tile over.
+     * @param turn: the current game turn. If the projectile's turn is higher than game turn, it will not move.
+     * @param row: the row of the projectiles to move.
+     * @param col: the column of the projectiles to move.
+     */
+    private void moveProjectiles(int turn, int row, int col) {
+        ArrayDeque<Projectile> projectiles = this.tiles[row][col].getProjectiles();
+        for (Projectile projectile : projectiles) {
+            if (projectile.move(turn)) {
+                projectiles.remove(projectile);
+                if (col < width-1) {
+                    this.tiles[row][col+1].addProjectile(projectile);
+                }
+            }
+        }
+    }
     
-	public TurnResult turn() { // can just have stats and turn result merged in the future and pass in stats as parameter
-		int generatedSunPoints = SUN_PER_TURN;
-        int zombiesEliminated = 0;
+    /*
+     * Move's the projectiles that currently still have travel distance one tile over.
+     * @param stats: the game's stats. Includes the current game turn. If the zombies's turn is higher than player turn, it will not move.
+     * @param row: the row of the zombies to move.
+     * @param col: the column of the zombies to move.
+     */
+    private void moveZombies(Stats stats, int row, int col) {
+        ArrayDeque<Zombies> zombies = this.tiles[row][col].getZombies();
+        for (Zombies zombie : zombies) {
+            // If a plant is to the zombie's left, it attacks it.
+            Plants plant = this.tiles[row][col-1].getPlant();
+            if (col > 0 &&  plant != null) {
+                damagePlant(stats, plant, zombie, row, col-1);
+            } else {
+                // zombie moves until it can't move anymore for the turn or dies from projectile collision or encounters a plant to its immediate left
+                int moveTo = col;
+                while (zombie.getHP() > 0 && zombie.move(stats.getTurn()) && moveTo >= 0 && this.tiles[row][moveTo].getPlant() == null) {
+                    this.tiles[row][moveTo].turn(zombie);
+                    moveTo--;
+                }
+                zombies.remove(zombie);
+                if (zombie.getHP() > 0) {
+                    zombie.queueNextTurn();
+                    this.tiles[row][moveTo].addZombie(zombie);
+                    // If zombie moves to column 0, player loses.
+                    if (moveTo == 0) {
+                        stats.playerLost();
+                        notifyListeners();
+                    }
+                }
+            }
+        }
+    }
+
+    /*
+     * Damage the plant when the given zombie attacks. Zombie attacks plant's to its immediate left.
+     * @param stats: the game's stats. Used for decreasing sun point generation rate if a sunflower plant dies.
+     * @param row: the row of the plant being attacked.
+     * @param col: the column of the plant being attacked.
+     */
+    private void damagePlant(Stats stats, Plants plant, Zombies zombie, int row, int col) {
+        plant.takeDamage(zombie.getDamage());
+        if (plant.getHP() == 0) {
+            // if the plant that dies is a sunflower, decrease sunpoint generation
+            if (plant.getType() == PlantTypes.SUNFLOWER.getType()) {
+                Sunflower sunflower = (Sunflower) plant;
+                stats.decreaseSunPointsGenerationRate(sunflower.getSunPointGeneratedPerTurn());
+            }
+            this.tiles[row][col].removePlant();
+        }
+    }
+    
+    /*
+     * A turn plays out. Each tile is investigated to see if a plant does an action or if projectiles move or if a zombie moves or attacks.
+     */
+	public void turn() { 
+		Stats stats = Stats.getStats();
         
         if (numZombiesToGenerate > 0) {
             // TODO: if numZombiesToGenerate is lower than 5 only generate remaining zombies
             generateZombie(5);
         }
 
-		for (int row = 0; row < height; row++) {
-			int[] projectileCache = new int[width];
-			for (int col = 0; col < width; col++) {
-                // stores number of projectiles starting on each tile so that the following doesn't loop a projectile's movement				
-                projectileCache[col] = this.tiles[row][col].getProjectiles().size(); 
-			}
-			for (int col = 0; col < width; col++) {
-				TurnResult tileResult = this.tiles[row][col].turn();
+        for (int row = 0; row < height; row++) {
+            for (int col = 0; col < width; col++) {
+                this.tiles[row][col].turn();
 
-				generatedSunPoints += tileResult.getGeneratedSunPoints();
-				zombiesEliminated += tileResult.getZombiesEliminated();
-                int projectilesHit = tileResult.getProjectilesHit();
-
-				if (this.tiles[row][col].getPlant() == null && this.tiles[row][col].getZombies().size() > 0) {
-					for (Zombies zombie : this.tiles[row][col].getZombies()) {
-						int distance = zombie.getMovespeed();
-						int trajectory = col; 
-						while (distance > 0 && trajectory > 0 && this.tiles[row][trajectory].getPlant() == null) { // need to implement zombie running into projectile IF his movespeed > 1
-							distance--;
-							trajectory--;
-						}
-						if (trajectory == 0 && distance > 0)
-							return new TurnResult(this, -1, tileResult.getZombiesEliminated()); // lost game
-						this.tiles[row][trajectory].addZombie(zombie); // also need to implement for zombies with movespeed higher than 1
-					}
-					this.tiles[row][col].removeZombies();
-                } else if (col < this.width && projectileCache[col] > 0) {
-                    ListIterator iter = this.tiles[row][col].getProjectiles().listIterator(0);
-                    int movingProjectiles = projectileCache[col] - projectilesHit;
-                    while (movingProjectiles > 0 && iter.hasNext()) {
-                        movingProjectiles--;
-                        Projectile projectile = (Projectile) iter.next();
-                        this.tiles[row][col].removeFirstProjectile();
-                        int distance = projectile.getSpeed();
-                        int trajectory = col;
-                        // if it encounters a tilewith zombies, add to tile projectile list as its still same turn, one problem with this is that if the projectile has some distance left to cover and zombie dies before the projectile hits it, the projectile will still stop on this tile
-                        while (distance > 0 && trajectory < width && this.tiles[row][trajectory].getZombies().size() == 0) {
-                            distance--;
-                            trajectory++;
-                        }
-                        if (trajectory < width) {
-                            this.tiles[row][trajectory].addProjectile(projectile);
-                        }
-                    }
-                }
-			}
+                moveProjectiles(stats.getTurn(), row, col);
+                moveZombies(stats, row, col);
+            }
         }
-
+        
         notifyListeners();
-        return new TurnResult(this, generatedSunPoints, zombiesEliminated);
 	}
 
 	public void print() {

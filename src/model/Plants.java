@@ -16,7 +16,7 @@ public abstract class Plants {
 		this.hp = hp;
 		this.sunPointCost = sunPointCost;
 		this.abilityFrequency = abilityFrequency;
-		this.turnsUntilAbility = abilityFrequency;
+		this.turnsUntilAbility = 1;
 	}
 
 	public int getHP() {

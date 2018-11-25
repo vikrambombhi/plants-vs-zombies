@@ -8,11 +8,15 @@ import view.Listener;
 
 public class Stats {
 
+    private final int SUN_PER_TURN = 5;
+
     private List<Listener> listeners;
     // Start with enough sunpoints to spawn a sunflower, or wait one turn to get a peashooter
     private int sunPoints;
     private int sunPointsGenerationRate;
     private int numZombiesToEliminate;
+    private int turn;
+    private boolean playerLost;
     private static Stats stats = null;
 
     /*
@@ -29,7 +33,10 @@ public class Stats {
 
             this.listeners = new ArrayList<>();
             this.sunPoints = sunPoints;
+            this.sunPointsGenerationRate = SUN_PER_TURN;
             this.numZombiesToEliminate = numZombiesToEliminated;
+            this.turn = 1;
+            this.playerLost = false;
         }
     }
 
@@ -79,6 +86,10 @@ public class Stats {
         return numZombiesToEliminate;
     }
 
+    public void zombieEliminated() {
+        numZombiesEliminated(1);
+    }
+
     public void numZombiesEliminated(int zombiesEliminated) {
         this.numZombiesToEliminate -= zombiesEliminated;
         this.notifyListeners();
@@ -86,5 +97,21 @@ public class Stats {
 
     public int getNumZombiesToEliminate() {
         return numZombiesToEliminate;
+    }
+
+    public void incrementTurn() {
+        turn++;
+    }
+
+    public int getTurn() {
+        return turn;
+    }
+
+    public void playerLost() {
+        playerLost = true;
+    }
+
+    public boolean hasPlayerLost() {
+        return playerLost;
     }
 }
