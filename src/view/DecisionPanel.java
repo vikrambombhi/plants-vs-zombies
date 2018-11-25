@@ -6,6 +6,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import controller.NextTurnController;
+import controller.RedoController;
 
 /* This is a Subclass that builds the MainView class.
  *  DecisionPanel includes the user option to either press
@@ -31,6 +32,7 @@ public class DecisionPanel {
 		}
 
 		decisions[0].addActionListener(new NextTurnController(statsPanel));
+		decisions[1].addActionListener(new RedoController(statsPanel));
 	}
 	/* Use to get decisionPanel variable from for MainView */
 	public JPanel getDecisionPanel() {
