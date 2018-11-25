@@ -24,6 +24,5 @@ public class NextTurnController implements ActionListener {
         this.board.turn();
         this.stats.incrementTurn();
         this.stats.addSunPoints(this.stats.getSunPointsGenerationRate());
-        this.statsPanel.update();
 	}
 }

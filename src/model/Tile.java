@@ -87,49 +87,6 @@ public class Tile {
 				}
 			}
 		}
-		/*
-		int generatedSunPoints = 0;
-		int zombiesEliminated = 0;
-		int projectilesHit = 0;
-
-		if (this.plant != null) {
-			if (this.plant.getType() == PlantTypes.SUNFLOWER.getType()) { 
-				Sunflower sunflower = (Sunflower) this.plant;
-				generatedSunPoints += sunflower.generateSunPoints();
-			} else {
-				OffensivePlant offensivePlant = (OffensivePlant) this.plant;
-				Projectile projectile = offensivePlant.generateProjectile();
-				if (projectile != null)
-					projectiles.add(projectile);
-			}
-		}
-
-		while (zombies.size() != 0 && projectiles.size() != 0) {
-			Zombies zombie = zombies.peek();
-			while (zombie.getHP() > 0 && projectiles.size() != 0) {
-				Projectile projectile = projectiles.poll();
-				zombie.takeDamage(projectile.getDamage());
-				projectilesHit--;
-			}
-
-			if (zombie.getHP() == 0) {
-				zombies.remove();
-				zombiesEliminated++;
-			}
-		}
-
-		if (this.plant != null) {
-			for (Zombies zombie : zombies) {
-				if (this.plant.getHP() == 0) {
-					this.plant = null;
-					break;
-				}
-
-				this.plant.takeDamage(zombie.getDamage());
-			}
-		}
-
-		return new TurnResult(generatedSunPoints, zombiesEliminated, projectilesHit);*/
 	}
 
 	// add how many zombies in toString()

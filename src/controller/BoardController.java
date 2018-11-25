@@ -37,14 +37,12 @@ public class BoardController implements ActionListener {
             if (sunflower.getSunPointCost() <= this.statsPanel.getStats().getSunPoints()) {
                 if (this.board.placePlant(sunflower, this.row, this.col) == true) {
                     this.statsPanel.getStats().increaseSunPointsGenerationRate(sunflower.getSunPointGeneratedPerTurn());
-                    this.statsPanel.update(sunflower.getSunPointCost());
                 }
             }
         } else if (plantType == PlantTypes.PEASHOOTER.getName()) {
             Peashooter peashooter = new Peashooter();
             if (peashooter.getSunPointCost() <= this.statsPanel.getStats().getSunPoints()) {
                 this.board.placePlant(peashooter, this.row, this.col);
-                this.statsPanel.update(peashooter.getSunPointCost());
             }
         }
 	}

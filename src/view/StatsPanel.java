@@ -24,7 +24,7 @@ public class StatsPanel implements Listener {
 	public StatsPanel(Stats gameStats) {
 		this.gameStats = gameStats;
 		sunPoints = new JLabel("Sun Points: " + this.gameStats.getSunPoints());
-		sunPointsGenerationRate = new JLabel("Sun Points per Turn: " + this.gameStats.getSunPoints());
+		sunPointsGenerationRate = new JLabel("Sun Points per Turn: " + this.gameStats.getSunPointsGenerationRate());
 		zombiesRemaining = new JLabel("Zombies Remaining: " + this.gameStats.getNumZombiesRemaining());
 		currentTurn = new JLabel("Turn Phase: ");
 		stats = new JPanel();
@@ -42,24 +42,6 @@ public class StatsPanel implements Listener {
 		return stats;
 	}
 
-	public void update() {
-		this.sunPoints.setText("Sun Points: " + gameStats.getSunPoints());
-		this.zombiesRemaining.setText("Zombies Remaining: " + gameStats.getNumZombiesRemaining());
-
-		if (this.gameStats.getNumZombiesToEliminate() == 0) {
-			JOptionPane.showMessageDialog(null, "Congratulations, you won!");
-			System.exit(0);
-		} else if (this.gameStats.hasPlayerLost()) {
-			JOptionPane.showMessageDialog(null, "You lost :( better luck next time!");
-			System.exit(0);
-		}
-	}
-
-	public void update(int sunPointsUsed) {
-		this.gameStats.removeSunPoints(sunPointsUsed);
-		this.sunPoints.setText("Sun Points: " + gameStats.getSunPoints());
-	}
-
 	public Stats getStats() {
 		return this.gameStats;
 	}
@@ -69,6 +51,12 @@ public class StatsPanel implements Listener {
 		this.sunPoints.setText("Sun Points: " + statsEvent.getSunPoints());
         this.sunPointsGenerationRate.setText("Sun Points per Turn" + statsEvent.getSunPointsGenerationRate());
 		this.zombiesRemaining.setText("Zombies Remaining: " + statsEvent.getZombiesToEliminate());
-
+		if (this.gameStats.getNumZombiesToEliminate() == 0) {
+			JOptionPane.showMessageDialog(null, "Congratulations, you won!");
+			System.exit(0);
+		} else if (this.gameStats.hasPlayerLost()) {
+			JOptionPane.showMessageDialog(null, "You lost :( better luck next time!");
+			System.exit(0);
+		}
     }
 }

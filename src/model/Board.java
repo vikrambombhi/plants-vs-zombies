@@ -63,7 +63,9 @@ public class Board {
 				System.out.println("Already a plant on that tile");
 				return false;
 			}
-			this.tiles[row][col].setPlant(plant);
+            this.tiles[row][col].setPlant(plant);
+            Stats stats = Stats.getStats();
+            stats.removeSunPoints(plant.getSunPointCost());
             notifyListeners();
             return true;
 		}catch(ArrayIndexOutOfBoundsException e1) {
@@ -128,7 +130,10 @@ public class Board {
                     zombie.queueNextTurn();
                     this.tiles[row][moveTo].addZombie(zombie);
                     // If zombie moves to column 0, player loses.
-                    if (moveTo == 0) stats.playerLost();
+                    if (moveTo == 0) {
+                        stats.playerLost();
+                        notifyListeners();
+                    }
                 }
             }
         }
