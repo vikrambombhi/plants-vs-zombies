@@ -12,5 +12,21 @@ public class CurrentStateStack {
 		pastMove.push((PlayerInfo) currentPlayerInfo.clone());
 		futureMove.clear();
 	}
+	
+	public PlayerInfo redoMove() {
+		PlayerInfo tempMove = null; // Make a temp playerinfo to store info from stack
+		
+		if(!futureMove.isEmpty()) {
+			tempMove = futureMove.pop();
+			pastMove.push(tempMove);
+		}
+		return tempMove;
+	}
+	
+	public boolean redoChecker() {
+		boolean checker = !futureMove.isEmpty();
+		
+		return checker;
+	}
 
 }
