@@ -25,9 +25,10 @@ import javax.swing.WindowConstants;
 import controller.SettingsController;
 import model.Stats;
 
-/* MainView is the main view class for plants vs zombies.
- * Main view will mainly focus on the end picture of the view. There are smaller view classes
- * broken down into individual panels that MainView will use to build the GUI. */
+/*
+ * Main view creates all the smallers views and stiches them togeather onto a single window.
+ * This class is essentually a container for all the views.
+ */
 @SuppressWarnings("serial")
 public class MainView extends JFrame {
 	JMenuBar menuBar;
@@ -49,10 +50,13 @@ public class MainView extends JFrame {
 	DescriptionPanel descriptionPanel;
 	
 	
+    /*
+     * Creates the main window and all the views
+     */
 	public MainView() {
 		super("Plants Vs Zombies Interface");
 
-		/* Setting up start up layout of GUI */
+        // Setup window layout and dimensions
 		setLocationRelativeTo(null);
 		setSize(800, 450);
 		layout = new GridBagLayout();
@@ -60,6 +64,7 @@ public class MainView extends JFrame {
 		contentPane = getContentPane();
 		contentPane.setLayout(layout);
 		
+        // Create menu bar
 		menuBar = new JMenuBar();
 		gameMenu = new JMenu("Game");
 		settingMenu = new JMenu("Setting");
@@ -67,14 +72,17 @@ public class MainView extends JFrame {
 		menuBar.add(settingMenu);
 		setJMenuBar(menuBar);
 		
+        // Create options for menubar
 		createPVZGame = new JMenuItem("Create Game");
 		savePVZGame = new JMenuItem("Save Game");
 		quitPVZGame = new JMenuItem("Quit");
+        // Add created options to menu bar under game menu
 		gameMenu.add(createPVZGame);
 		gameMenu.add(savePVZGame);
 		gameMenu.addSeparator();
 		gameMenu.add(quitPVZGame);
 		
+        // Create and and option for menubar under settings menu
 		changeBoardDimensions = new JMenuItem("Change Game Field Dimension");
 		settingMenu.add(changeBoardDimensions);
 		

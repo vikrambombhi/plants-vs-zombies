@@ -12,42 +12,56 @@ import event.Event;
 import event.BoardEvent;
 import controller.BoardController;
 
-/* This is a Subclass that builds the MainView class.
- *  GamePanel is the game field the player will place
- *  plants and fight off zombies. */ 
+/*
+ * View for the game board itself.
+ * Creates a grid of buttons and renders out the game state on them
+ */
 public class GamePanel implements Listener {
 
-	/* Set up for the game's field of play */
-	private static int ROWS;
-	private static int COLS;
+	private int ROWS;
+	private int COLS;
 	
 	GridLayout gameField;
 	JButton[][] gameFieldSlot;
 	JPanel gamePanel;
 	
+    /*
+     * Create grid of buttons as game board
+     */
 	public GamePanel(PlantSelectionPanel plantSelectionPanel, StatsPanel statsPanel) {
+        // Get height and width of the board from the board model
         this.ROWS = Board.getHeight();
         this.COLS = Board.getWidth();
+        
+        // Create two dimensional array to hold all the buttons
 		gameFieldSlot = new JButton[ROWS][COLS];
+        // Craete grid layout
 		gameField = new GridLayout(ROWS, COLS);
 		gamePanel = new JPanel();
 		gamePanel.setPreferredSize(new Dimension(450, 250));
 		gamePanel.setLayout(gameField);
 		
-		// This will create the garden (game panel)
+        // Populate two dimensional array with buttons
 		for(int x = 0; x < ROWS; x++) {
 			for (int y = 0; y < COLS; y++) {
+                // Create button
 				gameFieldSlot[x][y] = new JButton();
+                // Register controller for the button
                 gameFieldSlot[x][y].addActionListener(new BoardController(x, y, plantSelectionPanel, statsPanel));
 				gamePanel.add(gameFieldSlot[x][y]);
 			}
 		}
 
+        // The board is a singleton so we can just get it
         Board board = Board.getBoard();
+        // Regester this view to the board model
         board.addActionListener(this);
 	}
 	
-	// For the board dimension changer
+    /*
+     * Change dimensions on the game board.
+     * THIS FUNCTION IS NOT YET FULLY IMPLEMENTED
+     */
 	public void setGamePanel(int rows, int cols) {
 		ROWS = rows;
 		COLS = cols;
@@ -58,6 +72,9 @@ public class GamePanel implements Listener {
 		return gamePanel;
 	}
 
+    /*
+     * Handle changes in the board and update the game board 
+     */
     public void handleEvent(Event event) {
         BoardEvent boardEvent = (BoardEvent)event;
         Tile[][] tiles = boardEvent.getTiles();
