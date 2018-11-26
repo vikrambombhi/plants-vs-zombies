@@ -6,6 +6,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({
+    TestBoard.class,
     TestPeashooter.class,
     TestSunflower.class,
     TestTankZombie.class,

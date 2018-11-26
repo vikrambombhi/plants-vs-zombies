@@ -227,8 +227,6 @@ public class Board implements Serializable {
         ByteArrayInputStream bis = new ByteArrayInputStream(b);
         ObjectInputStream in = new ObjectInputStream(bis);
 
-        System.out.println(in.available());
-
         board.setTiles(((Board)in.readObject()).getTiles());
 
         in.close();
