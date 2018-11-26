@@ -7,7 +7,8 @@ import java.awt.event.ActionEvent;
 import event.StatsEvent;
 import model.Board;
 import model.Stats;
-import model.TurnStack;
+import model.TurnStackBoard;
+import model.TurnStackStats;
 import view.StatsPanel;
 
 public class NextTurnController implements ActionListener {
@@ -15,18 +16,21 @@ public class NextTurnController implements ActionListener {
     private Board board;
     private StatsPanel statsPanel;
     private Stats stats;
-    private TurnStack turnStack;
+    private TurnStackBoard turnStackBoard;
+    private TurnStackStats turnStackStats;
 
     public NextTurnController(StatsPanel panel) {
         this.board = Board.getBoard();
         this.statsPanel = panel;
         this.stats = Stats.getStats();
-        this.turnStack = TurnStack.getTurnStack();
+        this.turnStackBoard = TurnStackBoard.getTurnStackBoard();
+        this.turnStackStats = TurnStackStats.getTurnStackStats();
     }
 
     public void actionPerformed(ActionEvent e) {
         try {
-            this.turnStack.saveTurn(this.board.saveBoard());
+            this.turnStackBoard.saveTurn(this.board.saveBoard());
+            this.turnStackStats.saveTurn(this.stats.saveStats());
         } catch (IOException ex) {
             ex.printStackTrace();
         }
