@@ -58,8 +58,7 @@ public class Stats {
 			this.currentMove = redoUndoMoves.undoMove();
 			this.sunPoints = currentMove.getSunPoints();
 			this.sunPointsGenerationRate = currentMove.getSunPointsGenerationRate();
-			this.numZombiesToEliminate = currentMove.getZombiesRemaining();
-					
+			this.numZombiesToEliminate = currentMove.getZombiesRemaining();		
 			notifyListeners();
 			return(true);
 		}
@@ -76,6 +75,10 @@ public class Stats {
     		return true;
     	}
     	return false;
+    }
+    
+    public void storeCurrentTurn() throws CloneNotSupportedException {
+    	redoUndoMoves.saveCurrentState(currentMove);
     }
 
     public static Stats getStats() {
