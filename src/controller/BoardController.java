@@ -48,7 +48,7 @@ public class BoardController implements ActionListener {
                 // try to place sunflower on board if there is 
                 // this can fail if there is already a plant at selected location for example
                 if (this.board.placePlant(sunflower, this.row, this.col) == true) {
-                    // remove sunpoints required to buy the sunflower from the user
+                    // increase sunpoints user recives per turn
                     this.statsPanel.getStats().increaseSunPointsGenerationRate(sunflower.getSunPointGeneratedPerTurn());
                 }
             }
@@ -59,7 +59,6 @@ public class BoardController implements ActionListener {
             // Check if user has enough sunpoints to buy a peashooter
             if (peashooter.getSunPointCost() <= this.statsPanel.getStats().getSunPoints()) {
                 // Place peashooter on board
-                // TODO: remove sunpoints from user
                 this.board.placePlant(peashooter, this.row, this.col);
             }
         }

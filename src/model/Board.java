@@ -11,6 +11,9 @@ import java.util.Random;
 import view.Listener;
 import event.BoardEvent;
 
+/*
+ * Model representing the game board
+ */
 public class Board {
     private List<Listener> listeners;
 	private Tile[][] tiles;
@@ -48,24 +51,30 @@ public class Board {
         this.random = new Random(System.currentTimeMillis());
 	}
 
+    // Register listeners to be notified on changes to this model
     public void addActionListener(Listener listener) {
         this.listeners.add(listener);
     }
 
+    // Notifis listeners of current board state
     public void notifyListeners() {
         BoardEvent event = new BoardEvent(this, this.tiles);
         for(Listener listener: listeners) listener.handleEvent(event);
     }
 
+    // Places plant on board
 	public boolean placePlant(Plants plant, int row, int col) {
 		try {
+            // Check if there is already a plant on selected location
 			if (this.tiles[row][col].getPlant() != null) {
 				System.out.println("Already a plant on that tile");
 				return false;
 			}
             this.tiles[row][col].setPlant(plant);
             Stats stats = Stats.getStats();
+            // Remove sunpoints from user for buying the plant
             stats.removeSunPoints(plant.getSunPointCost());
+            // Notify listeners that a plant has been placed
             notifyListeners();
             return true;
 		}catch(ArrayIndexOutOfBoundsException e1) {
@@ -74,8 +83,10 @@ public class Board {
 		}
 	}
 
+    // Place zombie on board
 	public void placeZombie(Zombies zombie, int row, int col) {
 		this.tiles[row][col].addZombie(zombie);
+        // Notify listeners that a zombie has been placed on the board
         notifyListeners();
     }
     
@@ -84,9 +95,13 @@ public class Board {
      * @param chancePerTurn: starting from 0 to chancePerTurn, if the random number matches an n value then spawn given zombie.
      */
     private void generateZombie(int chancePerTurn) {
+        // Generate random int
         int n = this.random.nextInt(chancePerTurn);
         if (n == 0 || n == 1) {
+            // Place the zombie on the board
             this.placeZombie(new Zombie(), random.nextInt(height), width - 1);
+            // Decrement number of zombies that need to be generated
+            // TODO: update numZombiesToGenerate on stats model
             numZombiesToGenerate--;
         } else if (n == 2) {
             this.placeZombie(new TankZombie(), random.nextInt(height), width - 1);
@@ -186,23 +201,17 @@ public class Board {
         notifyListeners();
 	}
 
-	public void print() {
-		for (Tile[] row : this.tiles) {
-			for (Tile tile : row) {
-				System.out.print(tile.toString() + " ");
-			}
-			System.out.println();
-		}
-	}
-
+    // Return height of the board
 	public static int getHeight() {
 		return Board.board.height;
 	}
 
+    // reuturn width of the board
 	public static int getWidth() {
 		return Board.board.width;
 	}
 
+    // return the board
     public static Board getBoard() {
         return Board.board;
     }

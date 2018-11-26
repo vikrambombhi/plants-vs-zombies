@@ -1,8 +1,11 @@
 package model;
-/* "Plants Class" for all type of Plants.
+
+/*
+ * "Plants Class" for all type of Plants.
  * Class abstract to define common behavior that can be inherited by multiple subclass Plants.
  * Plants can list from {Peashooter, Repeater, Threepeater, Split Pea, Gatling Pea, etc}
- * Check this site for list of plants https://plantsvszombies.fandom.com/wiki/Plants_(PvZ). */
+ * Check this site for list of plants https://plantsvszombies.fandom.com/wiki/Plants_(PvZ).
+ */
 public abstract class Plants {
 	private char type;
 
