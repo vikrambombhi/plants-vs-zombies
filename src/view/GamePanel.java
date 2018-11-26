@@ -2,6 +2,7 @@ package view;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.io.Serializable;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -15,7 +16,7 @@ import controller.BoardController;
 /* This is a Subclass that builds the MainView class.
  *  GamePanel is the game field the player will place
  *  plants and fight off zombies. */ 
-public class GamePanel implements Listener {
+public class GamePanel implements Listener, Serializable {
 
 	/* Set up for the game's field of play */
 	private static int ROWS;

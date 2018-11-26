@@ -1,9 +1,12 @@
 package model;
+
+import java.io.Serializable;
+
 /* "Zombies Class" for all type of Zombies.
  * Class abstract to define common behavior that can be inherited by multiple subclass Zombies.
  * Zombies can list from {Zombie, Flag Zombie, Conehead Zombie, Pole Vaulting Zombie, Bucket head Zombie, etc}
  * Check this site for list of zombies https://plantsvszombies.fandom.com/wiki/Zombies_(PvZ). */
-public abstract class Zombies {
+public abstract class Zombies implements Serializable {
 	private char type;
 
 	protected int hp;

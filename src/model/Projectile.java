@@ -1,7 +1,10 @@
 package model;
+
+import java.io.Serializable;
+
 /* Projectile class is the kinetic bullet shot from a plant
  * The damage it deals to zombies and the speed it travels in tile space */
-public class Projectile {
+public class Projectile implements Serializable {
 
 	private char projectile = '.'; // change implementation later
 	

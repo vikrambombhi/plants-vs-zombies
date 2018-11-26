@@ -1,12 +1,13 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import event.StatsEvent;
 import view.Listener;
 
-public class Stats {
+public class Stats implements Serializable {
 
     private final int SUN_PER_TURN = 5;
 

@@ -10,14 +10,14 @@ import model.Stats;
 import model.TurnStack;
 import view.StatsPanel;
 
-public class NextTurnController implements ActionListener {
+public class UndoTurnController implements ActionListener {
 
     private Board board;
     private StatsPanel statsPanel;
     private Stats stats;
     private TurnStack turnStack;
 
-    public NextTurnController(StatsPanel panel) {
+    public UndoTurnController(StatsPanel panel) {
         this.board = Board.getBoard();
         this.statsPanel = panel;
         this.stats = Stats.getStats();
@@ -26,12 +26,11 @@ public class NextTurnController implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         try {
-            this.turnStack.saveTurn(this.board.saveBoard());
+            this.board.undoBoard(this.turnStack.undoTurn());
         } catch (IOException ex) {
             ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
         }
-        this.board.turn();
-        this.stats.incrementTurn();
-        this.stats.addSunPoints(this.stats.getSunPointsGenerationRate());
 	}
 }

@@ -1,5 +1,8 @@
 package model;
-public class PlantLocation {
+
+import java.io.Serializable;
+
+public class PlantLocation implements Serializable {
 	private int row, col;
 
 	public PlantLocation(int newRow, int newCol) {
