@@ -8,29 +8,32 @@ import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 
-import model.Sunflower;
+import model.Stats;
+import model.Zombie;
 
-public class TestSunflower {
+public class TestZombie {
 
-    Sunflower sunflower;
+    Stats stats;
+    Zombie zombie;
 
     @Before
     public void setup() {
-        sunflower = new Sunflower();
+        stats = new Stats(0, 0);
+        zombie = new Zombie();
     }
 
     @Test
-    public void testSunflowerType() {
-        assertEquals("Sunflower type should be 'S'", 'S', sunflower.getType());
+        public void testZombieType() {
+        assertEquals("Zombie type should be 'Z'", 'Z', zombie.getType());
     }
 
     @Test
-    public void testSunflowerToString() {
-        assertEquals("Sunflower name should be 'Sunflower'", "Sunflower", sunflower.toString());
+    public void testZombieToString() {
+        assertEquals("Zombie name should be 'Zombie'", "Zombie", zombie.toString());
     }
 
     public static void main(String[] args) {
-        Result result = JUnitCore.runClasses(TestSunflower.class);
+        Result result = JUnitCore.runClasses(TestZombie.class);
         for (Failure failure : result.getFailures()) {
             System.out.println(failure.toString());
         }

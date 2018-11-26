@@ -68,6 +68,10 @@ public class Tile {
 		}
 	}
 
+	/*
+	 * Is called by Board's turn() method. If the tile has a plant and it's an offensive one, then it tries to trigger its ability if it's off cooldown.
+	 * If there are zombies on the tile as well as projectiles, zombies are hit by projectiles.
+	 */
 	public void turn() {
 		Stats stats = Stats.getStats();
 		if (this.plant != null && (this.plant.getType() != PlantTypes.SUNFLOWER.getType())) {
@@ -97,7 +101,7 @@ public class Tile {
 		if (plant != null && zombies.size() > 0)
 			return " B"; // for both
 		if (plant == null && zombies.size() > 0)
-			return " " + zombies.peek().toString();
+			return " " + zombies.peek().getType();
 		if (plant == null && zombies.size() == 0 && projectiles.size() > 0)
 			return " " + projectiles.peek().toString();
 
