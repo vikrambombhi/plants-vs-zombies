@@ -8,6 +8,9 @@ import view.MainView;
 import model.*;
 import controller.SettingsController;
 
+/*
+ * Main game class, this is the entry point for the application
+ */
 public class Game {
 
     private static Board board = new Board(5, 10);
@@ -16,6 +19,7 @@ public class Game {
     public Game() {}
 
     public static void main(String args[]) {
+        // Create window and start game
         gameInterface = new MainView();
         SettingsController controller = new SettingsController(gameInterface);
     }
