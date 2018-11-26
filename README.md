@@ -26,6 +26,15 @@ When the game starts, console will print out the current board playing field wit
 By following the output on console, choose the options from (1)-(4) to proceed further into the game.
 
 ==============================================================================
+# Update/Patch - November 25, 2018
+In this iteration the old command line interface has been completely removed and is no longer supported.
+A new tank type zombie has been added to the game. This zombie is stronger than normal zombies but has a lower probability of spawning.
+A lot more tests and documentations has been added in a effort to remove code smells.
+
+# Milestone 3 Deliverable
+Fully-featured with various types of plants and zombies, and unlimited undo/redo feature
+
+==============================================================================
 # Update/Patch - November 16, 2018
 In this iteration, the team implemented MVC into the system along with unit testing to verify everything is in working condition.
 The UML of the system has to be changed to incorporate with the MVC format. View will contain multiple subclasses that builds the overall view of the game. Control will handle any events with actionListener. Model will contain all the data from the previous milestone. The GUI will contain some tabs(DimensionChange, Save) that will be implemented in future milestones.
