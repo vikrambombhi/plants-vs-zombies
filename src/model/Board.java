@@ -79,10 +79,17 @@ public class Board {
         notifyListeners();
     }
     
+    /*
+     * Generate's a type of zombie somewhere in the last column based on pseudo randomization.
+     * @param chancePerTurn: starting from 0 to chancePerTurn, if the random number matches an n value then spawn given zombie.
+     */
     private void generateZombie(int chancePerTurn) {
         int n = this.random.nextInt(chancePerTurn);
-        if (n == 0) {
+        if (n == 0 || n == 1) {
             this.placeZombie(new Zombie(), random.nextInt(height), width - 1);
+            numZombiesToGenerate--;
+        } else if (n == 2) {
+            this.placeZombie(new TankZombie(), random.nextInt(height), width - 1);
             numZombiesToGenerate--;
         }
     }
@@ -164,8 +171,7 @@ public class Board {
 		Stats stats = Stats.getStats();
         
         if (numZombiesToGenerate > 0) {
-            // TODO: if numZombiesToGenerate is lower than 5 only generate remaining zombies
-            generateZombie(5);
+            generateZombie(10);
         }
 
         for (int row = 0; row < height; row++) {
