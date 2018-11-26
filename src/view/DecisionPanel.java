@@ -6,6 +6,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import controller.NextTurnController;
+import controller.RedoTurnController;
 import controller.UndoTurnController;
 
 /* This is a Subclass that builds the MainView class.
@@ -34,6 +35,7 @@ public class DecisionPanel {
 		decisions[0].addActionListener(new NextTurnController(statsPanel));
 		//decisions[1].addActionListener();
 		decisions[1].addActionListener(new UndoTurnController(statsPanel));
+		decisions[2].addActionListener(new RedoTurnController(statsPanel));
 	}
 	/* Use to get decisionPanel variable from for MainView */
 	public JPanel getDecisionPanel() {

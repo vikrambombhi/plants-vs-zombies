@@ -7,29 +7,48 @@ import java.util.Stack;
  */
 public class TurnStackBoard {
 
-    private Stack<byte[]> stack;
+    private Stack<byte[]> pastStack;
+    private Stack<byte[]> futureStack;
     private static TurnStackBoard turnStackBoard = null;
 
 
     public TurnStackBoard() {
-        stack = new Stack<byte[]>();
-        if (TurnStackBoard.turnStackBoard != null) {
-            TurnStackBoard.turnStackBoard = this;
-
-            System.out.println("returned turnStack model");
-        } else {
-            TurnStackBoard.turnStackBoard = this;
-            stack = new Stack<byte[]>();
-        }
+    	 pastStack = new Stack<byte[]>();
+         futureStack = new Stack<byte[]>();
+         
+         if (TurnStackBoard.turnStackBoard != null) {
+             TurnStackBoard.turnStackBoard = this;
+             System.out.println("returned turnStack model");
+         } else {
+             TurnStackBoard.turnStackBoard = this;
+             pastStack = new Stack<byte[]>();
+         }
     }
 
     public void saveTurn(byte[] b) {
-        stack.push(b);
+        pastStack.push(b);
+        futureStack.clear();
     }
 
     public byte[] undoTurn() {
-        if (stack.size() > 1) return stack.pop();
-        else if (stack.size() == 1) return stack.peek();
+    	byte[] tempStack = null;
+        if (pastStack.size() > 1) {
+        	tempStack = pastStack.pop();
+        	futureStack.push(tempStack);
+        	return tempStack;
+        }
+        else if (pastStack.size() == 1) return pastStack.peek();
+        return null;
+    }
+    
+    public byte[] redoTurn() {
+    	byte[] tempStack = null;
+    	if (futureStack.size() > 1) {
+    		tempStack = futureStack.pop();
+    		pastStack.push(tempStack);
+    		return tempStack;
+    	}
+        else if (futureStack.size() == 1) return futureStack.peek();
         return null;
     }
 
