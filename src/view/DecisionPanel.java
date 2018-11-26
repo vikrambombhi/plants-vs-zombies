@@ -32,7 +32,6 @@ public class DecisionPanel {
 		}
 
 		decisions[0].addActionListener(new NextTurnController(statsPanel));
-		//decisions[1].addActionListener();
 		decisions[1].addActionListener(new UndoTurnController(statsPanel));
 	}
 	/* Use to get decisionPanel variable from for MainView */
