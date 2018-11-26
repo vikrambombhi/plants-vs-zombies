@@ -24,5 +24,12 @@ public class NextTurnController implements ActionListener {
         this.board.turn();
         this.stats.incrementTurn();
         this.stats.addSunPoints(this.stats.getSunPointsGenerationRate());
+        
+        try {
+			this.stats.storeCurrentTurn();
+		} catch (CloneNotSupportedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 }
