@@ -8,19 +8,19 @@ import model.Board;
 import view.MainView;
 import view.StatsPanel;
 
-public class RedoController implements ActionListener {
+public class UndoController implements ActionListener {
 	
 	private Board board;
     private StatsPanel statsPanel;
 	
-	public RedoController(StatsPanel panel) {
+	public UndoController(StatsPanel panel) {
 		this.board = Board.getBoard();
         this.statsPanel = panel;
 		
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		statsPanel.getStats().redo();
+		statsPanel.getStats().undo();
 	}
 
 }
