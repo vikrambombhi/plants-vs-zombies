@@ -58,7 +58,7 @@ public class MainView extends JFrame {
 
         // Setup window layout and dimensions
 		setLocationRelativeTo(null);
-		setSize(800, 450);
+		setSize(1000, 500);
 		layout = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
 		contentPane = getContentPane();

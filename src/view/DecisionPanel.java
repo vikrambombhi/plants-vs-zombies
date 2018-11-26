@@ -21,7 +21,7 @@ public class DecisionPanel {
 	public DecisionPanel(StatsPanel statsPanel) {
 		decisions = new JButton[MAX_OPTIONS];
 		decisionsPanel = new JPanel();
-		decisionsPanel.setPreferredSize(new Dimension(200,40));
+		decisionsPanel.setPreferredSize(new Dimension(400,40));
 		
 		decisions[0] = new JButton("Next Turn");
 		decisions[1] = new JButton("Undo");
