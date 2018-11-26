@@ -18,9 +18,10 @@ public class SettingsController implements ActionListener {
 	
 	public void actionPerformed(ActionEvent e) {
 		
-		/* This action creates the game by making the game visible.
-		*  This also enables and disables some of the menu selections.
-		*/
+		/* 
+         * This action creates the game by making the game visible.
+         * This also enables and disables some of the menu selections.
+         */
 		if(e.getSource() == gameInterface.getCreatePVZGame()) {
 			
 			gameInterface.getCreatePVZGame().setEnabled(false);
