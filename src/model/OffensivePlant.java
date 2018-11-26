@@ -13,7 +13,6 @@ public abstract class OffensivePlant extends Plants {
         this.projectileSpeed = projectileSpeed;
     }
 
-    // using "this" works in this case, but it should be "super" to prevent smelly code since we're calling from super class.
     public Projectile generateProjectile() {
     	this.turnsUntilAbility--;
 

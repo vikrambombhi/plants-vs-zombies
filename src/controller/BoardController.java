@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import model.Board;
 import model.Peashooter;
 import model.PlantTypes;
+import model.Stats;
 import model.Sunflower;
 import view.PlantSelectionPanel;
 import view.StatsPanel;
@@ -32,19 +33,16 @@ public class BoardController implements ActionListener {
         String plantType = plantSelectionPanel.getPlant();
 
         if (plantType == PlantTypes.SUNFLOWER.getName()) {
-            if (Sunflower.getCost() <= this.statsPanel.getStats().getSunPoints()) {
-                Sunflower sunflower = new Sunflower();
-            	if (this.board.placePlant(sunflower, this.row, this.col) == false) {
-            		JOptionPane.showMessageDialog(null, "There's already a plant there.\nChoose a different location!");	
-            	} else {
-                    this.statsPanel.update(sunflower.getSunPointCost());
-            	}
+            Sunflower sunflower = new Sunflower();
+            if (sunflower.getSunPointCost() <= this.statsPanel.getStats().getSunPoints()) {
+                if (this.board.placePlant(sunflower, this.row, this.col) == true) {
+                    this.statsPanel.getStats().increaseSunPointsGenerationRate(sunflower.getSunPointGeneratedPerTurn());
+                }
             }
         } else if (plantType == PlantTypes.PEASHOOTER.getName()) {
             Peashooter peashooter = new Peashooter();
             if (peashooter.getSunPointCost() <= this.statsPanel.getStats().getSunPoints()) {
                 this.board.placePlant(peashooter, this.row, this.col);
-                this.statsPanel.update(peashooter.getSunPointCost());
             }
         }
 	}
