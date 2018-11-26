@@ -20,8 +20,7 @@ public class RedoController implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		TurnResult result = this.board.turn();
-	
+		statsPanel.getStats().redo();
 	}
 
 }
