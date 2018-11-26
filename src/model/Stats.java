@@ -117,7 +117,6 @@ public class Stats {
         this.notifyListeners();
     }
 
-    // TODO: Call when a sunflower is killed
     public void decreaseSunPointsGenerationRate(int decrease) {
         this.sunPointsGenerationRate -= decrease;
         this.notifyListeners();

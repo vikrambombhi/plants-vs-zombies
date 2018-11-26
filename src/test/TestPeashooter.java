@@ -8,29 +8,28 @@ import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 
-import model.Sunflower;
+import model.Peashooter;
 
-public class TestSunflower {
+public class TestPeashooter {
 
-    Sunflower sunflower;
+    Peashooter peashooter;
 
     @Before
     public void setup() {
-        sunflower = new Sunflower();
+        peashooter = new Peashooter();
     }
 
     @Test
-    public void testSunflowerType() {
-        assertEquals("Sunflower type should be 'S'", 'S', sunflower.getType());
+    public void testPeashooterType() {
+        assertEquals("Peashooter type should be 'P'", 'P', peashooter.getType());
     }
 
     @Test
-    public void testSunflowerToString() {
-        assertEquals("Sunflower name should be 'Sunflower'", "Sunflower", sunflower.toString());
+    public void testPeashooterToString() {
+        assertEquals("Peashooter name should be 'Peashooter'", "Peashooter", peashooter.toString());
     }
-
     public static void main(String[] args) {
-        Result result = JUnitCore.runClasses(TestSunflower.class);
+        Result result = JUnitCore.runClasses(TestPeashooter.class);
         for (Failure failure : result.getFailures()) {
             System.out.println(failure.toString());
         }
