@@ -14,6 +14,9 @@ public class Stats {
     private int sunPointsGenerationRate;
     private int numZombiesToEliminate;
     private static Stats stats = null;
+    
+    private PlayerInfo currentMove;
+    private CurrentStateStack redoUndoMoves;
 
     /*
      * The Stats class is a singleton class
@@ -31,6 +34,41 @@ public class Stats {
             this.sunPoints = sunPoints;
             this.numZombiesToEliminate = numZombiesToEliminated;
         }
+        currentMove = new PlayerInfo(stats);
+        redoUndoMoves = new CurrentStateStack();
+        
+        try {
+			redoUndoMoves.saveCurrentState(currentMove);
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+    }
+    
+    // After checking whether the previous node has an Object PlayerInfo, the stats gets replaced by the previous node
+    // then passes to the listener to update
+    public boolean undo() {
+    	if(redoUndoMoves.undoChecker()) {
+			this.currentMove = redoUndoMoves.undoMove();
+			this.sunPoints = currentMove.getSunPoints();
+			this.sunPointsGenerationRate = currentMove.getSunPointsGenerationRate();
+			this.numZombiesToEliminate = currentMove.getZombiesRemaining();
+					
+			notifyListeners();
+			return(true);
+		}
+		return false;
+    }
+    
+    public boolean redo() {
+    	if(redoUndoMoves.redoChecker()) {
+    		this.currentMove = redoUndoMoves.redoMove();
+    		this.sunPoints = currentMove.getSunPoints();
+			this.sunPointsGenerationRate = currentMove.getSunPointsGenerationRate();
+			this.numZombiesToEliminate = currentMove.getZombiesRemaining();
+    		notifyListeners();
+    		return true;
+    	}
+    	return false;
     }
 
     public static Stats getStats() {
