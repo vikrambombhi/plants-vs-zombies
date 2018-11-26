@@ -5,18 +5,20 @@ import java.util.Stack;
 /*
  * Keeps track of the state of each turn allowing saves and redos.
  */
-public class TurnStack {
+public class TurnStackBoard {
 
     private Stack<byte[]> stack;
-    private static TurnStack turnStack = null;
+    private static TurnStackBoard turnStackBoard = null;
 
-    public TurnStack() {
+
+    public TurnStackBoard() {
         stack = new Stack<byte[]>();
-        if (TurnStack.turnStack != null) {
-            TurnStack.turnStack = this;
+        if (TurnStackBoard.turnStackBoard != null) {
+            TurnStackBoard.turnStackBoard = this;
+
             System.out.println("returned turnStack model");
         } else {
-            TurnStack.turnStack = this;
+            TurnStackBoard.turnStackBoard = this;
             stack = new Stack<byte[]>();
         }
     }
@@ -31,7 +33,7 @@ public class TurnStack {
         return null;
     }
 
-    public static TurnStack getTurnStack() {
-        return turnStack;
+    public static TurnStackBoard getTurnStackBoard() {
+        return turnStackBoard;
     }
 }

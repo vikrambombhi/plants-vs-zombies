@@ -12,7 +12,8 @@ public class Game {
 
     private static Board board = new Board(5, 10);
     private static MainView gameInterface;
-    private static TurnStack turnStack = new TurnStack();
+    private static TurnStackBoard turnStackBoard = new TurnStackBoard();
+    private static TurnStackStats turnStackStats = new TurnStackStats();
 
     public Game() {}
 

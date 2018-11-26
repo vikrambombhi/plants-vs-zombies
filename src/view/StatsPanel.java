@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Dimension;
+import java.io.Serializable;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -15,7 +16,7 @@ import event.StatsEvent;
  *  StatsPanel includes the amount of sunflower points you have in your bank.
  *  zombies left to kill, and current turn all displayed above the game field.
  */
-public class StatsPanel implements Listener {
+public class StatsPanel implements Listener, Serializable {
 	private JLabel sunPoints, sunPointsGenerationRate, zombiesRemaining, currentTurn;
 	private JPanel stats;
 
