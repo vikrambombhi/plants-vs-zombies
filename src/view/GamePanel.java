@@ -2,6 +2,7 @@ package view;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.io.Serializable;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -16,7 +17,7 @@ import controller.BoardController;
  * View for the game board itself.
  * Creates a grid of buttons and renders out the game state on them
  */
-public class GamePanel implements Listener {
+public class GamePanel implements Listener, Serializable {
 
 	private int ROWS;
 	private int COLS;

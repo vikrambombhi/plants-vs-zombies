@@ -1,5 +1,7 @@
 package model;
 
+import java.io.*;
+import java.io.OutputStreamWriter;
 import java.util.Arrays;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -14,7 +16,7 @@ import event.BoardEvent;
 /*
  * Model representing the game board
  */
-public class Board {
+public class Board implements Serializable {
     private List<Listener> listeners;
 	private Tile[][] tiles;
 	private int height, width;
@@ -225,5 +227,40 @@ public class Board {
     // return the board
     public static Board getBoard() {
         return Board.board;
+    }
+
+    public byte[] saveBoard() throws IOException {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ObjectOutputStream out = new ObjectOutputStream(bos);
+
+        out.writeObject(board);
+        byte[] b = bos.toByteArray();
+        out.close();
+        bos.close();
+
+        return b;
+    }
+
+    public void undoBoard(byte[] b) throws IOException, ClassNotFoundException {
+        ByteArrayInputStream bis = new ByteArrayInputStream(b);
+        ObjectInputStream in = new ObjectInputStream(bis);
+
+        board.setTiles(((Board)in.readObject()).getTiles());
+
+        in.close();
+        bis.close();
+        notifyListeners();
+    }
+
+    public Tile[][] getTiles() {
+        return tiles;
+    }
+
+    public void setTiles(Tile[][] tiles) {
+        for (int row = 0; row < height; row++) {
+            for (int col = 0; col < width; col++) {
+                this.tiles[row][col] = tiles[row][col];
+            }
+        }
     }
 }

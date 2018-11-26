@@ -1,12 +1,18 @@
 package model;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import event.StatsEvent;
 import view.Listener;
 
-public class Stats {
+public class Stats implements Serializable {
 
     private final int SUN_PER_TURN = 5;
 
@@ -112,5 +118,50 @@ public class Stats {
 
     public boolean hasPlayerLost() {
         return playerLost;
+    }
+    
+    public byte[] saveStats() throws IOException {
+    	ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ObjectOutputStream out = new ObjectOutputStream(bos);
+
+        out.writeObject(stats);
+        byte[] b = bos.toByteArray();
+        out.close();
+        bos.close();
+
+        return b;
+    }
+    
+    public void undoStats(byte[] b) throws IOException, ClassNotFoundException {
+    	ByteArrayInputStream bis = null;
+    	ObjectInputStream in = null;
+    	for (int i = 0; i < 3; i++) {
+    		bis = new ByteArrayInputStream(b);
+    		in = new ObjectInputStream(bis);
+    		if (i < 1) stats.setSunPoints(((Stats)in.readObject()).getSunPoints());
+    		else if (i < 2) stats.setSunPointsGenerationRate(((Stats)in.readObject()).getSunPointsGenerationRate());
+    		else stats.setNumZombiesToEliminate(((Stats)in.readObject()).getNumZombiesToEliminate());
+        }
+        in.close();
+        bis.close();
+        notifyListeners();
+    }
+    
+    public void setStats(int sunPoints, int sunPointsGenerationRate, int numZombiesToEliminate) {
+    	this.sunPoints = sunPoints;
+    	this.sunPointsGenerationRate = sunPointsGenerationRate;
+    	this.numZombiesToEliminate = numZombiesToEliminate;
+    }
+    
+    public void setSunPoints(int sunPoints) {
+    	this.sunPoints = sunPoints;
+    }
+    
+    public void setSunPointsGenerationRate(int sunPointsGenerationRate) {
+    	this.sunPointsGenerationRate = sunPointsGenerationRate;
+    }
+    
+    public void setNumZombiesToEliminate(int numZombiesToEliminate) {
+    	this.numZombiesToEliminate = numZombiesToEliminate;
     }
 }

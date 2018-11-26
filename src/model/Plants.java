@@ -1,12 +1,15 @@
 package model;
 
+import java.io.Serializable;
+
 /*
  * "Plants Class" for all type of Plants.
  * Class abstract to define common behavior that can be inherited by multiple subclass Plants.
  * Plants can list from {Peashooter, Repeater, Threepeater, Split Pea, Gatling Pea, etc}
  * Check this site for list of plants https://plantsvszombies.fandom.com/wiki/Plants_(PvZ).
  */
-public abstract class Plants {
+
+public abstract class Plants implements Serializable {
 	private char type;
 
 	protected int hp;

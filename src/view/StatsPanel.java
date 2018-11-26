@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Dimension;
+import java.io.Serializable;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -17,7 +18,7 @@ import event.StatsEvent;
  *      - Number of zombies left remaining that the use must kill/survive
  *      - What number turn the user is on
  */
-public class StatsPanel implements Listener {
+public class StatsPanel implements Listener, Serializable {
 	private JLabel sunPoints, sunPointsGenerationRate, zombiesRemaining, currentTurn;
 	private JPanel stats;
 

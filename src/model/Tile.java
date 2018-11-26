@@ -1,8 +1,9 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayDeque;
 
-public class Tile {
+public class Tile implements Serializable {
 	private Plants plant;
 	private ArrayDeque<Zombies> zombies;
 	private ArrayDeque<Projectile> projectiles;
