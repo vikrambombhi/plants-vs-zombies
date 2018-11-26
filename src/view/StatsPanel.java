@@ -11,9 +11,11 @@ import event.Event;
 import event.StatsEvent;
 
 /*
- *  This is a Subclass that builds the MainView class.
- *  StatsPanel includes the amount of sunflower points you have in your bank.
- *  zombies left to kill, and current turn all displayed above the game field.
+ *  This view shows the user the current stats of their game, this includes the following information:
+ *      - Number of sunpoints the user currently has
+ *      - Number of sunpoints the user gets per turn
+ *      - Number of zombies left remaining that the use must kill/survive
+ *      - What number turn the user is on
  */
 public class StatsPanel implements Listener {
 	private JLabel sunPoints, sunPointsGenerationRate, zombiesRemaining, currentTurn;
@@ -21,19 +23,25 @@ public class StatsPanel implements Listener {
 
 	private Stats gameStats;
 
+    /*
+     * Creates the stats panel
+     */
 	public StatsPanel(Stats gameStats) {
 		this.gameStats = gameStats;
+        // Create labels for all the stats
 		sunPoints = new JLabel("Sun Points: " + this.gameStats.getSunPoints());
 		sunPointsGenerationRate = new JLabel("Sun Points per Turn: " + this.gameStats.getSunPointsGenerationRate());
 		zombiesRemaining = new JLabel("Zombies Remaining: " + this.gameStats.getNumZombiesRemaining());
 		currentTurn = new JLabel("Turn Phase: ");
 		stats = new JPanel();
 		stats.setPreferredSize(new Dimension(200,40));
+        // Add labels to view
 		stats.add(sunPoints);
         stats.add(sunPointsGenerationRate);
 		stats.add(zombiesRemaining);
 		stats.add(currentTurn);
 
+        // Register this view to stats model
         gameStats.addActionListener(this);
 	}
 
@@ -46,6 +54,7 @@ public class StatsPanel implements Listener {
 		return this.gameStats;
 	}
 
+    // Handle updates to the stats, update the view for the user using the new stats
     public void handleEvent(Event event) {
         StatsEvent statsEvent = (StatsEvent)event;
 		this.sunPoints.setText("Sun Points: " + statsEvent.getSunPoints());
