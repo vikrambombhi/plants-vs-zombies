@@ -51,7 +51,10 @@ public class Board {
         this.random = new Random(System.currentTimeMillis());
 	}
 
-    // Register listeners to be notified on changes to this model
+    /*
+     * Register listeners to be notified on changes to this model
+     * @param listener: listener to register to this model
+     */
     public void addActionListener(Listener listener) {
         this.listeners.add(listener);
     }
@@ -62,7 +65,11 @@ public class Board {
         for(Listener listener: listeners) listener.handleEvent(event);
     }
 
-    // Places plant on board
+    /*
+     * Places plant on board
+     * @param plant: plant to place
+     * @param row, col: row and column where the plant is should be placed
+     */
 	public boolean placePlant(Plants plant, int row, int col) {
 		try {
             // Check if there is already a plant on selected location
@@ -83,7 +90,11 @@ public class Board {
 		}
 	}
 
-    // Place zombie on board
+    /*
+     * Place zombie on board
+     * @param zombie: zombie to place
+     * @param row, col: row and column to place zombie at
+     */
 	public void placeZombie(Zombies zombie, int row, int col) {
 		this.tiles[row][col].addZombie(zombie);
         // Notify listeners that a zombie has been placed on the board
@@ -201,12 +212,12 @@ public class Board {
         notifyListeners();
 	}
 
-    // Return height of the board
+    // return height of the board
 	public static int getHeight() {
 		return Board.board.height;
 	}
 
-    // reuturn width of the board
+    // return width of the board
 	public static int getWidth() {
 		return Board.board.width;
 	}
