@@ -133,19 +133,15 @@ public class Stats implements Serializable {
     }
     
     public void undoStats(byte[] b) throws IOException, ClassNotFoundException {
-        ByteArrayInputStream bis = new ByteArrayInputStream(b);
-        ObjectInputStream in = new ObjectInputStream(bis);
-
-        System.out.println(in.available());
-
-        // method 1
-        // stats.setStats(((Stats)in.readObject()).getSunPoints(), ((Stats)in.readObject()).getSunPointsGenerationRate(), ((Stats)in.readObject()).getNumZombiesToEliminate());
-        
-        // method 2
-        stats.setSunPoints(((Stats)in.readObject()).getSunPoints());
-        stats.setSunPointsGenerationRate(((Stats)in.readObject()).getSunPointsGenerationRate());
-        stats.setNumZombiesToEliminate(((Stats)in.readObject()).getNumZombiesToEliminate());
-
+    	ByteArrayInputStream bis = null;
+    	ObjectInputStream in = null;
+    	for (int i = 0; i < 3; i++) {
+    		bis = new ByteArrayInputStream(b);
+    		in = new ObjectInputStream(bis);
+    		if (i < 1) stats.setSunPoints(((Stats)in.readObject()).getSunPoints());
+    		else if (i < 2) stats.setSunPointsGenerationRate(((Stats)in.readObject()).getSunPointsGenerationRate());
+    		else stats.setNumZombiesToEliminate(((Stats)in.readObject()).getNumZombiesToEliminate());
+        }
         in.close();
         bis.close();
         notifyListeners();
