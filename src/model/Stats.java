@@ -27,7 +27,6 @@ public class Stats {
     public Stats(int sunPoints, int numZombiesToEliminated) {
         if (Stats.stats != null) {
             Stats.stats = this;
-            System.out.println("returned stats model");
         } else {
             Stats.stats = this;
 
