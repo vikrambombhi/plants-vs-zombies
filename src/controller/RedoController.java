@@ -3,7 +3,6 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import event.TurnResult;
 import model.Board;
 import view.MainView;
 import view.StatsPanel;
