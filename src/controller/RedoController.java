@@ -18,6 +18,7 @@ public class RedoController implements ActionListener {
 		
 	}
 	
+	// Work on UNDO first
 	public void actionPerformed(ActionEvent e) {
 		statsPanel.getStats().redo();
 	}
