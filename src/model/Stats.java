@@ -1,12 +1,13 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import event.StatsEvent;
 import view.Listener;
 
-public class Stats {
+public class Stats implements Serializable, Cloneable{
 
     private final int SUN_PER_TURN = 5;
 
@@ -18,8 +19,7 @@ public class Stats {
     private int turn;
     private boolean playerLost;
     private static Stats stats = null;
-    
-    private PlayerInfo currentMove;
+
     private CurrentStateStack redoUndoMoves;
 
     /*
@@ -41,24 +41,32 @@ public class Stats {
             this.turn = 1;
             this.playerLost = false;
         }
-        currentMove = new PlayerInfo(stats);
         redoUndoMoves = new CurrentStateStack();
         
         try {
-			redoUndoMoves.saveCurrentState(currentMove);
+			redoUndoMoves.saveCurrentState(stats);
 		} catch (CloneNotSupportedException e) {
 			e.printStackTrace();
 		}
     }
     
+    public Object clone() throws CloneNotSupportedException{
+		Stats clone = (Stats)super.clone();
+		clone.sunPoints = this.sunPoints;
+		clone.sunPointsGenerationRate = this.sunPointsGenerationRate;
+		clone.numZombiesToEliminate = this.numZombiesToEliminate;
+		
+		return clone;
+	}
+    
     // After checking whether the previous node has an Object PlayerInfo, the stats gets replaced by the previous node
     // then passes to the listener to update
     public boolean undo() {
     	if(redoUndoMoves.undoChecker()) {
-			this.currentMove = redoUndoMoves.undoMove();
-			this.sunPoints = currentMove.getSunPoints();
-			this.sunPointsGenerationRate = currentMove.getSunPointsGenerationRate();
-			this.numZombiesToEliminate = currentMove.getZombiesRemaining();		
+			this.stats = redoUndoMoves.undoMove();
+			this.sunPoints = stats.getSunPoints();
+			this.sunPointsGenerationRate = stats.getSunPointsGenerationRate();
+			this.numZombiesToEliminate = stats.getNumZombiesRemaining();	
 			notifyListeners();
 			return(true);
 		}
@@ -67,18 +75,19 @@ public class Stats {
     
     public boolean redo() {
     	if(redoUndoMoves.redoChecker()) {
-    		this.currentMove = redoUndoMoves.redoMove();
-    		this.sunPoints = currentMove.getSunPoints();
-			this.sunPointsGenerationRate = currentMove.getSunPointsGenerationRate();
-			this.numZombiesToEliminate = currentMove.getZombiesRemaining();
+    		this.stats = redoUndoMoves.redoMove();
+    		this.sunPoints = stats.getSunPoints();
+			this.sunPointsGenerationRate = stats.getSunPointsGenerationRate();
+			this.numZombiesToEliminate = stats.getNumZombiesRemaining();
     		notifyListeners();
     		return true;
     	}
     	return false;
     }
     
+    // Saves the current state onto the stack.
     public void storeCurrentTurn() throws CloneNotSupportedException {
-    	redoUndoMoves.saveCurrentState(currentMove);
+    	redoUndoMoves.saveCurrentState(stats);
     }
 
     public static Stats getStats() {

@@ -5,21 +5,21 @@ import java.util.Stack;
 public class CurrentStateStack {
 //	private static Stack<LevelInfo> pastLevel;
 //	private static Stack<LevelInfo> futureLevel;
-	private static Stack<PlayerInfo> pastMove;
-	private static Stack<PlayerInfo> futureMove;
+	private static Stack<Stats> pastMove;
+	private static Stack<Stats> futureMove;
 	
 	public CurrentStateStack() {
-		pastMove = new Stack<PlayerInfo>();
-		futureMove = new Stack<PlayerInfo>();
+		pastMove = new Stack<Stats>();
+		futureMove = new Stack<Stats>();
 	}
 	
-	public void saveCurrentState(PlayerInfo currentPlayerInfo) throws CloneNotSupportedException {
-		pastMove.push((PlayerInfo) currentPlayerInfo.clone());
+	public void saveCurrentState(Stats currentStats) throws CloneNotSupportedException {
+		pastMove.push((Stats) currentStats.clone());
 		futureMove.clear();
 	}
 	
-	public PlayerInfo undoMove() {
-		PlayerInfo tempPlayer = null; // Make a temp playerinfo to store info from stack
+	public Stats undoMove() {
+		Stats tempPlayer = null; // Make a temp Stats to store info from stack
 		
 		if(!pastMove.isEmpty()){
 			tempPlayer = pastMove.pop();
@@ -34,8 +34,8 @@ public class CurrentStateStack {
 		return checker;
 	}
 	
-	public PlayerInfo redoMove() {
-		PlayerInfo tempMove = null; // Make a temp playerinfo to store info from stack
+	public Stats redoMove() {
+		Stats tempMove = null; // Make a temp Stats to store info from stack
 		
 		if(!futureMove.isEmpty()) {
 			tempMove = futureMove.pop();
