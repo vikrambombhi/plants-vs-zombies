@@ -26,7 +26,8 @@ public class SettingsController implements ActionListener {
 			
 			gameInterface.getCreatePVZGame().setEnabled(false);
 			gameInterface.getSavePVZGame().setEnabled(true);
-			gameInterface.getChangeBoardDimensions().setEnabled(true);
+			gameInterface.getCreateMap().setEnabled(true);
+			gameInterface.getLoadMap().setEnabled(true);
 			gameInterface.getContentPane().setVisible(true);
 			
 			System.out.println(e.getActionCommand());
@@ -36,6 +37,29 @@ public class SettingsController implements ActionListener {
 			JOptionPane.showMessageDialog(gameInterface.getContentPane(),"Thanks for Playing! \nGoodBye!");
 			System.exit(0);
 		}
-	}
 
+		if(e.getSource() == gameInterface.getCreateMap()) {
+            JFileChooser fc = gameInterface.getFileChooser();
+            int returnVal = fc.showSaveDialog(gameInterface);
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                File file = fc.getSelectedFile();
+                // TODO: create xml here.
+                System.out.println("Saving: " + file.getName());
+            } else {
+                System.out.println("Open command cancelled by user.");
+            }
+		}
+
+		if(e.getSource() == gameInterface.getLoadMap()) {
+            JFileChooser fc = gameInterface.getFileChooser();
+            int returnVal = fc.showOpenDialog(gameInterface);
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                File file = fc.getSelectedFile();
+                // TODO: open xml here
+                System.out.println("Opening: " + file.getName());
+            } else {
+                System.out.println("Open command cancelled by user.");
+            }
+		}
+	}
 }

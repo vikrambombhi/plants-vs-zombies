@@ -34,10 +34,11 @@ public class MainView extends JFrame {
 	JMenuBar menuBar;
 	JMenu gameMenu, settingMenu;
 	
-	JMenuItem createPVZGame, savePVZGame, quitPVZGame, changeBoardDimensions;
+	JMenuItem createPVZGame, savePVZGame, quitPVZGame, createMap, loadMap;
 	JTextArea textArea;
 	JScrollPane scrollPane;
 	JOptionPane optionPane;
+    JFileChooser fc;
 	Container contentPane;
 	GridBagLayout layout;
 	
@@ -83,8 +84,10 @@ public class MainView extends JFrame {
 		gameMenu.add(quitPVZGame);
 		
         // Create and and option for menubar under settings menu
-		changeBoardDimensions = new JMenuItem("Change Game Field Dimension");
-		settingMenu.add(changeBoardDimensions);
+		createMap = new JMenuItem("Create new map");
+		loadMap = new JMenuItem("Load custom map");
+		settingMenu.add(createMap);
+		settingMenu.add(loadMap);
 		
 		/* This component contains the game's stats like sun flower points and zombies left to kill */
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -127,11 +130,15 @@ public class MainView extends JFrame {
 		savePVZGame.setEnabled(false);
 		quitPVZGame.setEnabled(true);
 
-		changeBoardDimensions.setEnabled(true);
+		createMap.setEnabled(true);
+		loadMap.setEnabled(true);
 		
 		/* Display the interface */
 		setVisible(true);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        // Create a file chooser
+        fc = new JFileChooser();
 	}
 	
 	/* Create action handler for each sub menu option */
@@ -139,7 +146,8 @@ public class MainView extends JFrame {
 		createPVZGame.addActionListener(handler);
 		savePVZGame.addActionListener(handler);
 		quitPVZGame.addActionListener(handler);
-		changeBoardDimensions.addActionListener(handler);
+		createMap.addActionListener(handler);
+		loadMap.addActionListener(handler);
 	}
 	
 	/* Use to get createPVZGame variable from view for Controller */
@@ -152,9 +160,19 @@ public class MainView extends JFrame {
 		return savePVZGame;
 	}
 	
-	/* Use to get changeBoardDimension variable from view for Controller */
-	public JMenuItem getChangeBoardDimensions() {
-		return changeBoardDimensions;
+	/* Use to get createMap variable from view for Controller */
+	public JMenuItem getCreateMap() {
+		return createMap;
+	}
+
+	/* Use to get loadMap variable from view for Controller */
+	public JMenuItem getLoadMap() {
+		return loadMap;
+	}
+
+	/* Use to get fc variable from view for Controller */
+	public JFileChooser getFileChooser() {
+        return fc;
 	}
 	
 	/* Use to get quitPVZGame variable from view for Controller */
