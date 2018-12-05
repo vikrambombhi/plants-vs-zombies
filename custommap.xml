@@ -1,0 +1,7 @@
+<?xml version = "1.0"?>
+<plants-vs-zombies>
+  <board>
+    <height>10</height>
+    <width>10</width>
+  </board>
+</plants-vs-zombies>
