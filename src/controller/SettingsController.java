@@ -117,13 +117,26 @@ public class SettingsController implements ActionListener {
 		}
 
 		if(e.getSource() == gameInterface.getCreateMap()) {
+
+            String input_height = JOptionPane.showInputDialog("Please input custom map height: ");
+            String input_width = JOptionPane.showInputDialog("Please input custom map width: ");
+			int height, width;
+			try {
+				height = Integer.parseInt(input_height);
+				width = Integer.parseInt(input_width);
+			}
+			catch(NumberFormatException err){
+				System.out.println("Error parsing input");
+				return;
+			}
+
             JFileChooser fc = gameInterface.getFileChooser();
             int returnVal = fc.showSaveDialog(gameInterface);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = fc.getSelectedFile();
                 System.out.println("Saving file " + file.getName());
                 // TODO: ask user for height and width
-                saveConfig(file, 10, 50);
+                saveConfig(file, height, width);
             } else {
                 System.out.println("Open command cancelled by user.");
             }
