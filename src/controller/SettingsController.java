@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 import org.w3c.dom.Document;
@@ -22,6 +23,9 @@ import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import game.Game;
+import model.Board;
+import model.Stats;
 import view.MainView;
 
 public class SettingsController implements ActionListener {
@@ -48,9 +52,13 @@ public class SettingsController implements ActionListener {
 
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                     Element eElement = (Element) nNode;
-                    // TODO: Handle new config
-                    System.out.println("Height: " + eElement.getElementsByTagName("height").item(0).getTextContent());
-                    System.out.println("Width: " + eElement.getElementsByTagName("width").item(0).getTextContent());
+                    int height = Integer.parseInt(eElement.getElementsByTagName("height").item(0).getTextContent());
+                    int width = Integer.parseInt(eElement.getElementsByTagName("width").item(0).getTextContent());
+                    Board newBoard = Board.getBoard();
+                    newBoard.loadBoardConfig(height, width);
+                    Stats resetStats = Stats.getStats();
+                    resetStats.resetStats(10, 10);
+                    gameInterface.resetMainView();
                 }
             }
         } catch (Exception e) {

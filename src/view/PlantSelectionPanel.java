@@ -2,6 +2,7 @@ package view;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.io.Serializable;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JRadioButton;
@@ -14,7 +15,7 @@ import model.Sunflower;
 /*
  * This view allows the user to select which plant to buy
  */
-public class PlantSelectionPanel {
+public class PlantSelectionPanel implements Serializable {
 	private final int PLANT_TYPES = PlantTypes.values().length;
 	private JRadioButton[] plants;
 	private JPanel shopPanel;
