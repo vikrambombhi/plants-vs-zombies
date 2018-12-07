@@ -27,13 +27,16 @@ public class DecisionPanel {
 		decisions[1] = new JButton("Undo");
 		decisions[2] = new JButton("Redo");
 		
+		decisions[1].setEnabled(false);
+		decisions[2].setEnabled(false);
+		
 		// Loop in case we want to extend the options in the future
 		for ( int i = 0; i < MAX_OPTIONS; i++) {
 			decisionsPanel.add(decisions[i]);
 		}
 
-		decisions[0].addActionListener(new NextTurnController(statsPanel));
-		decisions[1].addActionListener(new UndoTurnController(statsPanel));
+		decisions[0].addActionListener(new NextTurnController(statsPanel, decisions));
+		decisions[1].addActionListener(new UndoTurnController(statsPanel, decisions));
 		decisions[2].addActionListener(new RedoTurnController(statsPanel));
 	}
 	/* Use to get decisionPanel variable from for MainView */
