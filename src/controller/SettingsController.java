@@ -3,12 +3,20 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
+
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
+
+import model.Board;
+import model.Stats;
+import model.TurnStackBoard;
+import model.TurnStackStats;
+
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 
@@ -26,9 +34,17 @@ import view.MainView;
 
 public class SettingsController implements ActionListener {
 	private MainView gameInterface;
+	private Stats stats;
+	private Board board;
+	private TurnStackBoard turnStackBoard;
+    private TurnStackStats turnStackStats;
 
 	public SettingsController(MainView gameInterface) {
         this.gameInterface = gameInterface;
+        this.stats = Stats.getStats();
+        this.board = Board.getBoard();
+		this.turnStackBoard = TurnStackBoard.getTurnStackBoard();
+        this.turnStackStats = TurnStackStats.getTurnStackStats();
 		gameInterface.addActionListenerSettingsController(this);
 	}
 
@@ -99,6 +115,47 @@ public class SettingsController implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 
+		if(e.getSource() == gameInterface.getSavePVZGame()) {
+			JFileChooser fc = gameInterface.getFileChooser();
+            int returnVal = fc.showSaveDialog(gameInterface);
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                File file = fc.getSelectedFile();
+                System.out.println("Saving File " + file.getName());
+                try {
+                	turnStackBoard.writeObject(file.getPath());
+                	turnStackStats.writeObject(file.getPath());
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+            } else {
+                System.out.println("Open command cancelled by user.");
+            }
+		}
+		
+		if(e.getSource() == gameInterface.getLoadPVZGame()) {
+			JFileChooser fc = gameInterface.getFileChooser();
+            int returnVal = fc.showSaveDialog(gameInterface);
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                File file = fc.getSelectedFile();
+                System.out.println("Loading File " + file.getName());
+                try {
+//                	turnStackBoard.readObject(file.getPath());
+//                	turnStackStats.readObject(file.getPath());
+                	this.board.undoBoard(turnStackBoard.readObject(file.getPath()));
+                	this.stats.undoStats(turnStackStats.readObject(file.getPath()));
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+            } else {
+                System.out.println("Open command cancelled by user.");
+            }
+		}
+		
 		if(e.getSource() == gameInterface.getQuitPVZGame()) {
 			JOptionPane.showMessageDialog(gameInterface.getContentPane(),"Thanks for Playing! \nGoodBye!");
 			System.exit(0);
