@@ -2,6 +2,9 @@ package controller;
 
 import java.awt.event.ActionListener;
 import java.io.IOException;
+
+import javax.swing.JButton;
+
 import java.awt.event.ActionEvent;
 
 import event.StatsEvent;
@@ -21,11 +24,13 @@ public class NextTurnController implements ActionListener {
     private Stats stats;
     private TurnStackBoard turnStackBoard;
     private TurnStackStats turnStackStats;
+    private JButton[] decisions;
 
     // Create controller
-    public NextTurnController(StatsPanel panel) {
+    public NextTurnController(StatsPanel panel, JButton[] decisions) {
         this.board = Board.getBoard();
         this.statsPanel = panel;
+        this.decisions = decisions;
         this.stats = Stats.getStats();
         this.turnStackBoard = TurnStackBoard.getTurnStackBoard();
         this.turnStackStats = TurnStackStats.getTurnStackStats();
@@ -36,6 +41,10 @@ public class NextTurnController implements ActionListener {
         try {
             this.turnStackBoard.saveTurn(this.board.saveBoard());
             this.turnStackStats.saveTurn(this.stats.saveStats());
+            
+            decisions[1].setEnabled(true);
+            decisions[2].setEnabled(false);
+    		
         } catch (IOException ex) {
             ex.printStackTrace();
         }
