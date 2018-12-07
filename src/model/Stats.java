@@ -30,7 +30,7 @@ public class Stats implements Serializable {
      * @param sunPoints: amount of sunpoints to start with
      * @param numZombiesToEliminate: number of zombies to be eliminate
      */
-    public Stats(int sunPoints, int numZombiesToEliminated) {
+    public Stats(int sunPoints, int numZombiesToEliminate) {
         if (Stats.stats != null) {
             Stats.stats = this;
         } else {
@@ -39,7 +39,7 @@ public class Stats implements Serializable {
             this.listeners = new ArrayList<>();
             this.sunPoints = sunPoints;
             this.sunPointsGenerationRate = SUN_PER_TURN;
-            this.numZombiesToEliminate = numZombiesToEliminated;
+            this.numZombiesToEliminate = numZombiesToEliminate;
             this.turn = 1;
             this.playerLost = false;
         }
@@ -47,6 +47,14 @@ public class Stats implements Serializable {
 
     public static Stats getStats() {
         return Stats.stats;
+    }
+
+    public void resetStats(int sunPoints, int numZombiesToEliminate) {
+        this.sunPoints = sunPoints;
+        this.sunPointsGenerationRate = SUN_PER_TURN;
+        this.numZombiesToEliminate = numZombiesToEliminate;
+        this.turn = 1;
+        this.playerLost = false;
     }
 
     public void notifyListeners() {

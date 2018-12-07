@@ -24,7 +24,10 @@ public class GamePanel implements Listener, Serializable {
 	
 	GridLayout gameField;
 	JButton[][] gameFieldSlot;
-	JPanel gamePanel;
+    JPanel gamePanel;
+    
+    PlantSelectionPanel plantSelectionPanel;
+    StatsPanel statsPanel;
 	
     /*
      * Create grid of buttons as game board
@@ -33,6 +36,8 @@ public class GamePanel implements Listener, Serializable {
         // Get height and width of the board from the board model
         this.ROWS = Board.getHeight();
         this.COLS = Board.getWidth();
+        this.plantSelectionPanel = plantSelectionPanel;
+        this.statsPanel = statsPanel;
         
         // Create two dimensional array to hold all the buttons
 		gameFieldSlot = new JButton[ROWS][COLS];
@@ -57,7 +62,31 @@ public class GamePanel implements Listener, Serializable {
         Board board = Board.getBoard();
         // Regester this view to the board model
         board.addActionListener(this);
-	}
+    }
+    
+    public void newGamePanel() {
+        this.ROWS = Board.getHeight();
+        this.COLS = Board.getWidth();
+        
+        // Create two dimensional array to hold all the buttons
+		gameFieldSlot = new JButton[ROWS][COLS];
+        // Craete grid layout
+		gameField = new GridLayout(ROWS, COLS);
+		gamePanel = new JPanel();
+		gamePanel.setPreferredSize(new Dimension(450, 250));
+		gamePanel.setLayout(gameField);
+		
+        // Populate two dimensional array with buttons
+		for(int x = 0; x < ROWS; x++) {
+			for (int y = 0; y < COLS; y++) {
+                // Create button
+				gameFieldSlot[x][y] = new JButton();
+                // Register controller for the button
+                gameFieldSlot[x][y].addActionListener(new BoardController(x, y, plantSelectionPanel, statsPanel));
+				gamePanel.add(gameFieldSlot[x][y]);
+			}
+		}
+    }
 	
     /*
      * Change dimensions on the game board.

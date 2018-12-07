@@ -61,10 +61,22 @@ public class Board implements Serializable {
         this.listeners.add(listener);
     }
 
-    // Notifis listeners of current board state
+    // Notifies listeners of current board state
     public void notifyListeners() {
         BoardEvent event = new BoardEvent(this, this.tiles);
         for(Listener listener: listeners) listener.handleEvent(event);
+    }
+
+    public void loadBoardConfig(int height, int width) {
+        this.listeners = new ArrayList<>();
+        this.tiles = new Tile[height][width];
+        this.height = height;
+        this.width = width;
+        for (int row = 0; row < height; row++) {
+            for (int col = 0; col < width; col++) {
+                this.tiles[row][col] = new Tile();
+            }
+        }
     }
 
     /*
@@ -197,10 +209,6 @@ public class Board implements Serializable {
      */
 	public void turn() { 
 		Stats stats = Stats.getStats();
-        
-        if (numZombiesToGenerate > 0) {
-            generateZombie(10);
-        }
 
         for (int row = 0; row < height; row++) {
             for (int col = 0; col < width; col++) {
@@ -209,6 +217,10 @@ public class Board implements Serializable {
                 moveProjectiles(stats.getTurn(), row, col);
                 moveZombies(stats, row, col);
             }
+        }
+
+        if (numZombiesToGenerate > 0) {
+            generateZombie(10);
         }
         
         notifyListeners();

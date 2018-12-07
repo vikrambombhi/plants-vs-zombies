@@ -60,10 +60,20 @@ public class MainView extends JFrame {
         // Setup window layout and dimensions
 		setLocationRelativeTo(null);
 		setSize(1000, 500);
+
 		layout = new GridBagLayout();
-		GridBagConstraints c = new GridBagConstraints();
 		contentPane = getContentPane();
 		contentPane.setLayout(layout);
+
+		setupMainView(new Stats(10, 10));
+		
+		/* Display the interface */
+		setVisible(true);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+	}
+
+	public void setupMainView(Stats stats) {
+		GridBagConstraints c = new GridBagConstraints();
 		
         // Create menu bar
 		menuBar = new JMenuBar();
@@ -93,7 +103,7 @@ public class MainView extends JFrame {
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 0;
-		statsPanel = new StatsPanel(new Stats(10, 10));
+		statsPanel = new StatsPanel(stats);
 		contentPane.add(statsPanel.getStatsPanel(), c);
 
 		/* This component contains the flowers you can select to place on the game field */
@@ -124,21 +134,21 @@ public class MainView extends JFrame {
 		c.gridy = 2;
 		decisionPanel = new DecisionPanel(statsPanel);
 		contentPane.add(decisionPanel.getDecisionPanel(), c);
-		
-		/* Disable some sub menu option: forces user to create an AddressBook first */
-		createPVZGame.setEnabled(true);
-		savePVZGame.setEnabled(false);
-		quitPVZGame.setEnabled(true);
 
-		createMap.setEnabled(true);
-		loadMap.setEnabled(true);
-		
-		/* Display the interface */
-		setVisible(true);
-		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		fc = new JFileChooser();
+	}
 
-        // Create a file chooser
-        fc = new JFileChooser();
+	/* Resets the main view for custom map */
+	public void resetMainView() {
+		layout = new GridBagLayout();
+		contentPane = getContentPane();
+		contentPane.removeAll();
+		contentPane.setLayout(layout);
+
+		setupMainView(Stats.getStats());
+
+		revalidate();
+		repaint();
 	}
 	
 	/* Create action handler for each sub menu option */
@@ -178,5 +188,9 @@ public class MainView extends JFrame {
 	/* Use to get quitPVZGame variable from view for Controller */
 	public JMenuItem getQuitPVZGame() {
 		return quitPVZGame;
+	}
+
+	public GamePanel getGamePanel() {
+		return gamePanel;
 	}
 }
