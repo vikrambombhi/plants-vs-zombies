@@ -98,18 +98,6 @@ public class SettingsController implements ActionListener {
     }
 
 	public void actionPerformed(ActionEvent e) {
-		/*
-         * This action creates the game by making the game visible.
-         * This also enables and disables some of the menu selections.
-         */
-		if(e.getSource() == gameInterface.getCreatePVZGame()) {
-			gameInterface.getCreatePVZGame().setEnabled(false);
-			gameInterface.getSavePVZGame().setEnabled(true);
-			gameInterface.getCreateMap().setEnabled(true);
-			gameInterface.getLoadMap().setEnabled(true);
-			gameInterface.getContentPane().setVisible(true);
-			System.out.println(e.getActionCommand());
-		}
 
 		if(e.getSource() == gameInterface.getQuitPVZGame()) {
 			JOptionPane.showMessageDialog(gameInterface.getContentPane(),"Thanks for Playing! \nGoodBye!");

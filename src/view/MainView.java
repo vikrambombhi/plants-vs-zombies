@@ -34,7 +34,7 @@ public class MainView extends JFrame {
 	JMenuBar menuBar;
 	JMenu gameMenu, settingMenu;
 	
-	JMenuItem createPVZGame, savePVZGame, quitPVZGame, createMap, loadMap;
+	JMenuItem savePVZGame, loadPVZGame, quitPVZGame, createMap, loadMap;
 	JTextArea textArea;
 	JScrollPane scrollPane;
 	JOptionPane optionPane;
@@ -74,12 +74,12 @@ public class MainView extends JFrame {
 		setJMenuBar(menuBar);
 		
         // Create options for menubar
-		createPVZGame = new JMenuItem("Create Game");
 		savePVZGame = new JMenuItem("Save Game");
+		loadPVZGame = new JMenuItem("Load Game");
 		quitPVZGame = new JMenuItem("Quit");
         // Add created options to menu bar under game menu
-		gameMenu.add(createPVZGame);
 		gameMenu.add(savePVZGame);
+		gameMenu.add(loadPVZGame);
 		gameMenu.addSeparator();
 		gameMenu.add(quitPVZGame);
 		
@@ -126,8 +126,8 @@ public class MainView extends JFrame {
 		contentPane.add(decisionPanel.getDecisionPanel(), c);
 		
 		/* Disable some sub menu option: forces user to create an AddressBook first */
-		createPVZGame.setEnabled(true);
-		savePVZGame.setEnabled(false);
+		savePVZGame.setEnabled(true);
+		loadPVZGame.setEnabled(true);
 		quitPVZGame.setEnabled(true);
 
 		createMap.setEnabled(true);
@@ -143,21 +143,21 @@ public class MainView extends JFrame {
 	
 	/* Create action handler for each sub menu option */
 	public void addActionListenerSettingsController(SettingsController handler) {
-		createPVZGame.addActionListener(handler);
 		savePVZGame.addActionListener(handler);
+		loadPVZGame.addActionListener(handler);
 		quitPVZGame.addActionListener(handler);
 		createMap.addActionListener(handler);
 		loadMap.addActionListener(handler);
 	}
 	
-	/* Use to get createPVZGame variable from view for Controller */
-	public JMenuItem getCreatePVZGame() {
-		return createPVZGame;
-	}
-	
 	/* Use to get savePVZGame variable from view for Controller */
 	public JMenuItem getSavePVZGame() {
 		return savePVZGame;
+	}
+	
+	/* Use to get savePVZGame variable from view for Controller */
+	public JMenuItem getLoadPVZGame() {
+		return loadPVZGame;
 	}
 	
 	/* Use to get createMap variable from view for Controller */
