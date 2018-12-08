@@ -160,7 +160,9 @@ public class Board implements Serializable {
      */
     private void moveZombies(Stats stats, int row, int col) {
         ArrayDeque<Zombies> zombies = this.tiles[row][col].getZombies();
-        for (Zombies zombie : zombies) {
+        Iterator<Zombies> iter = zombies.iterator();
+        while (iter.hasNext()) {
+            Zombies zombie = iter.next();
             // If a plant is to the zombie's left, it attacks it.
             Plants plant = this.tiles[row][col-1].getPlant();
             if (col > 0 &&  plant != null) {
@@ -172,7 +174,7 @@ public class Board implements Serializable {
                     this.tiles[row][moveTo].turn(zombie);
                     moveTo--;
                 }
-                zombies.remove(zombie);
+                iter.remove();
                 if (zombie.getHP() > 0) {
                     zombie.queueNextTurn();
                     this.tiles[row][moveTo].addZombie(zombie);
@@ -208,7 +210,11 @@ public class Board implements Serializable {
      * A turn plays out. Each tile is investigated to see if a plant does an action or if projectiles move or if a zombie moves or attacks.
      */
 	public void turn() { 
-		Stats stats = Stats.getStats();
+        Stats stats = Stats.getStats();
+        
+        if (numZombiesToGenerate > 0) {
+            generateZombie(10);
+        }
 
         for (int row = 0; row < height; row++) {
             for (int col = 0; col < width; col++) {
@@ -217,10 +223,6 @@ public class Board implements Serializable {
                 moveProjectiles(stats.getTurn(), row, col);
                 moveZombies(stats, row, col);
             }
-        }
-
-        if (numZombiesToGenerate > 0) {
-            generateZombie(10);
         }
         
         notifyListeners();

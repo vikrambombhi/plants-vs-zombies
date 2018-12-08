@@ -21,7 +21,7 @@ public abstract class Zombies implements Serializable {
 		this.damage = damage;
 		this.movespeed = movespeed;
 		this.distanceLeft = movespeed;
-		this.turn = Stats.getStats().getTurn();
+		this.turn = Stats.getStats().getTurn()+1;
 	}
 
 	public int getHP() {
