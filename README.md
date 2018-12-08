@@ -31,6 +31,10 @@ In this iteration the old command line interface has been completely removed and
 A new tank type zombie has been added to the game. This zombie is stronger than normal zombies but has a lower probability of spawning.
 A lot more tests and documentations has been added in a effort to remove code smells.
 
+# Milestone 34 Deliverable
+Fully-featured with various types of plants and zombies, and unlimited undo/redo feature and save/load
+
+==============================================================================
 # Milestone 3 Deliverable
 Fully-featured with various types of plants and zombies, and unlimited undo/redo feature
 
