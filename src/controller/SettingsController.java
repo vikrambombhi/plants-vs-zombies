@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 import org.w3c.dom.Document;
@@ -32,6 +33,9 @@ import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import game.Game;
+import model.Board;
+import model.Stats;
 import view.MainView;
 
 public class SettingsController implements ActionListener {
@@ -68,9 +72,13 @@ public class SettingsController implements ActionListener {
 
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                     Element eElement = (Element) nNode;
-                    // TODO: Handle new config
-                    System.out.println("Height: " + eElement.getElementsByTagName("height").item(0).getTextContent());
-                    System.out.println("Width: " + eElement.getElementsByTagName("width").item(0).getTextContent());
+                    int height = Integer.parseInt(eElement.getElementsByTagName("height").item(0).getTextContent());
+                    int width = Integer.parseInt(eElement.getElementsByTagName("width").item(0).getTextContent());
+                    Board newBoard = Board.getBoard();
+                    newBoard.loadBoardConfig(height, width);
+                    Stats resetStats = Stats.getStats();
+                    resetStats.resetStats(10, 10);
+                    gameInterface.resetMainView();
                 }
             }
         } catch (Exception e) {
@@ -166,13 +174,26 @@ public class SettingsController implements ActionListener {
 		}
 
 		if(e.getSource() == gameInterface.getCreateMap()) {
+
+            String input_height = JOptionPane.showInputDialog("Please input custom map height: ");
+            String input_width = JOptionPane.showInputDialog("Please input custom map width: ");
+			int height, width;
+			try {
+				height = Integer.parseInt(input_height);
+				width = Integer.parseInt(input_width);
+			}
+			catch(NumberFormatException err){
+				System.out.println("Error parsing input");
+				return;
+			}
+
             JFileChooser fc = gameInterface.getFileChooser();
             int returnVal = fc.showSaveDialog(gameInterface);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = fc.getSelectedFile();
                 System.out.println("Saving file " + file.getName());
                 // TODO: ask user for height and width
-                saveConfig(file, 10, 50);
+                saveConfig(file, height, width);
             } else {
                 System.out.println("Open command cancelled by user.");
             }

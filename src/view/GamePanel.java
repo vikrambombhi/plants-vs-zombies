@@ -23,9 +23,9 @@ public class GamePanel implements Listener, Serializable {
 	private int COLS;
 	
 	GridLayout gameField;
-	JButton[][] gameFieldSlot;
-	JPanel gamePanel;
-	
+    JButton[][] gameFieldSlot;
+    JPanel gamePanel;
+
     /*
      * Create grid of buttons as game board
      */
@@ -57,7 +57,7 @@ public class GamePanel implements Listener, Serializable {
         Board board = Board.getBoard();
         // Regester this view to the board model
         board.addActionListener(this);
-	}
+    }
 	
     /*
      * Change dimensions on the game board.
