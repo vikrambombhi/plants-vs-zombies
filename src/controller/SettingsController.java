@@ -82,6 +82,7 @@ public class SettingsController implements ActionListener {
                     Stats resetStats = Stats.getStats();
                     resetStats.resetStats(10, 10);
                     gameInterface.resetMainView();
+                    gameInterface.addActionListenerSettingsController(this);
                 }
             }
         } catch (Exception e) {
@@ -197,7 +198,6 @@ public class SettingsController implements ActionListener {
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = fc.getSelectedFile();
                 System.out.println("Saving file " + file.getName());
-                // TODO: ask user for height and width
                 saveConfig(file, height, width);
             } else {
                 System.out.println("Open command cancelled by user.");
