@@ -1,5 +1,10 @@
 package model;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Stack;
 
 /*
@@ -54,5 +59,32 @@ public class TurnStackBoard {
 
     public static TurnStackBoard getTurnStackBoard() {
         return turnStackBoard;
+    }
+    
+    public byte[] getCurrentBoard() {
+    	if (pastStack.size() == 0) return null;
+    	return pastStack.peek();
+    }
+    
+    public void writeObject(String filePath) throws IOException {
+    	byte[] tempStack = null;  
+    	if (pastStack.size() > 1) {
+         	tempStack = pastStack.pop();
+    	 } else tempStack = pastStack.peek();
+
+    	FileOutputStream streamToFile = new FileOutputStream(filePath);
+    	ObjectOutputStream outStream= new ObjectOutputStream(streamToFile);
+    	outStream.writeObject(tempStack);
+    	outStream.close();
+    }
+    
+    public byte[] readObject(String filePath) throws ClassNotFoundException, IOException {
+    	byte[] tempStack = null;
+    	FileInputStream streamToFile = new FileInputStream(filePath);
+    	ObjectInputStream inStream = new ObjectInputStream(streamToFile);
+    	tempStack =(byte[]) inStream.readObject();
+    	inStream.close();
+    	
+    	return tempStack;
     }
 }

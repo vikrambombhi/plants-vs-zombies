@@ -3,6 +3,9 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -10,6 +13,13 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
+
+import model.Board;
+import model.Stats;
+import model.TurnStackBoard;
+import model.TurnStackStats;
+import model.TurnStacks;
+
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 
@@ -30,9 +40,19 @@ import view.MainView;
 
 public class SettingsController implements ActionListener {
 	private MainView gameInterface;
+	private Stats stats;
+	private Board board;
+//	private TurnStackBoard turnStackBoard;
+//    private TurnStackStats turnStackStats;
+    private TurnStacks turnStackSet;
 
 	public SettingsController(MainView gameInterface) {
         this.gameInterface = gameInterface;
+        this.stats = Stats.getStats();
+        this.board = Board.getBoard();
+//		this.turnStackBoard = TurnStackBoard.getTurnStackBoard();
+//        this.turnStackStats = TurnStackStats.getTurnStackStats();
+        this.turnStackSet = TurnStacks.getTurnStacks();
 		gameInterface.addActionListenerSettingsController(this);
 	}
 
@@ -106,19 +126,48 @@ public class SettingsController implements ActionListener {
     }
 
 	public void actionPerformed(ActionEvent e) {
-		/*
-         * This action creates the game by making the game visible.
-         * This also enables and disables some of the menu selections.
-         */
-		if(e.getSource() == gameInterface.getCreatePVZGame()) {
-			gameInterface.getCreatePVZGame().setEnabled(false);
-			gameInterface.getSavePVZGame().setEnabled(true);
-			gameInterface.getCreateMap().setEnabled(true);
-			gameInterface.getLoadMap().setEnabled(true);
-			gameInterface.getContentPane().setVisible(true);
-			System.out.println(e.getActionCommand());
-		}
 
+		if(e.getSource() == gameInterface.getSavePVZGame()) {
+			JFileChooser fc = gameInterface.getFileChooser();
+            int returnVal = fc.showSaveDialog(gameInterface);
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                File file = fc.getSelectedFile();
+                System.out.println("Saving File " + file.getName());
+                try {
+                	turnStackSet.writeObject(file.getPath());
+                	// turnStackBoard.writeObject(file.getPath());
+                	//turnStackStats.writeObject(file.getPath());
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+            } else {
+                System.out.println("Open command cancelled by user.");
+            }
+		}
+		
+		if(e.getSource() == gameInterface.getLoadPVZGame()) {
+			JFileChooser fc = gameInterface.getFileChooser();
+            int returnVal = fc.showOpenDialog(gameInterface);
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                File file = fc.getSelectedFile();
+                System.out.println("Loading File " + file.getName());
+                try {
+                	ArrayList<byte[]> temp = turnStackSet.readObject(file.getPath());
+                	this.board.undoBoard(temp.get(0));
+                	this.stats.undoStats(temp.get(1));
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+            } else {
+                System.out.println("Open command cancelled by user.");
+            }
+		}
+		
 		if(e.getSource() == gameInterface.getQuitPVZGame()) {
 			JOptionPane.showMessageDialog(gameInterface.getContentPane(),"Thanks for Playing! \nGoodBye!");
 			System.exit(0);
