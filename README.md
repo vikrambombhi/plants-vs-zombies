@@ -26,12 +26,12 @@ When the game starts, console will print out the current board playing field wit
 By following the output on console, choose the options from (1)-(4) to proceed further into the game.
 
 ==============================================================================
-# Update/Patch - November 25, 2018
+# Update/Patch - December 7, 2018
 In this iteration the old command line interface has been completely removed and is no longer supported.
 A new tank type zombie has been added to the game. This zombie is stronger than normal zombies but has a lower probability of spawning.
 A lot more tests and documentations has been added in a effort to remove code smells.
 
-# Milestone 34 Deliverable
+# Milestone 4 Deliverable
 Fully-featured with various types of plants and zombies, and unlimited undo/redo feature and save/load
 
 ==============================================================================
