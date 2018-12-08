@@ -82,6 +82,7 @@ public class SettingsController implements ActionListener {
                     Stats resetStats = Stats.getStats();
                     resetStats.resetStats(10, 10);
                     gameInterface.resetMainView();
+                    gameInterface.addActionListenerSettingsController(this);
                 }
             }
         } catch (Exception e) {

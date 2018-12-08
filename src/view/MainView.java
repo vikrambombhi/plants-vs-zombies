@@ -8,6 +8,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.Serializable;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -30,7 +31,7 @@ import model.Stats;
  * This class is essentually a container for all the views.
  */
 @SuppressWarnings("serial")
-public class MainView extends JFrame {
+public class MainView extends JFrame implements Serializable{
 	JMenuBar menuBar;
 	JMenu gameMenu, settingMenu;
 	
