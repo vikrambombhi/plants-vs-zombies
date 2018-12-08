@@ -134,14 +134,7 @@ public class MainView extends JFrame {
 		c.gridy = 2;
 		decisionPanel = new DecisionPanel(statsPanel);
 		contentPane.add(decisionPanel.getDecisionPanel(), c);
-<<<<<<< HEAD
 		
-		/* Disable some sub menu option: forces user to create an AddressBook first */
-		savePVZGame.setEnabled(true);
-		loadPVZGame.setEnabled(true);
-		quitPVZGame.setEnabled(true);
-=======
->>>>>>> branch 'master' of https://github.com/vikrambombhi/plants-vs-zombies
 
 		fc = new JFileChooser();
 	}
