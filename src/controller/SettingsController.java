@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -16,6 +17,7 @@ import model.Board;
 import model.Stats;
 import model.TurnStackBoard;
 import model.TurnStackStats;
+import model.TurnStacks;
 
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
@@ -36,15 +38,17 @@ public class SettingsController implements ActionListener {
 	private MainView gameInterface;
 	private Stats stats;
 	private Board board;
-	private TurnStackBoard turnStackBoard;
-    private TurnStackStats turnStackStats;
+//	private TurnStackBoard turnStackBoard;
+//    private TurnStackStats turnStackStats;
+    private TurnStacks turnStackSet;
 
 	public SettingsController(MainView gameInterface) {
         this.gameInterface = gameInterface;
         this.stats = Stats.getStats();
         this.board = Board.getBoard();
-		this.turnStackBoard = TurnStackBoard.getTurnStackBoard();
-        this.turnStackStats = TurnStackStats.getTurnStackStats();
+//		this.turnStackBoard = TurnStackBoard.getTurnStackBoard();
+//        this.turnStackStats = TurnStackStats.getTurnStackStats();
+        this.turnStackSet = TurnStacks.getTurnStacks();
 		gameInterface.addActionListenerSettingsController(this);
 	}
 
@@ -122,8 +126,9 @@ public class SettingsController implements ActionListener {
                 File file = fc.getSelectedFile();
                 System.out.println("Saving File " + file.getName());
                 try {
-                	turnStackBoard.writeObject(file.getPath());
-                	turnStackStats.writeObject(file.getPath());
+                	turnStackSet.writeObject(file.getPath());
+                	// turnStackBoard.writeObject(file.getPath());
+                	//turnStackStats.writeObject(file.getPath());
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -135,15 +140,14 @@ public class SettingsController implements ActionListener {
 		
 		if(e.getSource() == gameInterface.getLoadPVZGame()) {
 			JFileChooser fc = gameInterface.getFileChooser();
-            int returnVal = fc.showSaveDialog(gameInterface);
+            int returnVal = fc.showOpenDialog(gameInterface);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = fc.getSelectedFile();
                 System.out.println("Loading File " + file.getName());
                 try {
-//                	turnStackBoard.readObject(file.getPath());
-//                	turnStackStats.readObject(file.getPath());
-                	this.board.undoBoard(turnStackBoard.readObject(file.getPath()));
-                	this.stats.undoStats(turnStackStats.readObject(file.getPath()));
+                	ArrayList<byte[]> temp = turnStackSet.readObject(file.getPath());
+                	this.board.undoBoard(temp.get(0));
+                	this.stats.undoStats(temp.get(1));
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

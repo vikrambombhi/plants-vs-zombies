@@ -61,6 +61,11 @@ public class TurnStackStats {
         return turnStackStats;
     }
     
+    public byte[] getCurrentStat() {
+    	if (pastStack.size() == 0) return null;
+    	return pastStack.peek();
+    }
+    
     public void writeObject(String filePath) throws IOException {
     	byte[] tempStack = null;  
     	if (pastStack.size() > 1) {
