@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -42,16 +43,18 @@ public class SettingsController implements ActionListener {
 	private MainView gameInterface;
 	private Stats stats;
 	private Board board;
-//	private TurnStackBoard turnStackBoard;
-//    private TurnStackStats turnStackStats;
+	private TurnStackBoard turnStackBoard;
+	private TurnStackStats turnStackStats;
     private TurnStacks turnStackSet;
+    private JButton[] decisions;
 
-	public SettingsController(MainView gameInterface) {
+	public SettingsController(MainView gameInterface, JButton[] decisions) {
         this.gameInterface = gameInterface;
         this.stats = Stats.getStats();
         this.board = Board.getBoard();
-//		this.turnStackBoard = TurnStackBoard.getTurnStackBoard();
-//        this.turnStackStats = TurnStackStats.getTurnStackStats();
+        this.decisions = decisions;
+		this.turnStackBoard = TurnStackBoard.getTurnStackBoard();
+        this.turnStackStats = TurnStackStats.getTurnStackStats();
         this.turnStackSet = TurnStacks.getTurnStacks();
 		gameInterface.addActionListenerSettingsController(this);
 	}
@@ -134,6 +137,8 @@ public class SettingsController implements ActionListener {
                 File file = fc.getSelectedFile();
                 System.out.println("Saving File " + file.getName());
                 try {
+                	 this.turnStackBoard.saveTurn(this.board.saveBoard());
+                     this.turnStackStats.saveTurn(this.stats.saveStats());
                 	turnStackSet.writeObject(file.getPath());
                 	// turnStackBoard.writeObject(file.getPath());
                 	//turnStackStats.writeObject(file.getPath());
