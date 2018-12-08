@@ -142,9 +142,11 @@ public class Board implements Serializable {
      */
     private void moveProjectiles(int turn, int row, int col) {
         ArrayDeque<Projectile> projectiles = this.tiles[row][col].getProjectiles();
-        for (Projectile projectile : projectiles) {
+        Iterator<Projectile> iter = projectiles.iterator();
+        while (iter.hasNext()) {
+            Projectile projectile = iter.next();
             if (projectile.move(turn)) {
-                projectiles.remove(projectile);
+                iter.remove();
                 if (col < width-1) {
                     this.tiles[row][col+1].addProjectile(projectile);
                 }
